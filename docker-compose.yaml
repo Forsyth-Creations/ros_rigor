@@ -1,0 +1,17 @@
+services:
+  rigor:
+    # environment:
+    #   - HOME=/home/${USER}
+    #   - USER=${USER}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # args:
+      #   - username=${USER}
+    network_mode: host
+    volumes: 
+      - .:/WORKSPACE
+      # Link my bazel cache
+    privileged: true
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t

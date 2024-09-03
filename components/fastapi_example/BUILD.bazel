@@ -1,0 +1,71 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+load("@rules_oci//oci:defs.bzl", "oci_tarball")
+load("//:py_layer.bzl", "py_oci_image")
+
+# Load the requirements
+
+# load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+# filegroup(
+#     name = "requirements",
+#     srcs = ["requirements.txt"],
+# )
+
+# compile_pip_requirements(
+#     name = "requirements",
+#     src = "requirements.txt",
+#     extra_args = ["--allow-unsafe"],
+# )
+
+py_binary(
+    name = "main",
+    srcs = ["main.py"],
+    deps = [
+        "@poetry//:colorama",
+        "@poetry//:fastapi",
+        "@poetry//:uvicorn"
+    ],
+    visibility = ["//visibility:public"],
+)
+
+
+# ------------------------ OCI Image Section ----------------------------
+
+py_oci_image(
+    name = "image",
+    base = "@ubuntu",
+    binary = "hello_world",
+    entrypoint = ["/hello_world/hello_world"],
+)
+
+platform(
+    name = "aarch64_linux",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:aarch64",
+    ],
+)
+
+platform(
+    name = "x86_64_linux",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+)
+
+platform_transition_filegroup(
+    name = "platform_image",
+    srcs = [":image"],
+    target_platform = select({
+        "@platforms//cpu:arm64": ":aarch64_linux",
+        "@platforms//cpu:x86_64": ":x86_64_linux",
+    }),
+)
+
+oci_tarball(
+    name = "tarball",
+    image = ":platform_image",
+    repo_tags = ["gcr.io/oci_python_hello_world:latest"],
+)
