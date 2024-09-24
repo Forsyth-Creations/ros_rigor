@@ -1,7 +1,8 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
-load("@rules_oci//oci:defs.bzl", "oci_tarball")
-load("//:py_layer.bzl", "py_oci_image")
+# load("@rules_oci//oci:defs.bzl", "oci_tarball")
+# load("//:py_layer.bzl", "py_oci_image")
+# load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 
 # Load the requirements
 
@@ -31,41 +32,42 @@ py_binary(
 
 
 # ------------------------ OCI Image Section ----------------------------
+# https://github.com/aspect-build/bazel-examples/blob/main/oci_python_image/hello_world/BUILD.bazel
 
-py_oci_image(
-    name = "image",
-    base = "@ubuntu",
-    binary = "hello_world",
-    entrypoint = ["/hello_world/hello_world"],
-)
+# py_oci_image(
+#     name = "image",
+#     base = "@ubuntu",
+#     binary = "hello_world",
+#     entrypoint = ["/hello_world/hello_world"],
+# )
 
-platform(
-    name = "aarch64_linux",
-    constraint_values = [
-        "@platforms//os:linux",
-        "@platforms//cpu:aarch64",
-    ],
-)
+# platform(
+#     name = "aarch64_linux",
+#     constraint_values = [
+#         "@platforms//os:linux",
+#         "@platforms//cpu:aarch64",
+#     ],
+# )
 
-platform(
-    name = "x86_64_linux",
-    constraint_values = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-)
+# platform(
+#     name = "x86_64_linux",
+#     constraint_values = [
+#         "@platforms//os:linux",
+#         "@platforms//cpu:x86_64",
+#     ],
+# )
 
-platform_transition_filegroup(
-    name = "platform_image",
-    srcs = [":image"],
-    target_platform = select({
-        "@platforms//cpu:arm64": ":aarch64_linux",
-        "@platforms//cpu:x86_64": ":x86_64_linux",
-    }),
-)
+# platform_transition_filegroup(
+#     name = "platform_image",
+#     srcs = [":image"],
+#     target_platform = select({
+#         "@platforms//cpu:arm64": ":aarch64_linux",
+#         "@platforms//cpu:x86_64": ":x86_64_linux",
+#     }),
+# )
 
-oci_tarball(
-    name = "tarball",
-    image = ":platform_image",
-    repo_tags = ["gcr.io/oci_python_hello_world:latest"],
-)
+# oci_tarball(
+#     name = "tarball",
+#     image = ":platform_image",
+#     repo_tags = ["gcr.io/oci_python_hello_world:latest"],
+# )

@@ -1,0 +1,4 @@
+bazel-WORKSPACE
+bazel-bin
+bazel-out
+bazel-testlogs
