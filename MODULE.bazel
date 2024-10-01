@@ -21,4 +21,4 @@ use_repo(poetry, "poetry")
 bazel_dep(name = "rules_oci", version = "1.8.0")
 # For testing, we also recommend https://registry.bazel.build/modules/container_structure_test
 
-# oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")

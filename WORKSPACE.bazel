@@ -20,7 +20,7 @@ http_archive(
 
 # ---------------------- Install the Ros Deps ----------------------
 
-load("//repositories:repositories.bzl", "load_ros2_rules")
+load("//repositories:repositories.bzl", "load_ros2_rules", "load_aspect_bazel_lib")
 
 load_ros2_rules()
 
@@ -62,3 +62,28 @@ load(
 )
 
 install_rules_ros2_pip_deps()
+
+# -------- Setup bazel-lib for the tar rule --------
+
+load_aspect_bazel_lib()
+
+load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies", "aspect_bazel_lib_register_toolchains")
+
+aspect_bazel_lib_dependencies()
+
+aspect_bazel_lib_register_toolchains()
+
+
+# Pull some basic images to use with rules_oci
+
+load("@rules_oci//oci:pull.bzl", "oci_pull")
+
+oci_pull(
+    name = "ubuntu",
+    image = "docker.io/library/ubuntu:jammy",  # The image you want to pull
+    digest = "sha256:58b87898e82351c6cf9cf5b9f3c20257bb9e2dcf33af051e12ce532d7f94e3fe",
+    platforms = [
+            "linux/amd64",
+            "linux/arm64",
+        ],
+)
