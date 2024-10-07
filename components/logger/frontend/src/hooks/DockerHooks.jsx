@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_ENDPOINT } from "@/constants";
 
-
 // ----------------- Get a list of containers -----------------
 
 export const useGetContainers = () => {
@@ -27,19 +26,36 @@ export const useGetLoggingStatus = () => {
     queryFn: getLoggingStatus,
     refetchInterval: 1000,
   });
-}
+};
 
 export const getLoggingStatus = async () => {
   const response = await axios.get(`${API_ENDPOINT}/docker/logging/status`);
   return response.data;
-}
+};
 
 // ----------- Axios calls to start and stop logging -------------
 
 export const startLogging = async () => {
   await axios.get(`${API_ENDPOINT}/docker/logging/start`);
-}
+};
 
 export const stopLogging = async () => {
   await axios.get(`${API_ENDPOINT}/docker/logging/stop`);
-}
+};
+
+// --- Connect to a fastapi streaming response to get logs ---
+export const useStreamLogs = (container_name, enabled) => {
+  return useQuery({
+    queryKey: ["streamLogs"],
+    queryFn: () => streamLogs(container_name),
+    enabled: enabled,
+    refetchInterval: 1000,
+  });
+};
+
+export const streamLogs = async (container_name) => {
+  const response = await axios.get(
+    `${API_ENDPOINT}/docker/logging/${container_name}`,
+  );
+  return response.data;
+};

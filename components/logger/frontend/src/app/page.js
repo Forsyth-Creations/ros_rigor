@@ -1,5 +1,10 @@
 "use client";
-import { useGetContainers, useGetLoggingStatus, startLogging, stopLogging } from "@/hooks/DockerHooks";
+import {
+  useGetContainers,
+  useGetLoggingStatus,
+  startLogging,
+  stopLogging,
+} from "@/hooks/DockerHooks";
 
 import Nav from "@/comps/Nav";
 import {
@@ -14,14 +19,15 @@ import {
   Button,
 } from "@mui/material";
 
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 
+import DockerContainer from "@/comps/Container";
 
 export default function Home() {
   return (
-    <Box sx={{ maxHeight: "100vh"}}>
+    <Box sx={{ maxHeight: "100vh" }}>
       <Nav />
-      <Container component = {Stack} spacing = {1} sx={{mt : "6px"}}>
+      <Container component={Stack} spacing={1} sx={{ mt: "6px" }}>
         <LoggingButton />
         <Containers />
       </Container>
@@ -33,7 +39,11 @@ function LoggingButton() {
   const { data, isLoading, isError } = useGetLoggingStatus();
 
   if (isLoading) {
-    return <LoadingButton loading variant="contained">Loading</LoadingButton>;
+    return (
+      <LoadingButton loading variant="contained">
+        Loading
+      </LoadingButton>
+    );
   }
 
   if (isError) {
@@ -49,15 +59,17 @@ function LoggingButton() {
       startLogging();
     }
   }
-  
+
   return (
-    <Button variant="contained" color={isLogging ? "secondary" : "primary"}
-      onClick={handleClick}>
+    <Button
+      variant="contained"
+      color={isLogging ? "secondary" : "primary"}
+      onClick={handleClick}
+    >
       {isLogging ? "Stop Logging" : "Start Logging"}
     </Button>
   );
 }
-
 
 function Containers() {
   const { data, isLoading, isError } = useGetContainers();
@@ -69,12 +81,7 @@ function Containers() {
   return (
     <Stack spacing={1}>
       {Object.entries(data).map(([key, value]) => (
-        <Paper key={key} sx = {{p : "5px"}}>
-          <Stack spacing={1}>
-            <Typography>{value}</Typography>
-            <Chip label={<Typography variant = "caption">{key}</Typography>} />
-          </Stack>
-        </Paper>
+        <DockerContainer entry={key} key={key} value={value} />
       ))}
     </Stack>
   );

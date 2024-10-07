@@ -16,6 +16,7 @@ services:
     volumes:
       - ./components/logger/backend/app:/backend/app
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./logs:/backend/logs
     environment:
       - PYTHONUNBUFFERED=1
       - HOST=0.0.0.0
