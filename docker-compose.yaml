@@ -22,3 +22,11 @@ services:
       - HOST=0.0.0.0
     ports:
       - "5000:5000"
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./components/logger/nginx/config:/etc/nginx/conf.d
+    depends_on:
+      - logging_frontend

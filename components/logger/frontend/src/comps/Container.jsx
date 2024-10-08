@@ -54,7 +54,7 @@ export default function DockerContainer({ entry, value }) {
         {isError && <Alert severity="error">Error fetching data</Alert>}
         {parsedData.length > 0 && (
           <LineChart
-            width={600}
+            // width={600}
             height={300}
             xAxis={[
               {
