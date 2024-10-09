@@ -30,3 +30,11 @@ services:
       - ./components/logger/nginx/config:/etc/nginx/conf.d
     depends_on:
       - logging_frontend
+  publisher:
+    image: publisher
+    build:
+      context: ./components/publisher
+      dockerfile: Dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: tail -f /dev/null
