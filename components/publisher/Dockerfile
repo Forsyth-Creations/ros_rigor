@@ -53,5 +53,9 @@ RUN . venv/bin/activate && poetry config virtualenvs.create false --local && poe
 
 # Copy everything else
 COPY . .
+
+ENV ROS_DOMAIN_ID=10
+
+CMD ["python", "py_talker.py"]
     
 
