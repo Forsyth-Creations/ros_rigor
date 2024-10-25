@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Assem1.SLDASM">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.000556179898474638 -0.00158750000000002 0.000574353963991236"
+        rpy="0 0 0" />
+      <mass
+        value="0.469800963040705" />
+      <inertia
+        ixx="0.0102726150177329"
+        ixy="-6.90911050262084E-21"
+        ixz="-4.81419116505863E-19"
+        iyy="0.0194440541787629"
+        iyz="-9.19812347285129E-22"
+        izz="0.0091722284755855" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Drive1">
+    <inertial>
+      <origin
+        xyz="-0.142620277725139 -0.162382043086687 -0.15605725170458"
+        rpy="0 0 0" />
+      <mass
+        value="0.700310778907897" />
+      <inertia
+        ixx="0.00397579464273163"
+        ixy="-9.06884203023702E-05"
+        ixz="3.45375726640274E-09"
+        iyy="0.00210243163973906"
+        iyz="-1.66795418453045E-10"
+        izz="0.00209805170604718" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive1"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Drive1" />
+    <axis
+      xyz="0.99884 -0.048238 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Revolve1">
+    <inertial>
+      <origin
+        xyz="-0.143214402087801 -0.162074090817303 -0.0685300806146876"
+        rpy="0 0 0" />
+      <mass
+        value="0.22984858770233" />
+      <inertia
+        ixx="0.000785824228188922"
+        ixy="6.2529563825433E-06"
+        ixz="-4.78549367501566E-08"
+        iyy="0.000915027652287981"
+        iyz="9.24647508054951E-11"
+        izz="0.000409131427459401" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve1"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve1" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive2">
+    <inertial>
+      <origin
+        xyz="-0.142605401992436 0.162948262643954 -0.156057251704581"
+        rpy="0 0 0" />
+      <mass
+        value="0.700310778907893" />
+      <inertia
+        ixx="0.00398015975318991"
+        ixy="5.28194576682954E-06"
+        ixz="3.4577688820608E-09"
+        iyy="0.00209806652928076"
+        iyz="9.71285314274652E-12"
+        izz="0.00209805170604717" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive2"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Drive2" />
+    <axis
+      xyz="1 0.002809 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Revolve2">
+    <inertial>
+      <origin
+        xyz="-0.143214478187665 0.16322551938387 -0.068530094925672"
+        rpy="0 0 0" />
+      <mass
+        value="0.229848600316094" />
+      <inertia
+        ixx="0.000785527113424086"
+        ixy="-3.65206700438315E-07"
+        ixz="-4.86653554405694E-08"
+        iyy="0.000915331655731262"
+        iyz="-4.86601071063334E-10"
+        izz="0.000409133507346975" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve2"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive3">
+    <inertial>
+      <origin
+        xyz="0.141491288917795 0.163496597755503 -0.15605725170458"
+        rpy="0 0 0" />
+      <mass
+        value="0.700310778907896" />
+      <inertia
+        ixx="0.003980015233628"
+        ixy="1.73169672115416E-05"
+        ixz="-3.45763606570376E-09"
+        iyy="0.00209821104884269"
+        iyz="-3.18245598270367E-11"
+        izz="0.00209805170604718" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive3"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Drive3" />
+    <axis
+      xyz="-0.99996 -0.0092037 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Revolve3">
+    <inertial>
+      <origin
+        xyz="0.142102126847979 0.163223237829568 -0.0685300963694355"
+        rpy="0 0 0" />
+      <mass
+        value="0.229848603142654" />
+      <inertia
+        ixx="0.000785537042433032"
+        ixy="-1.19525742075447E-06"
+        ixz="4.86405642410071E-08"
+        iyy="0.000915321660523942"
+        iyz="7.94074893999989E-10"
+        izz="0.000409133513141505" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve3"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve3" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive4">
+    <inertial>
+      <origin
+        xyz="0.142694763627111 -0.162351376680734 -0.15605725170458"
+        rpy="0 0 0" />
+      <mass
+        value="0.700310778907897" />
+      <inertia
+        ixx="0.00398015273391264"
+        ixy="6.4116952541622E-06"
+        ixz="3.45776242872249E-09"
+        iyy="0.00209807354855806"
+        iyz="1.17884268008684E-11"
+        izz="0.00209805170604718" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Drive4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive4"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Drive4" />
+    <axis
+      xyz="0.99999 0.0034092 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Revolve4">
+    <inertial>
+      <origin
+        xyz="0.142085521008204 -0.162074485238042 -0.0685300950644559"
+        rpy="0 0 0" />
+      <mass
+        value="0.229848600569597" />
+      <inertia
+        ixx="0.000785527593863582"
+        ixy="-4.43125056898594E-07"
+        ixz="-4.86631305499264E-08"
+        iyy="0.000915331168978251"
+        iyz="-5.15506534860634E-10"
+        izz="0.000409133507874035" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/Revolve4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve4"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.003175"
+      rpy="0 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
