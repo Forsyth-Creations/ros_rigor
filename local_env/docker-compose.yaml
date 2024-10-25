@@ -1,0 +1,11 @@
+# ROS2 environment
+services:
+  ros2:
+    build: .
+    container_name: ros2
+    command : tail -f /dev/null
+    privileged: true
+    environment:
+      - DISPLAY=$DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
