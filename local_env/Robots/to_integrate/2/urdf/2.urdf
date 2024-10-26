@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="2">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-2.10372143466054E-07 -6.02314075123702E-08 0.0435789551996021"
+        rpy="0 0 0" />
+      <mass
+        value="5.7729702362968" />
+      <inertia
+        ixx="0.0261442345766528"
+        ixy="2.82877608896768E-06"
+        ixz="7.47544587450237E-10"
+        iyy="0.0219026044240063"
+        iyz="1.64489628956593E-09"
+        izz="0.0462053263639469" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Revolve1">
+    <inertial>
+      <origin
+        xyz="0.140902720467338 0.162806624069921 -0.0656289900681587"
+        rpy="0 0 0" />
+      <mass
+        value="0.269968020345208" />
+      <inertia
+        ixx="0.000817081008544822"
+        ixy="1.43755452488374E-06"
+        ixz="5.9471265419322E-08"
+        iyy="0.000962909407158127"
+        iyz="1.1906734237528E-06"
+        izz="0.000432508914878455" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve1"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve1" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive1">
+    <inertial>
+      <origin
+        xyz="0.14155556613743 0.162951258168971 -0.156070146112342"
+        rpy="0 0 0" />
+      <mass
+        value="0.968781681350829" />
+      <inertia
+        ixx="0.00433308692834699"
+        ixy="-1.99069564081485E-05"
+        ixz="1.18928999633659E-07"
+        iyy="0.0023145060676988"
+        iyz="-8.12871262199328E-08"
+        izz="0.00231372917988357" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive1"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve1" />
+    <child
+      link="Drive1" />
+    <axis
+      xyz="-0.999951327239453 0.0098662633279638 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Revolve2">
+    <inertial>
+      <origin
+        xyz="0.146061713680541 -0.162711187177272 -0.0646604328084211"
+        rpy="0 0 0" />
+      <mass
+        value="0.278169943270247" />
+      <inertia
+        ixx="0.000818393002551491"
+        ixy="1.09066203211763E-06"
+        ixz="-4.70925775873107E-08"
+        iyy="0.000964158396336431"
+        iyz="8.33032522014965E-08"
+        izz="0.000433636015059846" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve2"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive2">
+    <inertial>
+      <origin
+        xyz="0.143745146175394 -0.162948658286132 -0.156070146127558"
+        rpy="0 0 0" />
+      <mass
+        value="0.968781685280357" />
+      <inertia
+        ixx="0.00433317009545424"
+        ixy="-1.51130610426164E-05"
+        ixz="-1.19121259092359E-07"
+        iyy="0.00231442290382323"
+        iyz="8.10046961048869E-08"
+        izz="0.00231372918105276" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive2"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve2" />
+    <child
+      link="Drive2" />
+    <axis
+      xyz="0.999971937783406 -0.00749157164416232 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Revolve3">
+    <inertial>
+      <origin
+        xyz="-0.138772177641332 -0.162511605733129 -0.0641918270236975"
+        rpy="0 0 0" />
+      <mass
+        value="0.282156111545983" />
+      <inertia
+        ixx="0.000818912285874927"
+        ixy="1.47963647126579E-06"
+        ixz="-2.46147953834459E-08"
+        iyy="0.000964214819932213"
+        iyz="2.26740392878573E-06"
+        izz="0.000434125726646057" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve3"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve3" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive3">
+    <inertial>
+      <origin
+        xyz="-0.141555664159747 -0.162951614054871 -0.15607014611025"
+        rpy="0 0 0" />
+      <mass
+        value="0.968781680813744" />
+      <inertia
+        ixx="0.00433307376740016"
+        ixy="-2.05633802827412E-05"
+        ixz="-1.18902620176501E-07"
+        iyy="0.00231451922820414"
+        iyz="8.13257654301817E-08"
+        izz="0.00231372917972381" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive3"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve3" />
+    <child
+      link="Drive3" />
+    <axis
+      xyz="0.999948065928255 -0.0101914398562096 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Revolve4">
+    <inertial>
+      <origin
+        xyz="-0.146062902774426 0.16275896975886 -0.0646588194757579"
+        rpy="0 0 0" />
+      <mass
+        value="0.278169949354846" />
+      <inertia
+        ixx="0.000818395728366804"
+        ixy="-1.00119769955692E-06"
+        ixz="4.24905936674288E-08"
+        iyy="0.000964130017408439"
+        iyz="8.97615065712386E-07"
+        izz="0.000433670847908861" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Revolve4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolve4"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive4">
+    <inertial>
+      <origin
+        xyz="-0.146361555498558 0.162904396961619 -0.156075810589777"
+        rpy="0 0 0" />
+      <mass
+        value="0.850687527986548" />
+      <inertia
+        ixx="0.00415798393864943"
+        ixy="1.31982957892877E-05"
+        ixz="7.75917649724706E-08"
+        iyy="0.00221684368675788"
+        iyz="-2.1169487140672E-07"
+        izz="0.00221655869094813" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://2/meshes/Drive4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Drive4"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve4" />
+    <child
+      link="Drive4" />
+    <axis
+      xyz="-0.999976432452814 -0.00686545984934792 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
