@@ -80,6 +80,11 @@ RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyri
 
 
 # -------- Installing things to make URDF work -----------------
-RUN apt install ros-jazzy-urdf-tutorial -y
+RUN apt install ros-jazzy-urdf-tutorial \
+    nano \
+    ros-jazzy-ros-gz \
+    ros-jazzy-gz-ros2-control \
+    ros-jazzy-joy* \
+    ros-jazzy-joint-state-publisher -y
 
 WORKDIR /ros2_jazzy/workspace

@@ -9,7 +9,11 @@
   <maintainer email="TODO@email.com" />
   <license>BSD</license>
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_python</buildtool_depend>
   <exec_depend>xacro</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
   <depend>rclcpp</depend>
   <depend>roslaunch</depend>
   <depend>robot_state_publisher</depend>

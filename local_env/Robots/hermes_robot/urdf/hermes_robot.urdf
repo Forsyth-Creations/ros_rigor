@@ -8,16 +8,16 @@
     name="base_link">
     <inertial>
       <origin
-        xyz="-0.000556181803337466 0.000570937752360604 0.0435789551996021"
+        xyz="-2.10371551824301E-07 -6.02315454494495E-08 0.0435789551996021"
         rpy="0 0 0" />
       <mass
         value="5.7729702362968" />
       <inertia
-        ixx="0.0261442275560952"
-        ixy="2.83374260607611E-06"
-        ixz="3.54056280145004E-10"
-        iyy="0.0219026114445638"
-        iyz="-3.69571892989752E-09"
+        ixx="0.0261442345766528"
+        ixy="2.82877608896773E-06"
+        ixz="7.47544587441788E-10"
+        iyy="0.0219026044240062"
+        iyz="1.64489628951597E-09"
         izz="0.0462053263639469" />
     </inertial>
     <visual>
@@ -45,78 +45,20 @@
     </collision>
   </link>
   <link
-    name="Drive1">
-    <inertial>
-      <origin
-        xyz="-0.1420725891101 -0.162134622350807 -0.156070154760362"
-        rpy="0 0 0" />
-      <mass
-        value="0.968782085796601" />
-      <inertia
-        ixx="0.00424819090788287"
-        ixy="0.000405658975873631"
-        ixz="-1.33753498051603E-07"
-        iyy="0.00239940264366684"
-        iyz="5.40490091912558E-08"
-        izz="0.00231372951894429" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://hermes_robot/meshes/Drive1.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://hermes_robot/meshes/Drive1.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="Drive1"
-    type="continuous">
-    <origin
-      xyz="0 0 0"
-      rpy="0 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="Drive1" />
-    <axis
-      xyz="0.97870110149261 0.205290413651375 0" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
-  </joint>
-  <link
     name="Revolve1">
     <inertial>
       <origin
-        xyz="-0.141466084457788 -0.161853031131481 -0.0656290075223259"
+        xyz="-0.0020315725347394 -3.32570022357204E-06 -0.146515511784745"
         rpy="0 0 0" />
       <mass
-        value="0.269967968577388" />
+        value="0.269968020345209" />
       <inertia
-        ixx="0.000823214345411263"
-        ixy="-2.93067371662363E-05"
-        ixz="1.97986047317922E-07"
-        iyy="0.000956776012547063"
-        iyz="-1.17541609043327E-06"
-        izz="0.000432509071635242" />
+        ixx="0.000817081008544825"
+        ixy="1.43755452488272E-06"
+        ixz="5.94712654176722E-08"
+        iyy="0.000962909407158131"
+        iyz="1.19067342375234E-06"
+        izz="0.000432508914878456" />
     </inertial>
     <visual>
       <origin
@@ -143,10 +85,10 @@
     </collision>
   </link>
   <joint
-    name="Revolve1"
+    name="Joint_Revolve1"
     type="continuous">
     <origin
-      xyz="0 0 0"
+      xyz="0.14293 0.16281 0.080887"
       rpy="0 0 0" />
     <parent
       link="base_link" />
@@ -156,25 +98,25 @@
       xyz="0 0 -1" />
     <limit
       lower="0"
-      upper="0"
+      upper="6.28"
       effort="0"
       velocity="0" />
   </joint>
   <link
-    name="Drive2">
+    name="Drive1">
     <inertial>
       <origin
-        xyz="-0.144304789295268 0.1635100096225 -0.156070146198233"
+        xyz="-0.0595900865520644 0.0010304557549595 0.000120396514376758"
         rpy="0 0 0" />
       <mass
-        value="0.968781690098536" />
+        value="0.968781681350828" />
       <inertia
-        ixx="0.00433324470774927"
-        ixy="8.81932849506355E-06"
-        ixz="1.20072511760892E-07"
-        iyy="0.00231434829506239"
-        iyz="-7.95880198649092E-08"
-        izz="0.00231372918275736" />
+        ixx="0.00433308692834699"
+        ixy="-1.99069564081488E-05"
+        ixz="1.18928999633502E-07"
+        iyy="0.0023145060676988"
+        iyz="-8.1287126219861E-08"
+        izz="0.00231372917988357" />
     </inertial>
     <visual>
       <origin
@@ -182,7 +124,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://hermes_robot/meshes/Drive2.STL" />
+          filename="package://hermes_robot/meshes/Drive1.STL" />
       </geometry>
       <material
         name="">
@@ -196,43 +138,43 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://hermes_robot/meshes/Drive2.STL" />
+          filename="package://hermes_robot/meshes/Drive1.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="Drive2"
+    name="Joint_Drive1"
     type="continuous">
     <origin
-      xyz="0 0 0"
+      xyz="0.058211 -0.00088915 -0.23708"
       rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="Revolve1" />
     <child
-      link="Drive2" />
+      link="Drive1" />
     <axis
-      xyz="-0.99999 -0.0043624 0" />
+      xyz="-0.99995 0.0098663 0" />
     <limit
       lower="0"
       upper="0"
       effort="0"
-      velocity="0" />
+      velocity="10" />
   </joint>
   <link
     name="Revolve2">
     <inertial>
       <origin
-        xyz="-0.146618377379889 0.163245089096765 -0.0646604351303308"
+        xyz="0.00369562604088616 9.94372754585526E-05 -0.14554695452501"
         rpy="0 0 0" />
       <mass
-        value="0.278169948732177" />
+        value="0.278169943270248" />
       <inertia
-        ixx="0.0008183916496691"
-        ixy="-6.36538680400576E-07"
-        ixz="4.90295921045357E-08"
-        iyy="0.000964166932349003"
-        iyz="-8.45617137522346E-08"
-        izz="0.000433638035486262" />
+        ixx="0.000818393002551493"
+        ixy="1.09066203211809E-06"
+        ixz="-4.70925775867913E-08"
+        iyy="0.000964158396336433"
+        iyz="8.33032522006963E-08"
+        izz="0.000433636015059847" />
     </inertial>
     <visual>
       <origin
@@ -259,10 +201,10 @@
     </collision>
   </link>
   <joint
-    name="Revolve2"
+    name="Joint_Revolve2"
     type="continuous">
     <origin
-      xyz="0 0 0"
+      xyz="0.14237 -0.16281 0.080887"
       rpy="0 0 0" />
     <parent
       link="base_link" />
@@ -272,7 +214,123 @@
       xyz="0 0 -1" />
     <limit
       lower="0"
+      upper="6.28"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Drive2">
+    <inertial>
+      <origin
+        xyz="-0.0604042669261472 1.00490558338773E-05 0.000120396499160874"
+        rpy="0 0 0" />
+      <mass
+        value="0.968781685280355" />
+      <inertia
+        ixx="0.00433317009545422"
+        ixy="-1.5113061042615E-05"
+        ixz="-1.19121259096089E-07"
+        iyy="0.00231442290382322"
+        iyz="8.10046961048803E-08"
+        izz="0.00231372918105276" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot/meshes/Drive2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot/meshes/Drive2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Drive2"
+    type="continuous">
+    <origin
+      xyz="0.061783 -0.00014808 -0.23708"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve2" />
+    <child
+      link="Drive2" />
+    <axis
+      xyz="0.99997 -0.0074916 0" />
+    <limit
+      lower="0"
       upper="0"
+      effort="0"
+      velocity="10" />
+  </joint>
+  <link
+    name="Revolve3">
+    <inertial>
+      <origin
+        xyz="-0.145078348740284 0.000298251578032982 -0.00416216736019684"
+        rpy="0 0 0" />
+      <mass
+        value="0.282156111545984" />
+      <inertia
+        ixx="0.000434125726646059"
+        ixy="2.26740392878552E-06"
+        ixz="2.46147953844453E-08"
+        iyy="0.000964214819932214"
+        iyz="-1.47963647126562E-06"
+        izz="0.000818912285874929" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot/meshes/Revolve3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot/meshes/Revolve3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Revolve3"
+    type="continuous">
+    <origin
+      xyz="-0.14293 -0.16281 0.080887"
+      rpy="3.1416 -1.5708 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve3" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="6.28"
       effort="0"
       velocity="0" />
   </joint>
@@ -280,17 +338,17 @@
     name="Drive3">
     <inertial>
       <origin
-        xyz="0.140993840623201 0.163504687420311 -0.156070146224578"
+        xyz="0.000120396516468307 0.000173138811222162 0.0604040196046097"
         rpy="0 0 0" />
       <mass
-        value="0.968781681639634" />
+        value="0.968781680813743" />
       <inertia
-        ixx="0.00433311198628059"
-        ixy="1.85931348598485E-05"
-        ixz="1.20457318091981E-07"
-        iyy="0.00231448100908392"
-        iyz="-7.90061289408879E-08"
-        izz="0.00231372918054459" />
+        ixx="0.00231372917972381"
+        ixy="8.13257654302086E-08"
+        ixz="1.18902620179094E-07"
+        iyy="0.00231451922820414"
+        iyz="2.05633802827397E-05"
+        izz="0.00433307376740016" />
     </inertial>
     <visual>
       <origin
@@ -317,154 +375,38 @@
     </collision>
   </link>
   <joint
-    name="Drive3"
+    name="Joint_Drive3"
     type="continuous">
     <origin
-      xyz="0 0 0"
+      xyz="-0.23708 -0.0003149 -0.061783"
       rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="Revolve3" />
     <child
       link="Drive3" />
     <axis
-      xyz="-0.99996 -0.0092037 0" />
+      xyz="0 -0.010191 -0.99995" />
     <limit
       lower="0"
       upper="0"
       effort="0"
-      velocity="0" />
-  </joint>
-  <link
-    name="Revolve3">
-    <inertial>
-      <origin
-        xyz="0.138219414091918 0.163010768557002 -0.0641918308498002"
-        rpy="0 0 0" />
-      <mass
-        value="0.282156119775798" />
-      <inertia
-        ixx="0.00081891351595226"
-        ixy="-1.33814106792158E-06"
-        ixz="6.95245348361614E-08"
-        iyy="0.000964220705516278"
-        iyz="-2.26832453723831E-06"
-        izz="0.00043412775603021" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://hermes_robot/meshes/Revolve3.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://hermes_robot/meshes/Revolve3.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="Revolve3"
-    type="continuous">
-    <origin
-      xyz="0 0 0"
-      rpy="0 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="Revolve3" />
-    <axis
-      xyz="0 0 -1" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
-  </joint>
-  <link
-    name="Drive4">
-    <inertial>
-      <origin
-        xyz="0.145813876266853 -0.162036451776305 -0.15607581163648"
-        rpy="0 0 0" />
-      <mass
-        value="0.850687457270781" />
-      <inertia
-        ixx="0.00414382740979683"
-        ixy="0.00016569087872877"
-        ixz="-9.40592748834482E-08"
-        iyy="0.00223100012543131"
-        iyz="2.04937027287629E-07"
-        izz="0.00221655864206811" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://hermes_robot/meshes/Drive4.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://hermes_robot/meshes/Drive4.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="Drive4"
-    type="continuous">
-    <origin
-      xyz="0 0 0"
-      rpy="0 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="Drive4" />
-    <axis
-      xyz="0.99632 0.085731 0" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+      velocity="10" />
   </joint>
   <link
     name="Revolve4">
     <inertial>
       <origin
-        xyz="0.145504672682003 -0.161915015271395 -0.0646588276523701"
+        xyz="-0.00369447983778581 -5.57141729282673E-05 -0.145545341192344"
         rpy="0 0 0" />
       <mass
-        value="0.278169965817926" />
+        value="0.278169949354846" />
       <inertia
-        ixx="0.000819456084899018"
-        ixy="-1.24507806840137E-05"
-        ixz="2.97097230639296E-08"
-        iyy="0.000963062288932822"
-        iyz="-8.99752464071538E-07"
-        izz="0.000433668966726285" />
+        ixx="0.000818395728366805"
+        ixy="-1.00119769955693E-06"
+        ixz="4.24905936671552E-08"
+        iyy="0.000964130017408439"
+        iyz="8.97615065711788E-07"
+        izz="0.000433670847908861" />
     </inertial>
     <visual>
       <origin
@@ -491,10 +433,10 @@
     </collision>
   </link>
   <joint
-    name="Revolve4"
+    name="Joint_Revolve4"
     type="continuous">
     <origin
-      xyz="0 0 0"
+      xyz="-0.14237 0.16281 0.080887"
       rpy="0 0 0" />
     <parent
       link="base_link" />
@@ -504,8 +446,66 @@
       xyz="0 0 -1" />
     <limit
       lower="0"
-      upper="0"
+      upper="6.28"
       effort="0"
       velocity="0" />
+  </joint>
+  <link
+    name="Drive4">
+    <inertial>
+      <origin
+        xyz="-0.0622112205431669 4.79255844373916E-06 0.000114732036940984"
+        rpy="0 0 0" />
+      <mass
+        value="0.850687527986548" />
+      <inertia
+        ixx="0.00415798393864943"
+        ixy="1.31982957892877E-05"
+        ixz="7.75917649710273E-08"
+        iyy="0.00221684368675788"
+        iyz="-2.1169487140673E-07"
+        izz="0.00221655869094813" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot/meshes/Drive4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot/meshes/Drive4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Drive4"
+    type="continuous">
+    <origin
+      xyz="0.058218 8.492E-05 -0.23708"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve4" />
+    <child
+      link="Drive4" />
+    <axis
+      xyz="-0.99998 -0.0068655 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="10" />
   </joint>
 </robot>

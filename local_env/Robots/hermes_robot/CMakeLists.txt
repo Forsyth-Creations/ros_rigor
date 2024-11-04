@@ -14,4 +14,9 @@ install(DIRECTORY meshes/
   DESTINATION share/${PROJECT_NAME}/meshes
 )
 
+# Add the launch files
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+)
+
 ament_package()
