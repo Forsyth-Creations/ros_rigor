@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Henry Forsyth <robert.h.forsyth@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+docker = "^7.1.0"
+plotly = "^5.24.1"
+fastapi = "^0.115.0"
+colorama = "^0.4.6"
+uvicorn = "^0.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

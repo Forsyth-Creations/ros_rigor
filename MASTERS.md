@@ -24,6 +24,14 @@ https://github.com/ros-realtime/linux-real-time-kernel-builder
 
 https://github.com/ros-realtime/linux-real-time-kernel-builder?tab=readme-ov-file#deploy-new-kernel-on-raspberry-pi
 
+https://docs.ros.org/en/jazzy/Tutorials/Advanced/Simulators/Gazebo/Gazebo.html
+
+https://www.youtube.com/watch?v=dY8JxldcuqA
+
+[text](https://docs.ros.org/en/jazzy/Installation/Alternatives/Ubuntu-Development-Setup.html)
+
+https://www.youtube.com/watch?v=anMymsvJKJI
+
 # Facts
 
 You can install a kernel with whatever customization you deem fit `RT_PREEMPT`

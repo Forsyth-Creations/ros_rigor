@@ -2,3 +2,7 @@ bazel-WORKSPACE
 bazel-bin
 bazel-out
 bazel-testlogs
+build
+log
+install
+devel

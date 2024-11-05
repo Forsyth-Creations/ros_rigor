@@ -1,17 +1,42 @@
 services:
-  rigor:
-    # environment:
-    #   - HOME=/home/${USER}
-    #   - USER=${USER}
+  logging_frontend:
+    image: logging_frontend
     build:
-      context: .
+      context: ./components/logger/frontend
       dockerfile: Dockerfile
-      # args:
-      #   - username=${USER}
-    network_mode: host
-    volumes: 
-      - .:/WORKSPACE
-      # Link my bazel cache
+    ports:
+      - "3000:3000"
+    depends_on:
+      - logging_backend
+  logging_backend:
+    image: logging_backend
+    build:
+      context: ./components/logger/backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./components/logger/backend/app:/backend/app
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./logs:/backend/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - HOST=0.0.0.0
+    ports:
+      - "5000:5000"
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./components/logger/nginx/config:/etc/nginx/conf.d
+    depends_on:
+      - logging_frontend
+  publisher:
+    image: publisher
+    build:
+      context: ./components/publisher
+      dockerfile: Dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: tail -f /dev/null
     privileged: true
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    network_mode: "host"

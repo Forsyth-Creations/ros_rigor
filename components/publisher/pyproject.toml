@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 colorama = "^0.4.6"
+numpy = "^2.1.2"
+pyaml = "^24.9.0"
 
 
 [build-system]
