@@ -33,3 +33,9 @@ ros2 launch ros_gz_sim gz_sim.launch.py gz_args:=empty.sdf
 
 
 cd /opt/ros/jazzy/share
+
+root@6ff27fb03f10:/Robots/hermes_robot/launch# ros2 launch gazebo.launch.py 
+
+https://github.com/gazebosim/ros_gz/blob/ros2/ros_gz_bridge/launch/ros_gz_bridge.launch.py
+
+ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:=ScanConfig.yaml 
