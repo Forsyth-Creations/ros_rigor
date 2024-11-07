@@ -1,42 +1,12 @@
+# ROS2 environment
 services:
-  logging_frontend:
-    image: logging_frontend
-    build:
-      context: ./components/logger/frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      - logging_backend
-  logging_backend:
-    image: logging_backend
-    build:
-      context: ./components/logger/backend
-      dockerfile: Dockerfile
-    volumes:
-      - ./components/logger/backend/app:/backend/app
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./logs:/backend/logs
-    environment:
-      - PYTHONUNBUFFERED=1
-      - HOST=0.0.0.0
-    ports:
-      - "5000:5000"
-  nginx:
-    image: nginx
-    ports:
-      - "80:80"
-    volumes:
-      - ./components/logger/nginx/config:/etc/nginx/conf.d
-    depends_on:
-      - logging_frontend
-  publisher:
-    image: publisher
-    build:
-      context: ./components/publisher
-      dockerfile: Dockerfile
-    environment:
-      - PYTHONUNBUFFERED=1
-    command: tail -f /dev/null
+  ros2:
+    build: .
+    container_name: rigor
+    command : tail -f /dev/null
     privileged: true
-    network_mode: "host"
+    environment:
+      - DISPLAY=$DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./src:/ros2_jazzy/workspace

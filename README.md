@@ -89,6 +89,16 @@ Currently running into issues with the ros_gz_bridge not persisting the joint_st
 
 https://discordapp.com/channels/1077825543698927656/1303391211435851899
 
+
+AH! Gazebo needs to be the ground source of truth for physics, and RVIZ used as just a visulaizer
+https://github.com/gazebosim/ros_gz_project_template/blob/main/ros_gz_example_bringup/launch/rrbot_setup.launch.py
+
+https://github.com/freshrobotics/swerve-sim-container
+
+https://www.freshconsulting.com/insights/blog/how-to-build-a-swerve-drive-robot/
+
+https://github.com/ros/ros_tutorials/tree/jazzy/turtlesim
+
 # Goal 5: Create a Simulated Gazebo Environment
 
 # Goal 6: Write basic Robot Control Code 
