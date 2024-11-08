@@ -19,7 +19,14 @@ all: # Builds all the ROS targets
 	@echo "Run 'source setup_env.sh' to source the setup files"
 
 # Optional: If you want to source the script automatically (e.g., for CI or convenience), uncomment the next line
-# .PHONY: source-env
-# source-env:
-# 	@echo "Sourcing the setup_env.sh"
-# 	@source ./setup_env.sh
+.PHONY: source-env
+source-env:
+	@echo "Sourcing the setup_env.sh"
+	@source ./setup_env.sh
+
+.PHONY: clean
+clean: # Cleans all the ROS targets
+	cd hermes_swerve_module && rm -rf build install log
+	cd hermes_robot_description && rm -rf build install log
+	cd hermes_robot && rm -rf build install log
+	rm -f setup_env.sh

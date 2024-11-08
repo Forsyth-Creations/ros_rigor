@@ -2,8 +2,6 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32
 from sensor_msgs.msg import JointState
-from geometry_msgs.msg import Twist
-import time
 
 # PID Controller Class
 class PIDController:
@@ -46,6 +44,8 @@ class Module(Node):
         
         # Use the namespace parameter
         super().__init__(name)
+        
+        self.get_logger().info(f'Creating Module: {name}')
         
         self.module_name = self.declare_parameter('module_name', 'module_default').get_parameter_value().string_value
         self.mock_encoder_values = self.declare_parameter('mock_encoder_values', True).get_parameter_value().bool_value # For running without actual hardware
@@ -140,7 +140,8 @@ class Module(Node):
             self.commanded_pivot_position = pivot_output
             
         # Say something on the logger
-        self.get_logger().info(f'{self.module_name}: Pivot Angle: {self.actual_pivot_position}, Requested Pivot Angle: {self.rqst_pivot_angle}, Commanded Pivot Angle: {self.commanded_pivot_position}')
+        # if self.commanded_pivot_position != self.actual_pivot_position:
+        #     self.get_logger().info(f'{self.module_name}: Pivot Angle: {self.actual_pivot_position}, Requested Pivot Angle: {self.rqst_pivot_angle}, Commanded Pivot Angle: {self.commanded_pivot_position}')
 
 def main(args=None):
     rclpy.init(args=args)

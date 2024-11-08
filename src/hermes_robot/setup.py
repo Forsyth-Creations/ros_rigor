@@ -28,6 +28,7 @@ setup(
     entry_points={
         'console_scripts': [
             "robot_node = hermes_robot.robot_node:main",
+            "joint_state_aggregator = hermes_robot.joint_state_aggregator:main",
         ],
     },
 )

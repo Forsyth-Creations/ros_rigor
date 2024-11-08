@@ -41,7 +41,7 @@ def generate_launch_description():
     gz_launch_path = PathJoinSubstitution([pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py'])
 
     # Load the SDF file from "description" package
-    urdf_file  =  os.path.join(pkg_project_description, 'urdf', 'hermes_robot_description_2.urdf')
+    urdf_file  =  os.path.join(pkg_project_description, 'urdf', 'hermes_robot_2.urdf')
     with open(urdf_file, 'r') as infp:
         robot_desc = infp.read()
 
@@ -76,18 +76,18 @@ def generate_launch_description():
     )
     
     # Bridge Node
-    ros_gz_bridge = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        # name=bridge_name_launch_config,
-        output='screen',
-        parameters=[{"config_file": "/Robots/hermes_robot_description/config/topic_mapping.yaml"}]
-    )
+    # ros_gz_bridge = Node(
+    #     package='ros_gz_bridge',
+    #     executable='parameter_bridge',
+    #     # name=bridge_name_launch_config,
+    #     output='screen',
+    #     parameters=[{"config_file": "/Robots/hermes_robot_description/config/topic_mapping.yaml"}]
+    # )
     
     # Include the Gazebo simulator launch
-    include_gz_sim_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(gz_launch_path)
-    )
+    # include_gz_sim_launch = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(gz_launch_path)
+    # )
     
     # # Setup to launch the simulator and Gazebo world
     # gz_sim = IncludeLaunchDescription(
@@ -102,31 +102,31 @@ def generate_launch_description():
     
     
     # Node to spawn the robot in Gazebo
-    spawn_robot = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-file', urdf_file,
-            '-name', 'hermes_robot_description',
-            '-x', '0', '-y', '0', '-z', '1'
-        ],
-        output='screen'
-    )
+    # spawn_robot = Node(
+    #     package='ros_gz_sim',
+    #     executable='create',
+    #     arguments=[
+    #         '-file', urdf_file,
+    #         '-name', 'hermes_robot_description',
+    #         '-x', '0', '-y', '0', '-z', '1'
+    #     ],
+    #     output='screen'
+    # )
     
 
     ld = LaunchDescription([
         # gz_sim,
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
-        joint_state_publisher_gui,
+        # joint_state_publisher_gui,
         robot_state_publisher,
         rviz
     ])
     
-    ld.add_action(ros_gz_bridge)
-    ld.add_action(include_gz_sim_launch)
+    # ld.add_action(ros_gz_bridge)
+    # ld.add_action(include_gz_sim_launch)
 
-    ld.add_action(spawn_robot)
+    # ld.add_action(spawn_robot)
     return ld
     
     
