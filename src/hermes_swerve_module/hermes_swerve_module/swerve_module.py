@@ -49,7 +49,9 @@ class Module(Node):
         
         self.module_name = self.declare_parameter('module_name', 'module_default').get_parameter_value().string_value
         self.mock_encoder_values = self.declare_parameter('mock_encoder_values', True).get_parameter_value().bool_value # For running without actual hardware
-    
+        self.invert_drive_motor = self.declare_parameter('invert_drive_motor', False).get_parameter_value().bool_value # For running without actual hardware
+        # self.invert_drive_motor = True
+        
         # Publish Encoder values and limit switch state
         self.encoder_sub = self.create_publisher(JointState, f'/{self.module_name}/encoders', 10)
         self.limit_switch_sub = self.create_publisher(Float32, f'/{self.module_name}/limit_switch', 10)
@@ -68,6 +70,7 @@ class Module(Node):
         
         self.rqst_wheel_speed = 0.0    # rqst drive velocity
         self.rqst_pivot_angle = 0.0    # rqst pivot angle
+        self.drive_wheel_position = 0.0
         
         self.commanded_wheel_speed = 0.0  # commanded drive velocity
         self.commanded_pivot_position = 0.0  # commanded pivot angle
@@ -75,7 +78,7 @@ class Module(Node):
         self.limit_switch_triggered = False
         
         # PID Controller for the drive
-        self.drive_pid_controller = PIDController(p=2, i=0.4, d=0.01, target=self.rqst_wheel_speed, max_output=6.28, min_output=0.0)
+        self.drive_pid_controller = PIDController(p=0.1, i=0.4, d=0.01, target=self.rqst_wheel_speed, max_output=2, min_output=-2)
 
         # PID Controller for the pivot
         self.pivot_pid_controller = PIDController(p=0.1, i=0.1, d=0.01, target=self.rqst_pivot_angle, max_output=6.28, min_output=0.0)
@@ -120,14 +123,20 @@ class Module(Node):
         self.update_encoder_values()
         self.update_limit_switch_()
         
-        # Compute the PID output for the drive
+        # -------------------------- Driving Wheel --------------------------------------
         drive_output = self.drive_pid_controller.compute_move(self.rqst_wheel_speed, self.actual_wheel_speed)
+        
+        self.drive_wheel_position += drive_output if not self.invert_drive_motor else -drive_output
+        
+        # self.get_logger().info(f'{self.module_name}: Drive Wheel Position: {self.drive_wheel_position} | Requested Wheel Speed: {self.rqst_wheel_speed} | Actual Wheel Speed: {self.actual_wheel_speed}')
+        
         drive_msg = Float32()
-        drive_msg.data = drive_output
+        drive_msg.data = self.drive_wheel_position
+        
+        # consider self.self.invert_drive_motor
         self.drive_motor_pub.publish(drive_msg)
         
-        # Compute the PID output for the pivot
-        # Clamp the output to the pivot limits in radians
+        # -------------------------- Pivot Wheel --------------------------------------
         modified_rqst_pivot_angle = max(0, min(6.28, self.rqst_pivot_angle))
         pivot_output = self.pivot_pid_controller.compute_move(modified_rqst_pivot_angle, self.actual_pivot_position)
         pivot_msg = Float32()

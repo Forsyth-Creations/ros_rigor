@@ -48,7 +48,7 @@ def generate_launch_description():
         executable='hermes_swerve_module',  
         name='module_b',  
         output='screen',  
-        parameters=[{'module_name': LaunchConfiguration('module_name_b')}],  
+        parameters=[{'module_name': LaunchConfiguration('module_name_b'), "invert_drive_motor": True}], 
     )
     
     swerve_module_node_c = Node(
