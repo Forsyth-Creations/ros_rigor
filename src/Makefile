@@ -10,6 +10,9 @@ all: # Builds all the ROS targets
 	cd hermes_robot_description && colcon build
 	cd hermes_robot && colcon build
 
+	# Make the URDF files for the robot
+	# cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
+
 	# After the build, generate a script to source the setup.bash files
 	@echo "Generating setup_env.sh script"
 	echo ". $(PWD)/hermes_swerve_module/install/setup.bash" > setup_env.sh

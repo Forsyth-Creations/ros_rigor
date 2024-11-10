@@ -89,6 +89,8 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 # RUN echo "export GZ_SIM_RESOURCE_PATH=$GAZEBO_MODEL_PATH:/Robots" >> ~/.bashrc
 
 ENV GZ_VERSION "harmonic"
-ENV GZ_SIM_RESOURCE_PATH "$GAZEBO_MODEL_PATH:/Robots"
+ENV GZ_SIM_RESOURCE_PATH "/ros2_jazzy/workspace"
+
+# RUN apt update && apt install ros-jazzy-gazebo-ros2-control -y
 
 WORKDIR /ros2_jazzy/workspace

@@ -83,19 +83,9 @@ def generate_launch_description():
         name='joint_state_aggregator',  
         output='screen',  
     )
-    
-    pkg_project_description = get_package_share_directory('hermes_robot_description')
-
-    # Include the launch file from the hermes_robot_description package
-    robot_description_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_project_description, 'launch', 'new.launch.py')
-        )
-    )
-    
+        
     # Return LaunchDescription with all actions
     return LaunchDescription([
-        robot_description_launch,
         joint_state_aggregator,
         prefixes,
         robot_node,

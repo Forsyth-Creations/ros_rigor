@@ -6,3 +6,4 @@ build
 log
 install
 devel
+./src/ros_gz_project_template

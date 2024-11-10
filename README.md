@@ -99,6 +99,16 @@ https://www.freshconsulting.com/insights/blog/how-to-build-a-swerve-drive-robot/
 
 https://github.com/ros/ros_tutorials/tree/jazzy/turtlesim
 
+ros2 launch robot.launch.py
+
+https://gazebosim.org/docs/harmonic/moving_robot/
+
+https://gazebosim.org/api/sim/8/tutorials.html
+
+https://github.com/gazebosim/gz-sim/tree/gz-sim8/examples/plugin
+
+https://github.com/gazebosim/gz-sim/tree/gz-sim8/examples/plugin/command_actor
+
 # Goal 5: Create a Simulated Gazebo Environment
 
 # Goal 6: Write basic Robot Control Code 
