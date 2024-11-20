@@ -49,6 +49,6 @@ def generate_launch_description():
     # Add the action to the LaunchDescription
     ld.add_action(world_launch)
     ld.add_action(robot_launch)
-    ld.add_action(bridge_launch)
+    # ld.add_action(bridge_launch)
 
     return ld

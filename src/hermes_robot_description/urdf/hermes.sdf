@@ -43,14 +43,14 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>100</effort>
+          <velocity>100</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
         <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
+          <spring_reference>20</spring_reference>
+          <spring_stiffness>20</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
@@ -92,7 +92,8 @@
       </visual>
     </link>
     <joint name='Joint_Drive1' type='revolute'>
-      <pose relative_to='Revolve1'>0.058210999999999999 -0.00088915000000000001 -0.23708000000000001 0 0 0</pose>
+      <pose relative_to='Revolve1'>0.058210999999999999 -0.00088915000000000001 -0.23708000000000001
+        0 0 0</pose>
       <parent>Revolve1</parent>
       <child>Drive1</child>
       <axis>
@@ -202,7 +203,8 @@
       </visual>
     </link>
     <joint name='Joint_Drive2' type='revolute'>
-      <pose relative_to='Revolve2'>0.061782999999999998 -0.00014808000000000001 -0.23708000000000001 0 0 0</pose>
+      <pose relative_to='Revolve2'>0.061782999999999998 -0.00014808000000000001 -0.23708000000000001
+        0 0 0</pose>
       <parent>Revolve2</parent>
       <child>Drive2</child>
       <axis>
@@ -257,7 +259,8 @@
       </visual>
     </link>
     <joint name='Joint_Revolve3' type='revolute'>
-      <pose relative_to='base_link'>-0.14293 -0.16281000000000001 0.080887000000000001 7.3464102064341006e-06 -1.5707926536057681 -3.1415926535897931</pose>
+      <pose relative_to='base_link'>-0.14293 -0.16281000000000001 0.080887000000000001
+        7.3464102064341006e-06 -1.5707926536057681 -3.1415926535897931</pose>
       <parent>base_link</parent>
       <child>Revolve3</child>
       <axis>
@@ -312,7 +315,8 @@
       </visual>
     </link>
     <joint name='Joint_Drive3' type='revolute'>
-      <pose relative_to='Revolve3'>-0.23708000000000001 -0.00031490000000000001 -0.061782999999999998 0 0 0</pose>
+      <pose relative_to='Revolve3'>-0.23708000000000001 -0.00031490000000000001
+        -0.061782999999999998 0 0 0</pose>
       <parent>Revolve3</parent>
       <child>Drive3</child>
       <axis>
@@ -422,7 +426,8 @@
       </visual>
     </link>
     <joint name='Joint_Drive4' type='revolute'>
-      <pose relative_to='Revolve4'>0.058217999999999999 8.4919999999999993e-05 -0.23708000000000001 0 0 0</pose>
+      <pose relative_to='Revolve4'>0.058217999999999999 8.4919999999999993e-05 -0.23708000000000001
+        0 0 0</pose>
       <parent>Revolve4</parent>
       <child>Drive4</child>
       <axis>
@@ -477,42 +482,40 @@
       </visual>
     </link>
     <plugin
-        filename="gz-sim-joint-state-publisher-system"
-        name="gz::sim::systems::JointStatePublisher">
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
     </plugin>
     <plugin
-        filename="gz-sim-pose-publisher-system"
-        name="gz::sim::systems::PosePublisher">
-        <publish_link_pose>true</publish_link_pose>
-        <use_pose_vector_msg>true</use_pose_vector_msg>
-        <static_publisher>true</static_publisher>
-        <static_update_frequency>1</static_update_frequency>
-      </plugin>
+      filename="gz-sim-pose-publisher-system"
+      name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
 
-      <plugin
-        filename="gz-sim-odometry-publisher-system"
-        name="gz::sim::systems::OdometryPublisher">
-        <odom_frame>diff_drive/odom</odom_frame>
-        <robot_base_frame>diff_drive</robot_base_frame>
-      </plugin>
+    <plugin
+      filename="gz-sim-odometry-publisher-system"
+      name="gz::sim::systems::OdometryPublisher">
+      <odom_frame>diff_drive/odom</odom_frame>
+      <robot_base_frame>diff_drive</robot_base_frame>
+    </plugin>
     <!-- Use a plugin to control one of my motors -->
-    <plugin name="hermes_control" filename="libgazebo_ros_control.so" >
+    <plugin name="hermes_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/hermes_robot_description</robotNamespace>
       <robotParam>robot_description</robotParam>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       <controlPeriod>0.001</controlPeriod>
     </plugin>
 
-    <!-- Load my custom plugin -->
-     <plugin name = "swerve_actor::SwerveActor" filename = "/ros2_jazzy/workspace/gazebo_swerve_plugin/build/libSwerveActor.so">
-      <driveJoint1>Drive1</driveJoint1>
-      <driveJoint2>Drive2</driveJoint2>
-      <driveJoint3>Drive3</driveJoint3>
-      <driveJoint4>Drive4</driveJoint4>
-      <revolveJoint1>Revolve1</revolveJoint1>
-      <revolveJoint2>Revolve2</revolveJoint2>
-      <revolveJoint3>Revolve3</revolveJoint3>
-      <revolveJoint4>Revolve4</revolveJoint4>
+    <!-- A simple JointController -->
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>Joint_Revolve1</joint_name>
+      <initial_velocity>1.0</initial_velocity>
+      <topic>henry</topic>
     </plugin>
+
   </model>
 </sdf>

@@ -86,7 +86,7 @@ def generate_launch_description():
         
     # Return LaunchDescription with all actions
     return LaunchDescription([
-        joint_state_aggregator,
+        # joint_state_aggregator,
         prefixes,
         robot_node,
         module_a,

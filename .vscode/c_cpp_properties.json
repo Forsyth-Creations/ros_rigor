@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/gz/sim8",
+                "/usr/include/gz/msgs10",
+                "/usr/include/gz/common5"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/lib/ccache/clang-18",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}

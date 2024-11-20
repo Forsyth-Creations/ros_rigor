@@ -13,6 +13,9 @@ all: # Builds all the ROS targets
 	# Make the URDF files for the robot
 	# cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
 
+	# Build the plugin
+	# cd gazebo_swerve_plugin && mkdir -p build && cd build && cmake .. && make && cd ../..
+
 	# After the build, generate a script to source the setup.bash files
 	@echo "Generating setup_env.sh script"
 	echo ". $(PWD)/hermes_swerve_module/install/setup.bash" > setup_env.sh
