@@ -55,12 +55,22 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(rviz_launch_path)
     )
     
+    # ------------ Set up the Robot Controller ------------
+    # robot_controller_launch_path = os.path.join(
+    #     get_package_share_directory('hermes_swerve_module'), 
+    #     'launch', 
+    #     'full_robot.launch.py'
+    # )
     
+    # robot_controller_launch = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(robot_controller_launch_path)
+    # )
     
     # Add the action to the LaunchDescription
     ld.add_action(world_launch)
     ld.add_action(robot_launch)
     ld.add_action(rviz_launch)
     ld.add_action(bridge_launch)
+    # ld.add_action(robot_controller_launch)
 
     return ld
