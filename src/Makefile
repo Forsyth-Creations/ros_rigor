@@ -9,6 +9,9 @@ all: # Builds all the ROS targets
 	cd hermes_swerve_module && colcon build
 	cd hermes_robot_description && colcon build
 	cd hermes_robot && colcon build
+	cd web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
+	cd web_controller/web_controller/frontend && npm install && npm run build
+	cd web_controller && colcon build
 
 	# Make the URDF files for the robot
 	# cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
@@ -21,6 +24,7 @@ all: # Builds all the ROS targets
 	echo ". $(PWD)/hermes_swerve_module/install/setup.bash" > setup_env.sh
 	echo ". $(PWD)/hermes_robot_description/install/setup.bash" >> setup_env.sh
 	echo ". $(PWD)/hermes_robot/install/setup.bash" >> setup_env.sh
+	echo ". $(PWD)/web_controller/install/setup.bash" >> setup_env.sh
 	chmod +x setup_env.sh
 	@echo "Run 'source setup_env.sh' to source the setup files"
 

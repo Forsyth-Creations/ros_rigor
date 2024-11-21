@@ -7,6 +7,9 @@ services:
     privileged: true
     environment:
       - DISPLAY=$DISPLAY
+    ports:
+      - "3000:3000"
+      - "5000:5000"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./src:/ros2_jazzy/workspace

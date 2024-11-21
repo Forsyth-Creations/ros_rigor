@@ -93,4 +93,32 @@ ENV GZ_SIM_RESOURCE_PATH "/ros2_jazzy/workspace"
 
 # RUN apt update && apt install ros-jazzy-gazebo-ros-pkgs
 
+
+# Install nvm
+ENV NVM_DIR=/root/.nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && \
+    . $NVM_DIR/nvm.sh && \
+    nvm install 22 && \
+    nvm alias default 22 && \
+    nvm use 22
+
+# Add nvm to PATH for subsequent RUN instructions
+ENV PATH=$NVM_DIR/versions/node/v22/bin:$PATH
+
+# Install Poetry for dependency management
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# Add poetry to PATH
+ENV PATH="/root/.local/bin:$PATH"
+
+RUN poetry --version
+
+RUN apt update && apt install python3-pip python3.12-venv  -y
+
+# Create a venv for the workspace
+RUN python3.12 -m venv /venv
+
+# Add it to the bashrc
+RUN echo "source /venv/bin/activate" >> ~/.bashrc
+
 WORKDIR /ros2_jazzy/workspace
