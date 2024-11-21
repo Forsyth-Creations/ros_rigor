@@ -20,10 +20,10 @@ from launch_ros.actions import Node
 def generate_launch_description():
     pkg_hermes_robot_description = get_package_share_directory('hermes_robot_description')
         
-    # Load the URDF into Gazebo
-    # urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes.urdf')
-    # with open(urdf_path, 'r') as infp:
-    #     urdf_xml = infp.read()
+    # Load the URDF into RVIZ
+    urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes.urdf')
+    with open(urdf_path, 'r') as infp:
+        urdf_xml = infp.read()
         
         
     # Get the file path of the SDF file
@@ -56,7 +56,7 @@ def generate_launch_description():
         output='both',
         parameters=[
             {'use_sim_time': True},
-            {'robot_description': sdf_xml}
+            {'robot_description': urdf_xml}
         ]
     )
     

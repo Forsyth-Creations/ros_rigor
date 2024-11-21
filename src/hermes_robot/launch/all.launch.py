@@ -44,11 +44,23 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(bridge_launch_path)
     )
     
+    # ------- Launch RVIZ with the robot model -----------
+    rviz_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'rviz.launch.py'
+    )
+    
+    rviz_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(rviz_launch_path)
+    )
+    
     
     
     # Add the action to the LaunchDescription
     ld.add_action(world_launch)
     ld.add_action(robot_launch)
-    # ld.add_action(bridge_launch)
+    ld.add_action(rviz_launch)
+    ld.add_action(bridge_launch)
 
     return ld

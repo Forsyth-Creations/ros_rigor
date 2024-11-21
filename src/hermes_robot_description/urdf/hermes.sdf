@@ -43,14 +43,14 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>100</effort>
-          <velocity>100</velocity>
+          <effort>500</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
         <dynamics>
-          <spring_reference>20</spring_reference>
-          <spring_stiffness>20</spring_stiffness>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
@@ -116,7 +116,7 @@
         <pose>-0.059590086552064402 0.0010304557549595001 0.000120396514376758 0 0 0</pose>
         <mass>0.96878168135082798</mass>
         <inertia>
-          <ixx>0.0043330869283469903</ixx>
+          <ixx>0.004600330869283469903</ixx>
           <ixy>-1.99069564081488e-05</ixy>
           <ixz>1.18928999633502e-07</ixz>
           <iyy>0.0023145060676988002</iyy>
@@ -154,8 +154,8 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>500</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
@@ -210,7 +210,7 @@
       <axis>
         <xyz>0.99997000000000003 -0.0074916000000000002 0</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>600</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -266,8 +266,8 @@
       <axis>
         <xyz>-1 0 0</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>500</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
@@ -322,7 +322,7 @@
       <axis>
         <xyz>0 -0.010191 -0.99995000000000001</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>60000</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -377,8 +377,8 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>500</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
@@ -433,7 +433,7 @@
       <axis>
         <xyz>-0.99997999999999998 -0.0068655000000000001 0</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>600</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -494,12 +494,12 @@
       <static_update_frequency>1</static_update_frequency>
     </plugin>
 
-    <plugin
+    <!-- <plugin
       filename="gz-sim-odometry-publisher-system"
       name="gz::sim::systems::OdometryPublisher">
       <odom_frame>diff_drive/odom</odom_frame>
       <robot_base_frame>diff_drive</robot_base_frame>
-    </plugin>
+    </plugin> -->
     <!-- Use a plugin to control one of my motors -->
     <plugin name="hermes_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/hermes_robot_description</robotNamespace>
@@ -508,13 +508,91 @@
       <controlPeriod>0.001</controlPeriod>
     </plugin>
 
-    <!-- A simple JointController -->
+    <!--  Drive motor joint controllers -->
     <plugin
       filename="gz-sim-joint-controller-system"
       name="gz::sim::systems::JointController">
+      <joint_name>Joint_Drive1</joint_name>
+      <initial_velocity>0.0</initial_velocity>
+      <topic>/drive/1/command</topic>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>Joint_Drive2</joint_name>
+      <initial_velocity>0.0</initial_velocity>
+      <topic>/drive/2/command</topic>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>Joint_Drive3</joint_name>
+      <initial_velocity>0.0</initial_velocity>
+      <topic>/drive/3/command</topic>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>Joint_Drive4</joint_name>
+      <initial_velocity>0.0</initial_velocity>
+      <topic>/drive/4/command</topic>
+    </plugin>
+
+    <!-- Position Controllers -->
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
       <joint_name>Joint_Revolve1</joint_name>
-      <initial_velocity>1.0</initial_velocity>
-      <topic>henry</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve3</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve4</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
     </plugin>
 
   </model>
