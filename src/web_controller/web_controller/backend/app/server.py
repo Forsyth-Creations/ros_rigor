@@ -58,11 +58,17 @@ class RobotPublisher(Node):
 
 
 # Create a ROS 2 node and start it in a separate thread
+node = None
+
 def start_ros_node():
+    global node
     rclpy.init()
     node = RobotPublisher()
     rclpy.spin(node)
-
+    
+# Start a separate thread to run ROS 2 node (since FastAPI runs asynchronously)
+ros_thread = Thread(target=start_ros_node)
+ros_thread.start()
 
 # FastAPI endpoint to handle movement commands
 @app.post("/move")
@@ -70,13 +76,6 @@ def move(moveCommand: Move):
     # Publish the move command to ROS 2
     direction = moveCommand.direction
     speed = moveCommand.speed
-
-    # Start a separate thread to run ROS 2 node (since FastAPI runs asynchronously)
-    ros_thread = Thread(target=start_ros_node)
-    ros_thread.start()
-
-    # Create a new ROS 2 publisher node
-    node = RobotPublisher()
     node.publish_move(direction, speed)
 
     return {"message": "Move command received", "direction": direction, "speed": speed}

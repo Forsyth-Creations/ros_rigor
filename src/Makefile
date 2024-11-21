@@ -10,8 +10,13 @@ all: # Builds all the ROS targets
 	cd hermes_robot_description && colcon build
 	cd hermes_robot && colcon build
 	cd web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
-	cd web_controller/web_controller/frontend && npm install && npm run build
+	cd web_controller/web_controller/frontend && npm install -g && npm run build
+
 	cd web_controller && colcon build
+
+	# Go into the share and install the modules. A hack, but it works
+	cd web_controller/install/web_controller/share/web_controller/frontend && npm install
+
 
 	# Make the URDF files for the robot
 	# cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
@@ -39,4 +44,6 @@ clean: # Cleans all the ROS targets
 	cd hermes_swerve_module && rm -rf build install log
 	cd hermes_robot_description && rm -rf build install log
 	cd hermes_robot && rm -rf build install log
+	cd web_controller/web_controller/backend && rm -rf .venv
+	cd web_controller && rm -rf build install log
 	rm -f setup_env.sh

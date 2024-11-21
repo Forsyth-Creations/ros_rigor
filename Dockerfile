@@ -121,4 +121,10 @@ RUN python3.12 -m venv /venv
 # Add it to the bashrc
 RUN echo "source /venv/bin/activate" >> ~/.bashrc
 
+# pip install catkin-pkg after activating the venv
+RUN /venv/bin/pip install catkin-pkg pyyaml
+
+# make a home command to go to the workspace
+RUN echo "home () { cd /ros2_jazzy/workspace; }" >> ~/.bashrc
+
 WORKDIR /ros2_jazzy/workspace

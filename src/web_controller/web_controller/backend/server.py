@@ -5,7 +5,7 @@ import os
 from app.server import app
 
 # Get the host from the environment
-host = os.getenv("HOST", "localhost")
+host = os.getenv("HOST", "0.0.0.0")
 port = int(os.getenv("PORT", 5000))
 
 
