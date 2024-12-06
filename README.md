@@ -1,4 +1,6 @@
 ![Project Hermes Full](/assets/DemoAll.gif "Project Hermes")
+![Project Hermes with Pivot](/assets/pivot.gif "Project Hermes")
+
 # Starting the Project
 
 **Disclaimer: This work was accomplished with a PC running Ubuntu 24.04, With a 24 core AMD CPU. You must also have Docker installed**
