@@ -1,7 +1,35 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32
+from std_msgs.msg import Float64
 from sensor_msgs.msg import JointState
+
+CSI = '\033['
+
+def code_to_chars(code):
+    return CSI + str(code) + 'm'
+class AnsiCodes(object):
+    def __init__(self):
+        # the subclasses declare class attributes which are numbers.
+        # Upon instantiation we define instance attributes, which are the same
+        # as the class attributes but wrapped with the ANSI escape sequence
+        for name in dir(self):
+            if not name.startswith('_'):
+                value = getattr(self, name)
+                setattr(self, name, code_to_chars(value))
+                
+class AnsiFore(AnsiCodes):
+    BLACK           = 30
+    RED             = 31
+    GREEN           = 32
+    YELLOW          = 33
+    BLUE            = 34
+    MAGENTA         = 35
+    CYAN            = 36
+    WHITE           = 37
+    RESET           = 39
+
+Fore   = AnsiFore()
+
 
 # PID Controller Class
 class PIDController:
@@ -52,17 +80,21 @@ class Module(Node):
         self.invert_drive_motor = self.declare_parameter('invert_drive_motor', False).get_parameter_value().bool_value # For running without actual hardware
         # self.invert_drive_motor = True
         
+        # Print out that the invert_drive_motor parameter is set
+        if self.invert_drive_motor:
+            self.get_logger().info(f'{Fore.GREEN}Inverting Drive Motor for {self.module_name}{Fore.RESET}')
+        
         # Publish Encoder values and limit switch state
         self.encoder_sub = self.create_publisher(JointState, f'/{self.module_name}/encoders', 10)
-        self.limit_switch_sub = self.create_publisher(Float32, f'/{self.module_name}/limit_switch', 10)
+        self.limit_switch_sub = self.create_publisher(Float64, f'/{self.module_name}/limit_switch', 10)
 
         # Pub/Sub for target pivot angle
-        self.rqst_pivot_sub = self.create_subscription(Float32, f'/{self.module_name}/rqst_pivot_direction', self.set_rqst_pivot_direction, 10)
-        self.pivot_position_pub = self.create_publisher(Float32, f'/{self.module_name}/pivot_position', 10)
+        self.rqst_pivot_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_pivot_direction', self.set_rqst_pivot_direction, 10)
+        self.pivot_position_pub = self.create_publisher(Float64, f'/{self.module_name}/pivot_position', 10)
         
         # Pub/Sub for motor speed
-        self.drive_motor_sub = self.create_subscription(Float32, f'/{self.module_name}/rqst_wheel_speed', self.set_rqst_wheel_speed, 10)
-        self.drive_motor_pub = self.create_publisher(Float32, f'/{self.module_name}/wheel_speed', 10)
+        self.drive_motor_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_wheel_speed', self.set_rqst_wheel_speed, 10)
+        self.drive_motor_pub = self.create_publisher(Float64, f'/{self.module_name}/wheel_speed', 10)
 
         # Internal state variables for module
         self.actual_wheel_speed = 0.0    # actual drive velocity from encoder
@@ -86,13 +118,13 @@ class Module(Node):
 
     def set_rqst_wheel_speed(self, speed):
         # Method to set drive speed
-        msg = Float32()
+        msg = Float64()
         msg.data = speed
         self.rqst_wheel_speed = speed.data
 
     def set_rqst_pivot_direction(self, angle):
         # Method to set pivot angle
-        msg = Float32()
+        msg = Float64()
         msg.data = angle
         self.rqst_pivot_angle = angle.data
 
@@ -120,6 +152,10 @@ class Module(Node):
 
     def update(self):
         # Update method to be called regularly for control logic
+        
+        # log some values for me to see
+        # self.get_logger().info(f'{self.module_name}: RPA: {self.rqst_pivot_angle} | RWS: {self.rqst_wheel_speed} | AWS: {self.actual_wheel_speed} | AP: {self.actual_pivot_position}')
+        
         self.update_encoder_values()
         self.update_limit_switch_()
         
@@ -130,7 +166,7 @@ class Module(Node):
         
         # self.get_logger().info(f'{self.module_name}: Drive Wheel Position: {self.drive_wheel_position} | Requested Wheel Speed: {self.rqst_wheel_speed} | Actual Wheel Speed: {self.actual_wheel_speed}')
         
-        drive_msg = Float32()
+        drive_msg = Float64()
         drive_msg.data = self.drive_wheel_position
         
         # consider self.self.invert_drive_motor
@@ -139,7 +175,7 @@ class Module(Node):
         # -------------------------- Pivot Wheel --------------------------------------
         modified_rqst_pivot_angle = max(0, min(6.28, self.rqst_pivot_angle))
         pivot_output = self.pivot_pid_controller.compute_move(modified_rqst_pivot_angle, self.actual_pivot_position)
-        pivot_msg = Float32()
+        pivot_msg = Float64()
         pivot_msg.data = pivot_output
         self.pivot_position_pub.publish(pivot_msg)
         

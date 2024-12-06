@@ -99,7 +99,7 @@
       <axis>
         <xyz>-0.99995000000000001 0.0098662999999999997 0</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>500</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -210,7 +210,7 @@
       <axis>
         <xyz>0.99997000000000003 -0.0074916000000000002 0</xyz>
         <limit>
-          <effort>600</effort>
+          <effort>500</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -322,7 +322,7 @@
       <axis>
         <xyz>0 -0.010191 -0.99995000000000001</xyz>
         <limit>
-          <effort>60000</effort>
+          <effort>500</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -433,7 +433,7 @@
       <axis>
         <xyz>-0.99997999999999998 -0.0068655000000000001 0</xyz>
         <limit>
-          <effort>600</effort>
+          <effort>500</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -501,52 +501,19 @@
       <robot_base_frame>diff_drive</robot_base_frame>
     </plugin> -->
     <!-- Use a plugin to control one of my motors -->
-    <plugin name="hermes_control" filename="libgazebo_ros_control.so">
+    <!-- <plugin name="hermes_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/hermes_robot_description</robotNamespace>
       <robotParam>robot_description</robotParam>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       <controlPeriod>0.001</controlPeriod>
-    </plugin>
+    </plugin> -->
 
     <!--  Drive motor joint controllers -->
     <plugin
-      filename="gz-sim-joint-controller-system"
-      name="gz::sim::systems::JointController">
-      <joint_name>Joint_Drive1</joint_name>
-      <initial_velocity>0.0</initial_velocity>
-      <topic>/drive/1/command</topic>
-    </plugin>
-
-    <plugin
-      filename="gz-sim-joint-controller-system"
-      name="gz::sim::systems::JointController">
-      <joint_name>Joint_Drive2</joint_name>
-      <initial_velocity>0.0</initial_velocity>
-      <topic>/drive/2/command</topic>
-    </plugin>
-
-    <plugin
-      filename="gz-sim-joint-controller-system"
-      name="gz::sim::systems::JointController">
-      <joint_name>Joint_Drive3</joint_name>
-      <initial_velocity>0.0</initial_velocity>
-      <topic>/drive/3/command</topic>
-    </plugin>
-
-    <plugin
-      filename="gz-sim-joint-controller-system"
-      name="gz::sim::systems::JointController">
-      <joint_name>Joint_Drive4</joint_name>
-      <initial_velocity>0.0</initial_velocity>
-      <topic>/drive/4/command</topic>
-    </plugin>
-
-    <!-- Position Controllers -->
-
-    <plugin
       filename="gz-sim-joint-position-controller-system"
       name="gz::sim::systems::JointPositionController">
-      <joint_name>Joint_Revolve1</joint_name>
+      <joint_name>Joint_Drive1</joint_name>
+      <topic>/drive/1/command</topic>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>
@@ -559,6 +526,65 @@
     <plugin
       filename="gz-sim-joint-position-controller-system"
       name="gz::sim::systems::JointPositionController">
+      <topic>/drive/2/command</topic>
+      <joint_name>Joint_Drive2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive3</joint_name>
+      <topic>/drive/3/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive4</joint_name>
+      <topic>/drive/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <!-- Position Controllers -->
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve1</joint_name>
+      <topic>/pivot/1/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <topic>/pivot/2/command</topic>
       <joint_name>Joint_Revolve2</joint_name>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
@@ -573,6 +599,7 @@
       filename="gz-sim-joint-position-controller-system"
       name="gz::sim::systems::JointPositionController">
       <joint_name>Joint_Revolve3</joint_name>
+      <topic>/pivot/3/command</topic>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>
@@ -586,6 +613,7 @@
       filename="gz-sim-joint-position-controller-system"
       name="gz::sim::systems::JointPositionController">
       <joint_name>Joint_Revolve4</joint_name>
+      <topic>/pivot/4/command</topic>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>

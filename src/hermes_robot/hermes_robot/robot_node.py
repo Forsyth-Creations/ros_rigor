@@ -6,10 +6,7 @@
 # include the other packages
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
-from sensor_msgs.msg import JointState
-from std_msgs.msg import Float32
-from message_filters import Subscriber, ApproximateTimeSynchronizer
+from std_msgs.msg import Float64
 
 # import the swerve module
 
@@ -20,9 +17,11 @@ class ConnectionManager():
         self.drive_publishers : list = []
 
 class Robot(Node):
-    def __init__(self):
+    def __init__(self, name):
         # Initialize the node
-        super().__init__('robot_node')
+        super().__init__('hermes')
+        
+        self.get_logger().info(f'Creating Module: {name}')
         
         self.module_name = self.declare_parameter('module_name', 'hermes').get_parameter_value().string_value
         self.connections = ConnectionManager()
@@ -38,20 +37,20 @@ class Robot(Node):
         
         # Subscribe to the pivot position topic
         self.rqst_pivot_position = 0.0
-        self.rqst_pivot_sub = self.create_subscription(Float32, f'/{self.module_name}/rqst_pivot_direction', self.set_rqst_pivot_direction, 10)
+        self.rqst_pivot_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_pivot_direction', self.set_rqst_pivot_direction, 10)
         
         # Make some pivot_publishers
         for module in self.module_topic_prefixes:
-            self.pivot_position_pub = self.create_publisher(Float32, f'/{module}/rqst_pivot_direction', 10)
+            self.pivot_position_pub = self.create_publisher(Float64, f'/{module}/rqst_pivot_direction', 10)
             self.connections.pivot_publishers.append(self.pivot_position_pub)
             
         # Subscribe to the wheel speed topic
         self.rqst_wheel_speed = 0.0
-        self.rqst_wheel_sub = self.create_subscription(Float32, f'/{self.module_name}/rqst_wheel_speed', self.set_rqst_wheel_speed, 10)
+        self.rqst_wheel_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_wheel_speed', self.set_rqst_wheel_speed, 10)
             
         # Make some drive publishers
         for module in self.module_topic_prefixes:
-            self.drive_speed_pub = self.create_publisher(Float32, f'/{module}/rqst_wheel_speed', 10)
+            self.drive_speed_pub = self.create_publisher(Float64, f'/{module}/rqst_wheel_speed', 10)
             self.connections.drive_publishers.append(self.drive_speed_pub)
             
         self.get_logger().info(f'Creating Robot with Modules: {self.module_topic_prefixes}')
@@ -70,7 +69,7 @@ class Robot(Node):
 def main(args=None):
     rclpy.init(args=args)
     
-    robot = Robot()
+    robot = Robot(name='hermes_robot_node')
     
     # Spin to keep the node active
     try:

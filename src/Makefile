@@ -6,12 +6,11 @@ SHELL := /bin/bash
 
 .PHONY: all
 all: # Builds all the ROS targets
-	cd hermes_swerve_module && colcon build
-	cd hermes_robot_description && colcon build
-	cd hermes_robot && colcon build
+	# call the no-web
+	$(MAKE) no-web
 	cd web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
 	cd web_controller/web_controller/frontend && npm install -g && npm run build
-
+	
 	cd web_controller && colcon build
 
 	# Go into the share and install the modules. A hack, but it works
@@ -32,6 +31,12 @@ all: # Builds all the ROS targets
 	echo ". $(PWD)/web_controller/install/setup.bash" >> setup_env.sh
 	chmod +x setup_env.sh
 	@echo "Run 'source setup_env.sh' to source the setup files"
+
+.PHONY: no-web
+no-web:
+	cd hermes_swerve_module && colcon build
+	cd hermes_robot_description && colcon build
+	cd hermes_robot && colcon build
 
 # Optional: If you want to source the script automatically (e.g., for CI or convenience), uncomment the next line
 .PHONY: source-env

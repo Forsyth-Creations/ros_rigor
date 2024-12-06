@@ -3,12 +3,14 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, Float64
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from threading import Thread
+from typing import Union
+from colorama import Fore
 
 # FastAPI app initialization
 app = FastAPI(
@@ -39,22 +41,25 @@ app.add_middleware(
 
 # Define the command structure using Pydantic
 class Move(BaseModel):
-    direction: str
-    speed: Optional[int] = 5
+    direction: float
+    speed: float
 
 
 # ROS 2 Node setup
 class RobotPublisher(Node):
     def __init__(self):
-        super().__init__('robot_controller')
-        self.publisher = self.create_publisher(String, 'robot_move', 10)
+        super().__init__('robot_controller_web')
+        self.wheel_speed = self.create_publisher(Float64, '/hermes/rqst_wheel_speed', 10)
+        self.pivot_direction = self.create_publisher(Float64, '/hermes/rqst_pivot_direction', 10)
         self.get_logger().info("RobotPublisher Node has been started.")
 
     def publish_move(self, direction, speed):
-        msg = String()
-        msg.data = f"Direction: {direction}, Speed: {speed}"
-        self.publisher.publish(msg)
-        self.get_logger().info(f"Published: {msg.data}")
+        try:
+            self.pivot_direction.publish(Float64(data=direction))
+            self.wheel_speed.publish(Float64(data=speed))
+            self.get_logger().info(f"Published: direction={direction}, speed={speed}")
+        except Exception as e:
+            self.get_logger().error(f"{Fore.RED}Error: {e}{Fore.RESET}")
 
 
 # Create a ROS 2 node and start it in a separate thread

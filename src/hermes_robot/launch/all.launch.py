@@ -55,22 +55,46 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(rviz_launch_path)
     )
     
-    # ------------ Set up the Robot Controller ------------
-    # robot_controller_launch_path = os.path.join(
-    #     get_package_share_directory('hermes_swerve_module'), 
-    #     'launch', 
-    #     'full_robot.launch.py'
-    # )
+    # ------------ Set up all the modules ------------
+    robot_controller_launch_path = os.path.join(
+        get_package_share_directory('hermes_swerve_module'), 
+        'launch', 
+        'full_robot.launch.py'
+    )
     
-    # robot_controller_launch = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(robot_controller_launch_path)
-    # )
+    robot_controller_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(robot_controller_launch_path)
+    )
+    
+    # -------- Launch the Web controller using the launch file ---------
+    web_controller_launch_path = os.path.join(
+        get_package_share_directory('web_controller'), 
+        'launch', 
+        'webapp.launch.py'
+    )
+    
+    web_controller_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(web_controller_launch_path)
+    )
+    
+    # ------------ Setup the Robot Controller --------------------
+    robot_controller_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot'), 
+        'launch', 
+        'robot.launch.py'
+    )
+    
+    hermes_controller = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(robot_controller_launch_path)
+    )
     
     # Add the action to the LaunchDescription
     ld.add_action(world_launch)
     ld.add_action(robot_launch)
     ld.add_action(rviz_launch)
     ld.add_action(bridge_launch)
-    # ld.add_action(robot_controller_launch)
+    ld.add_action(robot_controller_launch)
+    ld.add_action(web_controller_launch)
+    ld.add_action(hermes_controller)
 
     return ld
