@@ -56,6 +56,9 @@ const RobotSim = () => {
   const explorationRate = useRef(0.2);
   const blockSize = 50; // Size of the blocks
 
+  const [crashed, setCrashed] = useState(false);
+  const [avoided, setAvoided] = useState(false);
+
   function getRandomAction() {
     // pick a number 1 through 4
     return Math.floor(Math.random() * 4);
@@ -159,8 +162,12 @@ const RobotSim = () => {
 
       if (results) {
         count_crash++;
+        setCrashed(true);
+        setAvoided(false);
       } else {
         count_avoid++;
+        setAvoided(true);
+        setCrashed(false);
       }
 
       if (cancelRef.current) {
@@ -228,9 +235,13 @@ const RobotSim = () => {
 
         if (results) {
           crashedCount2++;
+          setCrashed(true);
+          setAvoided(false);
         }
         else{
           avoidCount2++;
+          setAvoided(true);
+          setCrashed(false);
         }
 
         if (cancelRef.current) {
@@ -356,6 +367,8 @@ const RobotSim = () => {
           Running simulation. Epoch: {currentEpoch} and Sim ID: {simulationId}. Time running {Math.floor((Date.now() - simStartTime) / 1000)} seconds
         </Alert>
       )}
+      {crashed && (<Alert severity="error">Robot Crashed!</Alert>)}
+      {avoided && (<Alert severity="success">Robot Avoided Crash!</Alert>)}
       <Box
         sx={{
           position: "relative",
