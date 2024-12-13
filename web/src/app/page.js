@@ -28,7 +28,7 @@ const HIGH_SPEED = 10;
 const LOW_SPEED = 5;
 
 const SENSOR_HIGH_PERIOD = 10;
-const SENSOR_LOW_PERIOD = 30;
+const SENSOR_LOW_PERIOD = 40;
 
 // ---------------------------------------------------------
 
@@ -105,6 +105,7 @@ const RobotSim = () => {
     const newQValue = currentQValue + learningRate * (reward + discountFactor * maxNextQValue - currentQValue);
     console.log(`New Q-Value: ${newQValue}`);
     QTable2[state] = { ...QTable2[state], [action]: newQValue };
+    setQTable(QTable2);
   };
 
 
@@ -168,6 +169,7 @@ const RobotSim = () => {
 
         updateQValue(QTable2, currentState, action, reward, nextState);
 
+
       }
       // After each epoch, update the historic data
       // This data should be in the format that a line plot can understand
@@ -215,6 +217,11 @@ const RobotSim = () => {
         // setSensorActive((prev) => simTime % scanningPeriod === 0 ? !prev : prev);
         if (simTime2 > 0 && simTime2 % period === 0) {
           sensorActive2 = !sensorActive2;
+          setSensorActive(sensorActive2);
+        }
+        // one tick after the sensor is active, the sensor is no longer active
+        if (sensorActive2 && simTime2 % period === 1) {
+          sensorActive2 = false;
           setSensorActive(sensorActive2);
         }
 
@@ -377,7 +384,7 @@ const RobotSim = () => {
           sx={{ width: "100px" }}
         />
       </Stack>
-      {historicData && <Box sx={{ width: "100%" }}>
+      {historicData && <Stack direction = "row" spacing = {2} sx={{ width: "100%" }}>
         <LineChart
           xAxis={[{ data: historicData && historicData.map((d) => d?.epoch), scaleType: "band" }]}
           series={[
@@ -393,7 +400,33 @@ const RobotSim = () => {
           margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
           height={300}
         />
-      </Box>}
+        {/* Table to show the Q table */}
+        <TableContainer
+          component={Paper}
+          sx={{ mt: 2, width: "50vw" }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>State</TableCell>
+                <TableCell>Action</TableCell>
+                <TableCell>Q-Value</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.keys(QTable).map((state) => (
+                Object.keys(QTable[state]).map((action) => (
+                  <TableRow key={`${state}-${action}`}>
+                    <TableCell>{state}</TableCell>
+                    <TableCell>{action}</TableCell>
+                    <TableCell>{QTable[state][action]}</TableCell>
+                  </TableRow>
+                ))
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Stack>}
       <Stack direction="row" spacing={2}>
         <Box>
           <Typography variant="h6">Simulation Results</Typography>
