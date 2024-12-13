@@ -100,16 +100,16 @@ const RobotSim = () => {
   const learningRate = 0.1; // How much to learn from new experience
   const discountFactor = 0.9; // Importance of future rewards
 
-  const chooseAction = (state) => {
+  const chooseAction = (state, QTable2) => {
     // console.log(QTable);
-    if (Math.random() < explorationRate.current || !QTable[state]) {
+    if (Math.random() < explorationRate.current || !QTable2[state]) {
       // Explore: choose a random action
-      // console.log("Exploring");
+      console.log(`Exploring with rate: ${explorationRate.current}`);
       return getRandomAction();
     } else {
       // Exploit: choose the best action
-      console.log("***Exploiting");
-      const stateActions = QTable[state] || {};
+      console.log(`Exploiting with rate: ${explorationRate.current}`);
+      const stateActions = QTable2[state] || {};
       return Object.keys(stateActions).reduce((best, action) => 
         stateActions[action] > (stateActions[best] || 0) ? action : best,
       "",);
@@ -117,12 +117,12 @@ const RobotSim = () => {
   };
 
   const updateQValue = (QTable2, state, action, reward, nextState) => {
-    console.log(`Updating Q-Value for state: ${state}, action: ${action}, reward: ${reward}, nextState: ${nextState}`);
-    console.log(QTable2);
+    // console.log(`Updating Q-Value for state: ${state}, action: ${action}, reward: ${reward}, nextState: ${nextState}`);
+    // console.log(QTable2);
     const currentQValue = (QTable2[state] && QTable2[state][action]) || 0;
     const maxNextQValue = Math.max(...Object.values(QTable2[nextState] || { 0: 0 }));
     const newQValue = currentQValue + learningRate * (reward + discountFactor * maxNextQValue - currentQValue);
-    console.log(`New Q-Value: ${newQValue}`);
+    // console.log(`New Q-Value: ${newQValue}`);
     QTable2[state] = { ...QTable2[state], [action]: newQValue };
     setQTable(QTable2);
   };
@@ -139,9 +139,9 @@ const RobotSim = () => {
     // Set teh exploration rate to 0
     explorationRate.current = 0;
     let currentState = [0, 0];
-    let action = chooseAction(currentState);
+    let action = chooseAction(currentState, QTable);
 
-    console.log(`Best Action: ${action}`);
+    // console.log(`Best Action: ${action}`);
 
     let [speed, period] = getAction(action);
 
@@ -201,8 +201,10 @@ const RobotSim = () => {
     setHistoricData([]); // Clear the historic data
     setSimStartTime(Date.now()); // Record the start time
     setIsComplete(false); // Reset the complete flag
-    explorationRate.current = 0.2; // Reset the exploration rate
+    let starting_explore_rate = 1.0;
+    explorationRate.current = starting_explore_rate; // Reset the exploration rate
     setQTable({});
+
 
     let sim_id = 0;
     let QTable2 = {};
@@ -219,7 +221,7 @@ const RobotSim = () => {
 
         let currentState = [0, 0];
         
-        let action = chooseAction(currentState);
+        let action = chooseAction(currentState, QTable2);
         let [speed, period] = getAction(action);
 
         let metadata = {
@@ -263,6 +265,9 @@ const RobotSim = () => {
         ...prevData,
         { epoch, crashed: crashedCount2, avoid: avoidCount2 },
       ]);
+
+      // lower the exploration rate proportionally to the epoch
+      explorationRate.current = explorationRate.current - (starting_explore_rate / epochs);
     }
 
     setIsRunning(false); // Stop the simulation
@@ -433,7 +438,7 @@ const RobotSim = () => {
             color: "white",
           }}
         >
-          {`Time: ${simTime}`}
+          {`Time: ${simTime}`} {`Explr: ${Math.round( explorationRate.current * 100) / 100}`}
         </Box>
       </Box>
       <Stack
