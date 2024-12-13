@@ -482,6 +482,8 @@ const RobotSim = () => {
         </Button>
       </Stack>
       {historicData && <Stack direction = "row" spacing = {2} sx={{ width: "100%" }}>
+        <Stack direction="column" spacing={2}  sx={{ width: "100%" }}>
+          <Typography variant="h6">Historic Simulation Data (Success Per Epoch)</Typography>
         <LineChart
           xAxis={[{ data: historicData && historicData.map((d) => d?.epoch), scaleType: "band" }]}
           series={[
@@ -497,6 +499,7 @@ const RobotSim = () => {
           margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
           height={300}
         />
+        </Stack>
         {/* Table to show the Q table */}
         <TableContainer
           component={Paper}
