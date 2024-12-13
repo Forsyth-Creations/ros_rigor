@@ -27,14 +27,15 @@ import { LineChart } from "@mui/x-charts/LineChart";
 const HIGH_SPEED = 10;
 const LOW_SPEED = 5;
 
-const SENSOR_HIGH_PERIOD = 10;
-const SENSOR_LOW_PERIOD = 40;
+const SENSOR_HIGH_PERIOD = 40;
+const SENSOR_LOW_PERIOD = 10;
 
 // ---------------------------------------------------------
 
 const RobotSim = () => {
   const [robotPosition, setRobotPosition] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
   const [simulationData, setSimulationData] = useState([]); // Track simulations
   const [simulationId, setSimulationId] = useState(1);
   const [page, setPage] = useState(0); // Current page state
@@ -52,7 +53,11 @@ const RobotSim = () => {
   const [historicData, setHistoricData] = useState([]); // Historic simulation data
   const [simStartTime, setSimStartTime] = useState(0); // Simulation start time
   const cancelRef = useRef(false);
+  const explorationRate = useRef(0.2);
   const blockSize = 50; // Size of the blocks
+
+  const [crashed, setCrashed] = useState(false);
+  const [avoided, setAvoided] = useState(false);
 
   function getRandomAction() {
     // pick a number 1 through 4
@@ -60,7 +65,8 @@ const RobotSim = () => {
   }
 
   function getAction(index) {
-    switch (index) {
+    let num_index = parseInt(index);
+    switch (num_index) {
       case 0:
         return [HIGH_SPEED, SENSOR_HIGH_PERIOD];
       case 1:
@@ -72,6 +78,20 @@ const RobotSim = () => {
     }
   }
 
+  function getActionName(index) {
+    let num_index = parseInt(index);
+    switch (num_index) {
+      case 0:
+        return "High Speed, High Period";
+      case 1:
+        return "High Speed, Low Period";
+      case 2:
+        return "Low Speed, High Period";
+      case 3:
+        return "Low Speed, Low Period";
+    }
+  }
+
   // ------------------------------ Q State Learning Section -------------------------------
   const [QTable, setQTable] = useState({});
   // Initialize Q-Table
@@ -79,18 +99,17 @@ const RobotSim = () => {
   // Q-Learning Hyperparameters
   const learningRate = 0.1; // How much to learn from new experience
   const discountFactor = 0.9; // Importance of future rewards
-  const explorationRate = 0.2; // Probability of exploring random actions
 
-  const chooseAction = (state) => {
+  const chooseAction = (state, QTable2) => {
     // console.log(QTable);
-    if (Math.random() < explorationRate || !QTable[state]) {
+    if (Math.random() < explorationRate.current || !QTable2[state]) {
       // Explore: choose a random action
-      // console.log("Exploring");
+      console.log(`Exploring with rate: ${explorationRate.current}`);
       return getRandomAction();
     } else {
       // Exploit: choose the best action
-      console.log("***Exploiting");
-      const stateActions = QTable[state] || {};
+      console.log(`Exploiting with rate: ${explorationRate.current}`);
+      const stateActions = QTable2[state] || {};
       return Object.keys(stateActions).reduce((best, action) => 
         stateActions[action] > (stateActions[best] || 0) ? action : best,
       "",);
@@ -98,15 +117,77 @@ const RobotSim = () => {
   };
 
   const updateQValue = (QTable2, state, action, reward, nextState) => {
-    console.log(`Updating Q-Value for state: ${state}, action: ${action}, reward: ${reward}, nextState: ${nextState}`);
-    console.log(QTable2);
+    // console.log(`Updating Q-Value for state: ${state}, action: ${action}, reward: ${reward}, nextState: ${nextState}`);
+    // console.log(QTable2);
     const currentQValue = (QTable2[state] && QTable2[state][action]) || 0;
     const maxNextQValue = Math.max(...Object.values(QTable2[nextState] || { 0: 0 }));
     const newQValue = currentQValue + learningRate * (reward + discountFactor * maxNextQValue - currentQValue);
-    console.log(`New Q-Value: ${newQValue}`);
+    // console.log(`New Q-Value: ${newQValue}`);
     QTable2[state] = { ...QTable2[state], [action]: newQValue };
     setQTable(QTable2);
   };
+
+  const handleRunBestAction = async () => {
+
+    let count_crash = 0;
+    let count_avoid = 0;
+
+    let sim_id = simulationId + 1;
+    setSimulationId(sim_id);
+
+    // pull the best action from the Q-Table
+    // Set teh exploration rate to 0
+    explorationRate.current = 0;
+    let currentState = [0, 0];
+    let action = chooseAction(currentState, QTable);
+
+    // console.log(`Best Action: ${action}`);
+
+    let [speed, period] = getAction(action);
+
+    let metadata = {
+      "speed" : speed,
+      "scanningPeriod" : period,
+      epoch: 0,
+    };
+
+    // Run it for the number of episodes
+
+    for (let i = 0; i < simulationCount; i++) {
+      sim_id++;
+      setSimulationId(sim_id);
+
+      let results = await runSingleSimulation(speed, period);
+      await recordSimulation(results, sim_id, metadata);
+
+      if (results) {
+        count_crash++;
+        setCrashed(true);
+        setAvoided(false);
+      } else {
+        count_avoid++;
+        setAvoided(true);
+        setCrashed(false);
+      }
+
+      if (cancelRef.current) {
+        setIsRunning(false);
+        return;
+      }
+    }
+
+    // add to the historic data
+    setHistoricData((prevData) => [
+      ...prevData,
+      { epoch: currentEpoch + 1, crashed: count_crash, avoid: count_avoid },
+    ]);
+
+    setIsRunning(false); // Stop the simulation
+    setIsComplete(true); // Mark the simulation
+
+    // iterate the epoch
+    setCurrentEpoch(currentEpoch + 1);
+  }
 
 
   // ---------------------------------------------------------------------------------------
@@ -119,10 +200,13 @@ const RobotSim = () => {
     setIsRunning(true); // Start the simulation
     setHistoricData([]); // Clear the historic data
     setSimStartTime(Date.now()); // Record the start time
+    setIsComplete(false); // Reset the complete flag
+    let starting_explore_rate = 1.0;
+    explorationRate.current = starting_explore_rate; // Reset the exploration rate
+    setQTable({});
+
 
     let sim_id = 0;
-    let current_speed = HIGH_SPEED
-    let current_period = SENSOR_LOW_PERIOD
     let QTable2 = {};
 
     for (let epoch = 1; epoch <= epochs; epoch++) {
@@ -135,13 +219,13 @@ const RobotSim = () => {
         sim_id++;
         setSimulationId(sim_id);
 
-        let currentState = [current_speed, current_period];
+        let currentState = [0, 0];
         
-        let action = chooseAction(currentState);
+        let action = chooseAction(currentState, QTable2);
         let [speed, period] = getAction(action);
 
         let metadata = {
-          "perceptionRange" : speed,
+          "speed" : speed,
           "scanningPeriod" : period,
           epoch,
         };
@@ -153,9 +237,13 @@ const RobotSim = () => {
 
         if (results) {
           crashedCount2++;
+          setCrashed(true);
+          setAvoided(false);
         }
         else{
           avoidCount2++;
+          setAvoided(true);
+          setCrashed(false);
         }
 
         if (cancelRef.current) {
@@ -177,9 +265,13 @@ const RobotSim = () => {
         ...prevData,
         { epoch, crashed: crashedCount2, avoid: avoidCount2 },
       ]);
+
+      // lower the exploration rate proportionally to the epoch
+      explorationRate.current = explorationRate.current - (starting_explore_rate / epochs);
     }
 
     setIsRunning(false); // Stop the simulation
+    setIsComplete(true); // Mark the simulation as complete
   };
 
   const runSingleSimulation = (speed, period) => {
@@ -280,6 +372,8 @@ const RobotSim = () => {
           Running simulation. Epoch: {currentEpoch} and Sim ID: {simulationId}. Time running {Math.floor((Date.now() - simStartTime) / 1000)} seconds
         </Alert>
       )}
+      {crashed && (<Alert severity="error">Robot Crashed!</Alert>)}
+      {avoided && (<Alert severity="success">Robot Avoided Crash!</Alert>)}
       <Box
         sx={{
           position: "relative",
@@ -344,7 +438,7 @@ const RobotSim = () => {
             color: "white",
           }}
         >
-          {`Time: ${simTime}`}
+          {`Time: ${simTime}`} {`Explr: ${Math.round( explorationRate.current * 100) / 100}`}
         </Box>
       </Box>
       <Stack
@@ -383,8 +477,13 @@ const RobotSim = () => {
           onChange={(e) => setEpochs(parseInt(e.target.value, 10))}
           sx={{ width: "100px" }}
         />
+        <Button variant="contained" color="primary" disabled = {!isComplete} onClick = {handleRunBestAction}>
+          Run Best Action based on Q-Table
+        </Button>
       </Stack>
       {historicData && <Stack direction = "row" spacing = {2} sx={{ width: "100%" }}>
+        <Stack direction="column" spacing={2}  sx={{ width: "100%" }}>
+          <Typography variant="h6">Historic Simulation Data (Success Per Epoch)</Typography>
         <LineChart
           xAxis={[{ data: historicData && historicData.map((d) => d?.epoch), scaleType: "band" }]}
           series={[
@@ -400,6 +499,7 @@ const RobotSim = () => {
           margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
           height={300}
         />
+        </Stack>
         {/* Table to show the Q table */}
         <TableContainer
           component={Paper}
@@ -418,7 +518,7 @@ const RobotSim = () => {
                 Object.keys(QTable[state]).map((action) => (
                   <TableRow key={`${state}-${action}`}>
                     <TableCell>{state}</TableCell>
-                    <TableCell>{action}</TableCell>
+                    <TableCell>{getActionName(action)}</TableCell>
                     <TableCell>{QTable[state][action]}</TableCell>
                   </TableRow>
                 ))
@@ -437,7 +537,7 @@ const RobotSim = () => {
                   <TableCell>Simulation</TableCell>
                   <TableCell>Crashed</TableCell>
                   <TableCell>Epoch</TableCell>
-                  <TableCell>Perception Range</TableCell>
+                  <TableCell>Speed</TableCell>
                   <TableCell>Scanning Period</TableCell>
                 </TableRow>
               </TableHead>
@@ -447,7 +547,7 @@ const RobotSim = () => {
                     <TableCell>{row.simulation}</TableCell>
                     <TableCell>{row.crashed ? "Yes" : "No"}</TableCell>
                     <TableCell>{row.metadata.epoch}</TableCell>
-                    <TableCell>{row.metadata.perceptionRange}</TableCell>
+                    <TableCell>{row.metadata.speed}</TableCell>
                     <TableCell>{row.metadata.scanningPeriod}</TableCell>
                   </TableRow>
                 ))}
