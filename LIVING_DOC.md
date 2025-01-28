@@ -112,15 +112,15 @@ gz topic -e -t /drive/4/command
 
 ros2 topic pub /swerve_a/rqst_pivot_direction std_msgs/msg/Float64 "{data: 0}"
 
+# Goal 5.5: Simulate the Sensors
 
 # Goal 6: Write basic Robot Control Code 
 
-
+# Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
 
 # Goal 7: Run that code on Raspberry Pi, with simulated Sensors
 
 # Goal 8: Orchestrate Testing from PC to Pi 
-
 
 # Goal 9: Compile Data from Testing to Come to a Conclusion
 
