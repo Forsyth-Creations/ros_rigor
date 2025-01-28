@@ -13,3 +13,20 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./src:/ros2_jazzy/workspace
+
+  isaac:
+    image: nvcr.io/nvidia/isaac-sim:4.2.0
+    container_name: isaac
+    command: ./runheadless.native.sh -v
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - /var/run/utmp:/var/run/utmp
+    network_mode: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
