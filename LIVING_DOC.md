@@ -122,6 +122,28 @@ I think Gazebo has an adapter:
 cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
 ```
 
+## Difference between URDF and SDF
+
+### URDF (Unified Robot Description Format)
+- **Purpose**: Primarily used in ROS (Robot Operating System) to describe the physical configuration of a robot.
+- **Format**: XML-based.
+- **Capabilities**: Defines the kinematic and dynamic properties of the robot, including joints, links, and sensors.
+- **Limitations**: Limited support for advanced simulation features like friction, contact properties, and complex sensor configurations.
+
+### SDF (Simulation Description Format)
+- **Purpose**: Used in Gazebo for detailed simulation of robots and environments.
+- **Format**: XML-based.
+- **Capabilities**: Provides extensive support for simulation features, including friction, contact properties, light sources, and complex sensor configurations.
+- **Advantages**: More comprehensive for simulation purposes, allowing for detailed environmental and physical interactions.
+
+### Conversion
+- **URDF to SDF**: Gazebo provides tools to convert URDF files to SDF for simulation purposes.
+    ```
+    cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
+    ```
+
+In summary, URDF is simpler and used for robot description in ROS, while SDF is more detailed and used for simulation in Gazebo.
+
 # Goal 6: Write basic Robot Control Code 
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
