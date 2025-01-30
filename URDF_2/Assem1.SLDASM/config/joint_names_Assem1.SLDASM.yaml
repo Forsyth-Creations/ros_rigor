@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'Joint_Revolve1', 'Joint_Drive1', 'Joint_Revolve2', 'Joint_Drive2', 'Joint_Revolve3', 'Joint_Drive3', 'Joint_Revolve4', 'Joint_Drive4', 'Camera_pivot', ]
