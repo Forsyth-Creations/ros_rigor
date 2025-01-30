@@ -125,12 +125,14 @@ cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
 ## Difference between URDF and SDF
 
 ### URDF (Unified Robot Description Format)
+
 - **Purpose**: Primarily used in ROS (Robot Operating System) to describe the physical configuration of a robot.
 - **Format**: XML-based.
 - **Capabilities**: Defines the kinematic and dynamic properties of the robot, including joints, links, and sensors.
 - **Limitations**: Limited support for advanced simulation features like friction, contact properties, and complex sensor configurations.
 
 ### SDF (Simulation Description Format)
+
 - **Purpose**: Used in Gazebo for detailed simulation of robots and environments.
 - **Format**: XML-based.
 - **Capabilities**: Provides extensive support for simulation features, including friction, contact properties, light sources, and complex sensor configurations.
