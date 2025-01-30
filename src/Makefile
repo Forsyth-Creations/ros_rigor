@@ -8,9 +8,13 @@ SHELL := /bin/bash
 all: # Builds all the ROS targets
 	# call the no-web
 	$(MAKE) no-web
-	cd web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
-	cd web_controller/web_controller/frontend && npm install -g && npm run build
+
+	cd /ros2_jazzy/workspace/web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
+	cd /ros2_jazzy/workspace/web_controller/web_controller/frontend && npm install -g && npm install && npm run build
 	
+	# Delete the node_modules folder
+	rm -rf web_controller/install/web_controller/share/web_controller/frontend/node_modules
+
 	cd web_controller && colcon build
 
 	# Go into the share and install the modules. A hack, but it works
@@ -52,3 +56,4 @@ clean: # Cleans all the ROS targets
 	cd web_controller/web_controller/backend && rm -rf .venv
 	cd web_controller && rm -rf build install log
 	rm -f setup_env.sh
+	rm -rf web_controller/install/web_controller/share/web_controller/frontend/node_modules

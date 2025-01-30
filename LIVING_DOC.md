@@ -114,6 +114,14 @@ ros2 topic pub /swerve_a/rqst_pivot_direction std_msgs/msg/Float64 "{data: 0}"
 
 # Goal 5.5: Simulate the Sensors
 
+Going back to some of my previous work, how do I convert urdf to sdf and such? Seems Gazebo uses sdf, and robot_state_publisher uses urdf
+
+I think Gazebo has an adapter:
+
+```
+cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
+```
+
 # Goal 6: Write basic Robot Control Code 
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
