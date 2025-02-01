@@ -1,12 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Button, Slider, CircularProgress, Typography, Alert, Box, Stack } from '@mui/material';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  Slider,
+  CircularProgress,
+  Typography,
+  Alert,
+  Box,
+  Stack,
+} from "@mui/material";
+import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 
 // API Endpoint
-const API_ENDPOINT = 'http://localhost:5000';
+const API_ENDPOINT = "http://localhost:5000";
 
 const RobotController = () => {
   const [error, setError] = useState(null);
@@ -32,26 +40,28 @@ const RobotController = () => {
     onSuccess: (data) => {
       console.log(data);
       setError(null);
-    }
+    },
   });
 
   const moveRobot = () => {
-    console.log(`Moving robot at speed ${speed} with direction ${direction.toFixed(2)} radians`);
-    sendCommandMutation.mutate({ speed : speed / 100, direction });
+    console.log(
+      `Moving robot at speed ${speed} with direction ${direction.toFixed(2)} radians`,
+    );
+    sendCommandMutation.mutate({ speed: speed / 100, direction });
   };
 
   const stopRobot = () => {
-    console.log('Emergency Stop');
+    console.log("Emergency Stop");
     sendCommandMutation.mutate({ direction: 0, speed: 0 });
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', (event) => {
-      if (event.key === ' ') stopRobot();
+    window.addEventListener("keydown", (event) => {
+      if (event.key === " ") stopRobot();
     });
 
     return () => {
-      window.removeEventListener('keydown', stopRobot);
+      window.removeEventListener("keydown", stopRobot);
     };
   }, [stopRobot]);
 
@@ -67,7 +77,11 @@ const RobotController = () => {
       </Typography>
 
       {/* Speed Control */}
-      <Stack spacing={2} alignItems="center" sx={{ width: '100%', maxWidth: 400 }}>
+      <Stack
+        spacing={2}
+        alignItems="center"
+        sx={{ width: "100%", maxWidth: 400 }}
+      >
         <Typography variant="body1">Speed: {speed}</Typography>
         <Slider
           value={speed}
@@ -81,8 +95,14 @@ const RobotController = () => {
       </Stack>
 
       {/* Direction Control */}
-      <Stack spacing={2} alignItems="center" sx={{ width: '100%', maxWidth: 400 }}>
-        <Typography variant="body1">Direction: {direction.toFixed(2)} radians</Typography>
+      <Stack
+        spacing={2}
+        alignItems="center"
+        sx={{ width: "100%", maxWidth: 400 }}
+      >
+        <Typography variant="body1">
+          Direction: {direction.toFixed(2)} radians
+        </Typography>
         <Slider
           value={direction}
           onChange={(e, newValue) => setDirection(newValue)}
@@ -96,12 +116,12 @@ const RobotController = () => {
       </Stack>
 
       {/* Direction Gauge */}
-      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <Box sx={{ position: "relative", display: "inline-flex" }}>
         <CircularProgress
           variant="determinate"
           value={((direction + Math.PI) / (2 * Math.PI)) * 100}
           size={120}
-          sx={{ color: 'primary.main' }}
+          sx={{ color: "primary.main" }}
         />
         <Box
           sx={{
@@ -109,10 +129,10 @@ const RobotController = () => {
             left: 0,
             bottom: 0,
             right: 0,
-            position: 'absolute',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Typography variant="h6" component="div" color="textSecondary">
@@ -140,7 +160,7 @@ const RobotController = () => {
         variant="contained"
         color="primary"
         onClick={moveRobot}
-        sx={{ width: 'auto' }}
+        sx={{ width: "auto" }}
       >
         Move Robot
       </Button>

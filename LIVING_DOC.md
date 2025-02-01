@@ -119,7 +119,7 @@ Going back to some of my previous work, how do I convert urdf to sdf and such? S
 I think Gazebo has an adapter:
 
 ```
-cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
+cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes2.sdf
 ```
 
 ## Difference between URDF and SDF
@@ -145,6 +145,22 @@ cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
     ```
 
 In summary, URDF is simpler and used for robot description in ROS, while SDF is more detailed and used for simulation in Gazebo.
+
+https://www.youtube.com/watch?v=tzN0QT1id0M
+
+http://gazebosim.org/docs/latest/migrating_gazebo_classic_ros2_packages/
+
+[text](https://gazebosim.org/api/sim/9/classgz_1_1sim_1_1systems_1_1JointPositionController.html)
+
+https://github.com/lgrvanlieshout/gazebo_camera_example
+
+Validate the sdf:
+
+```
+gz sdf -k your_model.sdf
+
+```
+
 
 # Goal 6: Write basic Robot Control Code 
 

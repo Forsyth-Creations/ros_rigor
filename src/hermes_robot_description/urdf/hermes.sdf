@@ -54,6 +54,7 @@
         </dynamics>
       </axis>
     </joint>
+
     <link name='Revolve1'>
       <pose relative_to='Joint_Revolve1'>0 0 0 0 0 0</pose>
       <inertial>
@@ -91,6 +92,137 @@
         </material>
       </visual>
     </link>
+    <!-- Camera Section -->
+
+    <frame name='CameraVisionJoint' attached_to='Joint_Camera_pivot'>
+      <pose>-0.0545 0.002307 -0.016858999999999999 0 0 0</pose>
+    </frame>
+    <frame name='CameraVision' attached_to='CameraVisionJoint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+
+    <!-- A link that connects to the CameraVision frame to use for the sensor -->
+    <link
+      name='CameraVisionLink'>
+      <pose relative_to='CameraVisionJoint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0001</iyy>
+          <iyz>0</iyz>
+          <izz>0.0001</izz>
+        </inertia>
+      </inertial>
+      <collision name='CameraVision_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='CameraVision_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/CameraVision.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.5 0.5 0.5 1</diffuse>
+          <ambient>0.5 0.5 0.5 1</ambient>
+        </material>
+      </visual>
+      <sensor name="camera" type="camera">
+      <pose>0 0 0 -1.57 1.57 0</pose>
+        <always_on>true</always_on>
+        <topic>image_raw</topic>
+        <update_rate>10</update_rate>
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>600</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+      </sensor>
+
+    </link>
+    <!-- Make sure that this link is joined to the actual camera -->
+    <joint name='Joint_Camera' type='fixed'>
+      <pose relative_to='CameraVisionJoint'>0 0 0 0 0 0</pose>
+      <parent>CameraVisionJoint</parent>
+      <child>CameraVisionLink</child>
+    </joint>
+
+    <joint name='Joint_Camera_pivot' type='revolute'>
+      <pose relative_to='base_link'>0.054350000000000002 0.23014999999999999 0.059999999999999998
+        1.5708 0 0</pose>
+      <parent>base_link</parent>
+      <child>Camera_pivot</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>50</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Camera_pivot'>
+      <pose relative_to='Joint_Camera_pivot'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.055593867754101502 -0.00024233084897883099 -0.00329123732557138 0 0 0</pose>
+        <mass>1.28786623127725</mass>
+        <inertia>
+          <ixx>0.000117585603142808</ixx>
+          <ixy>7.7353780384383296e-07</ixy>
+          <ixz>1.1315000572726e-05</ixz>
+          <iyy>0.00079491757869896995</iyy>
+          <iyz>-6.6920151290529904e-07</iyz>
+          <izz>0.00078786742454652796</izz>
+        </inertia>
+      </inertial>
+      <collision name='Camera_pivot_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Camera_pivot.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Camera_pivot_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Camera_pivot.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+
+    <!-- End of Camera Section -->
     <joint name='Joint_Drive1' type='revolute'>
       <pose relative_to='Revolve1'>0.058210999999999999 -0.00088915000000000001 -0.23708000000000001
         0 0 0</pose>
@@ -481,10 +613,14 @@
         </material>
       </visual>
     </link>
+
+    <!-- ####################### Plugin Section ######################### -->
+
     <plugin
       filename="gz-sim-joint-state-publisher-system"
       name="gz::sim::systems::JointStatePublisher">
     </plugin>
+
     <plugin
       filename="gz-sim-pose-publisher-system"
       name="gz::sim::systems::PosePublisher">
@@ -493,20 +629,6 @@
       <static_publisher>true</static_publisher>
       <static_update_frequency>1</static_update_frequency>
     </plugin>
-
-    <!-- <plugin
-      filename="gz-sim-odometry-publisher-system"
-      name="gz::sim::systems::OdometryPublisher">
-      <odom_frame>diff_drive/odom</odom_frame>
-      <robot_base_frame>diff_drive</robot_base_frame>
-    </plugin> -->
-    <!-- Use a plugin to control one of my motors -->
-    <!-- <plugin name="hermes_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/hermes_robot_description</robotNamespace>
-      <robotParam>robot_description</robotParam>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <controlPeriod>0.001</controlPeriod>
-    </plugin> -->
 
     <!--  Drive motor joint controllers -->
     <plugin
@@ -614,6 +736,20 @@
       name="gz::sim::systems::JointPositionController">
       <joint_name>Joint_Revolve4</joint_name>
       <topic>/pivot/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Camera_pivot</joint_name>
+      <topic>/camera/pivot/command</topic>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by
+Stephen Brawner (brawner@gmail.com) 
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
@@ -31,7 +32,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -71,7 +72,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -129,7 +130,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -187,7 +188,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -245,7 +246,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -303,7 +304,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -361,7 +362,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -419,7 +420,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -477,7 +478,7 @@
       <material
         name="">
         <color
-          rgba="0 0 0 1"/>
+          rgba="0 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -507,5 +508,117 @@
       upper="0"
       effort="0"
       velocity="10" />
+  </joint>
+  <link
+    name="Camera_pivot">
+    <inertial>
+      <origin
+        xyz="-0.0555938677541015 -0.000242330848978831 -0.00329123732557138"
+        rpy="0 0 0" />
+      <mass
+        value="1.28786623127725" />
+      <inertia
+        ixx="0.000117585603142808"
+        ixy="7.73537803843833E-07"
+        ixz="1.1315000572726E-05"
+        iyy="0.00079491757869897"
+        iyz="-6.69201512905299E-07"
+        izz="0.000787867424546528" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Camera_pivot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Camera_pivot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Camera_pivot"
+    type="revolute">
+    <origin
+      xyz="0.05435 0.23015 0.06"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Camera_pivot" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <!-- Camera Vision -->
+  <link
+    name="CameraVision">
+    <inertial>
+      <origin
+        xyz="-3.83807569059869E-17 -6.77896212537346E-05 -0.000495383252896442"
+        rpy="0 0 0" />
+      <mass
+        value="0.00122306679751053" />
+      <inertia
+        ixx="2.45260777746173E-08"
+        ixy="1.49835825799552E-22"
+        ixz="-7.43449114089117E-22"
+        iyy="6.15023324061755E-07"
+        iyz="3.26714169017072E-09"
+        izz="6.38451387870187E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/CameraVision.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/CameraVision.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="CameraVisionJoint"
+    type="fixed">
+    <origin
+      xyz="-0.0545 0.002307 -0.016859"
+      rpy="3.1416 0 3.1416" />
+    <parent
+      link="Camera_pivot" />
+    <child
+      link="CameraVision" />
+    <axis
+      xyz="0 0 0" />
   </joint>
 </robot>

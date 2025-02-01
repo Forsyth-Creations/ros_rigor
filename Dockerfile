@@ -91,7 +91,8 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 ENV GZ_VERSION "harmonic"
 ENV GZ_SIM_RESOURCE_PATH "/ros2_jazzy/workspace"
 
-# RUN apt update && apt install ros-jazzy-gazebo-ros-pkgs
+# Install Gazebo ROS packages
+RUN apt update && apt install ros-jazzy-ros-gz
 
 
 # Install nvm

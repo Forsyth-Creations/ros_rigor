@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import {ReactQueryProvider} from "@/wrappers/QueryWrapper";
+import { ReactQueryProvider } from "@/wrappers/QueryWrapper";
+import ForsythTheme from "@/contexts/ThemeProvider";
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -27,9 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ReactQueryProvider>
-          {children}
-        </ReactQueryProvider>
+        <ForsythTheme>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </ForsythTheme>
       </body>
     </html>
   );
