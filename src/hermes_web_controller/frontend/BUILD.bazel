@@ -1,0 +1,57 @@
+
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@npm//src/hermes_web_controller/frontend:vite/package_json.bzl", vite_bin = "bin")
+
+npm_link_all_packages( name = "node_modules" )
+
+CONFIGS = [
+    "vite.config.js",
+    "package.json",
+    "tsconfig.json",
+    "index.html",
+]
+
+BUILD_DEPS = [":node_modules/" + d for d in [
+    "vite",
+    "react",
+    "react-dom",
+    "@mui/material",
+    "@mui/icons-material",
+    "@tanstack/react-query",
+    "cookies-next",
+    "react-toastify",
+    "axios",
+    "@vitejs/plugin-react",
+]]
+
+SRCS = [
+        "src/**/**",
+        "public/**/*.json",
+        "public/**/*.svg",
+        "src/main.jsx"
+    ]
+
+
+copy_to_bin(
+    name = "vite_srcs_export",
+    srcs = glob(SRCS),
+)
+
+vite_bin.vite(
+    name = "vite",
+    srcs = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
+    args = ["build --config vite.config.js"],
+    chdir = package_name(),
+    out_dirs = ["dist"],
+    visibility = ["//visibility:public"],
+)
+
+vite_bin.vite_binary(
+    name = "dev_server",
+    chdir = package_name(),
+    data = glob(SRCS + CONFIGS) + BUILD_DEPS + [":node_modules"],
+    # Under ibazel, let vite hot-reload changed files rather than restart it
+    tags = ["ibazel_notify_changes"],
+    visibility = ["//visibility:public"],
+)

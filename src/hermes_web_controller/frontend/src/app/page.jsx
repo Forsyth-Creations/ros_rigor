@@ -24,7 +24,7 @@ export default function Home() {
       <main className={styles.main}>
         <Stack direction="row" justifyContent={"space-between"}>
           <Typography variant="h4" gutterBottom>
-            Hermes Control
+            Hermes Control 2
           </Typography>
           <DarkModeSwitch />
         </Stack>

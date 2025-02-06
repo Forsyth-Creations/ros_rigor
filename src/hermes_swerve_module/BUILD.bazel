@@ -1,0 +1,19 @@
+load("@com_github_mvukov_rules_ros2//ros2:launch.bzl", "ros2_launch")
+load("@rules_python//python:defs.bzl", "py_binary")
+
+py_binary(
+    name = "swerve_module",
+    srcs = ["hermes_swerve_module/py_talker.py"],
+    deps = [
+        "@ros2_common_interfaces//:py_std_msgs",
+        "@ros2_rclpy//:rclpy",
+    ],
+)
+
+ros2_launch(
+    name = "launch",
+    launch_file = "launch/single_module.launch.py",
+    nodes = [
+        ":swerve_module",
+    ],
+)

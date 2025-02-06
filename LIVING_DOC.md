@@ -122,6 +122,12 @@ I think Gazebo has an adapter:
 cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes2.sdf
 ```
 
+https://github.com/aspect-build/rules_js/releases/tag/v2.1.3
+
+bazel query 'kind("npm", //...)' | grep vite
+
+https://github.com/enso-org/enso/blob/a829bdbc36badb31514ea55de6b295be96c17a2b/app/gui/BUILD.bazel#L6
+
 ## Difference between URDF and SDF
 
 ### URDF (Unified Robot Description Format)

@@ -1,0 +1,9 @@
+alias(
+    name = "frontend",
+    actual = "//src/hermes_web_controller/frontend:dev_server",
+)
+
+alias(
+    name = "frontend_build",
+    actual = "//src/hermes_web_controller/frontend:vite",
+)
