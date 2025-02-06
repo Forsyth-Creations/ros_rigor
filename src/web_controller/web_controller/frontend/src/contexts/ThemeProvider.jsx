@@ -6,7 +6,7 @@ import React, { useContext, useEffect } from "react"; // Import useContext from 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { Box } from "@mui/material";
-import { deepOrange, grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 
 import { setCookie, getCookie } from "cookies-next";
 import { LinearProgress } from "@mui/material";

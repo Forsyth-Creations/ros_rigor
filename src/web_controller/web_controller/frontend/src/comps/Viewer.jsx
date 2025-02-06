@@ -1,4 +1,4 @@
-import { Box, Card, Stack, Typography, Paper, LinearProgress, Tooltip } from "@mui/material";
+import { Box, Stack, Typography, Paper, LinearProgress, Tooltip } from "@mui/material";
 
 function LinearProgressWithLabel(props) {
     return (
@@ -19,7 +19,6 @@ export default function Viewer({
   width = 200,
   height = 200,
   wheel_orientations,
-  ...props
 }) {
   let partialHeight = (height * 5) / 16;
   let partialWidth = width / 4;
@@ -79,7 +78,6 @@ function SingleWheel({
   width,
   sx,
   name,
-  ...props
 }) {
   const commonStyle = {
     width: width,
