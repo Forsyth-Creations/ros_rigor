@@ -7,3 +7,13 @@ alias(
     name = "frontend_build",
     actual = "//src/hermes_web_controller/frontend:vite",
 )
+
+alias(
+    name = "swerve_module",
+    actual = "//src/hermes_swerve_module:swerve_module",
+)
+
+alias(
+    name = "swerve_launch",
+    actual = "//src/hermes_swerve_module:launch",
+)

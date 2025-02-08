@@ -8,5 +8,14 @@ def load_ros2_rules():
     git_repository (
     name = "com_github_mvukov_rules_ros2",
     remote = "https://github.com/mvukov/rules_ros2.git",
-    commit = "4099c8d0acb2f80ce8b50dd64d3081404d6ac6b8"
+    commit = "d2a58aecad179d4664303377bc813dfa755723fb"
+    )
+
+
+def load_ros2_messages():
+
+    git_repository(
+    name = "ros2_sensor_msgs",
+    remote = "https://github.com/ros2/common_interfaces.git",
+    branch = "jazzy",  # Adjust for your ROS 2 version
     )

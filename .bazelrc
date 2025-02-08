@@ -1,0 +1,3 @@
+# build --spawn_strategy=standalone
+# build --strategy=CppCompile=standalone
+# build --python_path=/usr/bin/python3
