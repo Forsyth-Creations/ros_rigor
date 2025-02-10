@@ -92,9 +92,6 @@ const RobotController = () => {
     };
   }, [stopRobot]);
 
-  const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
-
   return (
     <Stack spacing={1} alignItems="center">
       {/* Title */}

@@ -41,7 +41,6 @@ function LinearProgressWithLabel(props) {
 export default function Viewer({
   width = 200,
   height = 200,
-  wheel_orientations,
 }) {
   const { data } = useGetWheelData();
 
