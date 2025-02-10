@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ReactQueryProvider } from "@/wrappers/QueryWrapper";
+
 import ForsythTheme from "@/contexts/ThemeProvider";
 
 import "./globals.css";

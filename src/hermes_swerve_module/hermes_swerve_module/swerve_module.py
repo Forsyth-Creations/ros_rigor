@@ -33,7 +33,7 @@ Fore   = AnsiFore()
 
 # PID Controller Class
 class PIDController:
-    def __init__(self, p, i, d, target, max_output=2.0, min_output=-0.0):
+    def __init__(self, p, i, d, target, max_output=2.0, min_output=-2.0, logger = None):
         self.p = p
         self.i = i
         self.d = d
@@ -42,6 +42,10 @@ class PIDController:
         self.min_output = min_output
         self.prev_error = 0.0
         self.integral = 0.0
+        self.logger = logger
+        
+    def get_logger(self):
+        return self.logger
 
     def compute_move(self, requested_value, actual_value) -> float:
         """
@@ -49,13 +53,14 @@ class PIDController:
         This function should be called at regular intervals to update the PID controller
         """
         error = requested_value - actual_value
+        
         self.integral += error
         derivative = error - self.prev_error
         output = self.p * error + self.i * self.integral + self.d * derivative
         self.prev_error = error
         
         # round to 3 decimal places
-        return round(max(self.min_output, min(self.max_output, output)), 3)
+        return round(output, 3)
 
 
 class Module(Node):
@@ -110,23 +115,24 @@ class Module(Node):
         self.limit_switch_triggered = False
         
         # PID Controller for the drive
-        self.drive_pid_controller = PIDController(p=0.1, i=0.4, d=0.01, target=self.rqst_wheel_speed, max_output=2, min_output=-2)
+        self.drive_pid_controller = PIDController(p=0.1, i=0.4, d=0.01, target=self.rqst_wheel_speed, max_output=2, min_output=-2, logger=self.get_logger())
 
         # PID Controller for the pivot
-        self.pivot_pid_controller = PIDController(p=0.1, i=0.1, d=0.01, target=self.rqst_pivot_angle, max_output=6.28, min_output=0.0)
+        self.pivot_pid_controller = PIDController(p=0.1, i=0.1, d=0.01, target=self.rqst_pivot_angle, max_output=6.28, min_output=0.0, logger=self.get_logger())
         
 
     def set_rqst_wheel_speed(self, speed):
         # Method to set drive speed
         msg = Float64()
         msg.data = speed
-        self.rqst_wheel_speed = speed.data
+        self.rqst_wheel_speed = speed.data / 5
 
     def set_rqst_pivot_direction(self, angle):
         # Method to set pivot angle
         msg = Float64()
         msg.data = angle
         self.rqst_pivot_angle = angle.data
+        self.get_logger().info(f'{self.module_name}: Pivot Angle: {self.rqst_pivot_angle}')
 
 
     def update_encoder_values(self):
@@ -154,7 +160,7 @@ class Module(Node):
         # Update method to be called regularly for control logic
         
         # log some values for me to see
-        # self.get_logger().info(f'{self.module_name}: RPA: {self.rqst_pivot_angle} | RWS: {self.rqst_wheel_speed} | AWS: {self.actual_wheel_speed} | AP: {self.actual_pivot_position}')
+        # self.get_logger().info(f'{self.module_name}: RPA: {self.rqst_pivot_angle} | AP: {self.actual_pivot_position} | RWS: {self.rqst_wheel_speed} | AWS: {self.actual_wheel_speed}')
         
         self.update_encoder_values()
         self.update_limit_switch_()
@@ -173,7 +179,7 @@ class Module(Node):
         self.drive_motor_pub.publish(drive_msg)
         
         # -------------------------- Pivot Wheel --------------------------------------
-        modified_rqst_pivot_angle = max(0, min(6.28, self.rqst_pivot_angle))
+        modified_rqst_pivot_angle = max(-6.28, min(6.28, self.rqst_pivot_angle))
         pivot_output = self.pivot_pid_controller.compute_move(modified_rqst_pivot_angle, self.actual_pivot_position)
         pivot_msg = Float64()
         pivot_msg.data = pivot_output
@@ -184,10 +190,6 @@ class Module(Node):
             self.commanded_wheel_speed = drive_output
             self.commanded_pivot_position = pivot_output
             
-        # Say something on the logger
-        # if self.commanded_pivot_position != self.actual_pivot_position:
-        #     self.get_logger().info(f'{self.module_name}: Pivot Angle: {self.actual_pivot_position}, Requested Pivot Angle: {self.rqst_pivot_angle}, Commanded Pivot Angle: {self.commanded_pivot_position}')
-
 def main(args=None):
     rclpy.init(args=args)
 

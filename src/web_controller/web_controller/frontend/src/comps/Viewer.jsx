@@ -1,70 +1,108 @@
-import { Box, Stack, Typography, Paper, LinearProgress, Tooltip } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Typography,
+  Paper,
+  LinearProgress,
+  Tooltip,
+} from "@mui/material";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
+// Create a hook to pull in the wheel data
+const getWheelData = async () => {
+  const response = await axios.get("http://localhost:5000/swerve_data");
+  return response.data;
+};
+
+const useGetWheelData = () => {
+  return useQuery({
+    queryKey: ["wheelData"],
+    queryFn: getWheelData,
+    refetchInterval: 100, // Poll every 1 second
+  });
+};
 
 function LinearProgressWithLabel(props) {
-    return (
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
-          <LinearProgress variant="determinate" {...props} />
-        </Box>
-        <Box sx={{ minWidth: 20 }}>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            {`${Math.round(props.value)}`}
-          </Typography>
-        </Box>
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ width: "100%", mr: 1 }}>
+        <LinearProgress variant="determinate" {...props} />
       </Box>
-    );
-  }
+      <Box sx={{ minWidth: 20 }}>
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          {`${Math.round(props.value)}`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
 
 export default function Viewer({
   width = 200,
   height = 200,
   wheel_orientations,
 }) {
+  const { data } = useGetWheelData();
+
   let partialHeight = (height * 5) / 16;
   let partialWidth = width / 4;
-
   let commonProps = { height: partialHeight, width: partialWidth };
+
+  function RadiansToDegrees(radians) {
+    return radians * (180 / Math.PI);
+  }
 
   return (
     <Paper sx={{ p: 3 }} variant="outlined">
-      <Box sx={{ position: "relative", width: width, height: height + 120 }}>
-        <SingleWheel
-          actualAngle={wheel_orientations?.w1?.actualAngle}
-          commandedAngle={wheel_orientations?.w1?.commandedAngle}
-          actualSpeed={wheel_orientations?.w1?.actualSpeed}
-          commandedSpeed={wheel_orientations?.w1?.commandedSpeed}
-          sx={{ top: 0, left: 0 }}
-          name="W1"
-          {...commonProps}
-        />
-        <SingleWheel
-          actualAngle={wheel_orientations?.w2?.actualAngle}
-          commandedAngle={wheel_orientations?.w2?.commandedAngle}
-          actualSpeed={wheel_orientations?.w2?.actualSpeed}
-          commandedSpeed={wheel_orientations?.w2?.commandedSpeed}
-          sx={{ top: 0, right: 0 }}
-          name="W2"
-          {...commonProps}
-        />
-        <SingleWheel
-          actualAngle={wheel_orientations?.w3?.actualAngle}
-          commandedAngle={wheel_orientations?.w3?.commandedAngle}
-          actualSpeed={wheel_orientations?.w3?.actualSpeed}
-          commandedSpeed={wheel_orientations?.w3?.commandedSpeed}
-          sx={{ bottom: 0, left: 0 }}
-          name="W3"
-          {...commonProps}
-        />
-        <SingleWheel
-          actualAngle={wheel_orientations?.w4?.actualAngle}
-          commandedAngle={30}
-          actualSpeed={wheel_orientations?.w4?.actualSpeed}
-          commandedSpeed={30}
-          sx={{ bottom: 0, right: 0 }}
-          name="W4"
-          {...commonProps}
-        />
-      </Box>
+      {data && (
+        <Box sx={{ position: "relative", width: width, height: height + 120 }}>
+          <SingleWheel
+            actualAngle={RadiansToDegrees(data.swerve_a.pivot_position)}
+            commandedAngle={RadiansToDegrees(
+              data.swerve_a.requested_pivot_position,
+            )}
+            actualSpeed={data.swerve_a.speed}
+            commandedSpeed={data.swerve_a.requested_speed}
+            sx={{ top: 0, left: 0 }}
+            name="W1"
+            {...commonProps}
+          />
+          <SingleWheel
+            actualAngle={RadiansToDegrees(data.swerve_b.pivot_position)}
+            commandedAngle={RadiansToDegrees(
+              data.swerve_b.requested_pivot_position,
+            )}
+            actualSpeed={data.swerve_b.speed}
+            commandedSpeed={data.swerve_b.requested_speed}
+            sx={{ top: 0, right: 0 }}
+            name="W2"
+            {...commonProps}
+          />
+          <SingleWheel
+            actualAngle={RadiansToDegrees(data.swerve_c.pivot_position)}
+            commandedAngle={RadiansToDegrees(
+              data.swerve_c.requested_pivot_position,
+            )}
+            actualSpeed={data.swerve_c.speed}
+            commandedSpeed={data.swerve_c.requested_speed}
+            sx={{ bottom: 0, left: 0 }}
+            name="W3"
+            {...commonProps}
+          />
+          <SingleWheel
+            actualAngle={RadiansToDegrees(data.swerve_d.pivot_position)}
+            commandedAngle={RadiansToDegrees(
+              data.swerve_d.requested_pivot_position,
+            )}
+            actualSpeed={data.swerve_d.speed}
+            commandedSpeed={data.swerve_d.requested_speed}
+            sx={{ bottom: 0, right: 0 }}
+            name="W4"
+            {...commonProps}
+          />
+        </Box>
+      )}
     </Paper>
   );
 }
@@ -96,8 +134,8 @@ function SingleWheel({
   let borderThickness = 3;
 
   return (
-    <Paper
-      variant="outlined"
+    <Box
+      id={`wheel-${name}`}
       sx={{
         ...sx,
         position: "absolute",
@@ -108,7 +146,7 @@ function SingleWheel({
         gap: 1, // Adds spacing between wheel and gauges
       }}
     >
-      <Box sx={{ position: "relative", ...commonStyle }}>
+      <Box sx={{ position: "relative", ...commonStyle, border: null }}>
         <Paper
           elevation={0}
           variant="outlined"
@@ -121,9 +159,7 @@ function SingleWheel({
           }}
           id={`wheel-${name}-actualAngle`}
         >
-          <Typography  align="center">
-            {name}
-          </Typography>
+          <Typography align="center">{name}</Typography>
         </Paper>
         {error && (
           <Paper
@@ -145,10 +181,10 @@ function SingleWheel({
         sx={{ display: "flex", width: "50px", justifyContent: "space-around" }}
       >
         <Tooltip title="Actual Speed">
-                <LinearProgressWithLabel variant="determinate" value={actualSpeed} />
+          <LinearProgressWithLabel variant="determinate" value={actualSpeed} />
         </Tooltip>
-                <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
+        <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
       </Stack>
-    </Paper>
+    </Box>
   );
 }
