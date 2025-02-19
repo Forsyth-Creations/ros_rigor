@@ -161,8 +161,32 @@ gz sdf -k your_model.sdf
 
 ```
 
+# Goal 6: Write basic Robot Control Code, which is just NAV2 Integration
 
-# Goal 6: Write basic Robot Control Code 
+To start, I'm going to deploy the Turtlebot sim with Nav2 and see what I can learn about it's structure to add to my own. I suspect this will take some time, I'll detail my findings below:
+
+## My TF structure
+
+<div style="background-color: white;">
+    <img src="assets/Goal6/frames_2025-02-18_15.22.27.svg" alt="Image 1"/>
+</div>
+
+## Their TF structure
+
+<div style="background-color: white;">
+    <img src="assets/Goal6/frames_2025-02-19_10.24.29.svg" alt="Image 2"/>
+</div>
+
+How do I get map/odom? Do I have to do it within the robot code?
+
+```
+ros2 run tf2_tools view_frames
+```
+
+![Odom In](assets/Goal6/odomIn.png)
+
+Composition for embedded
+
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
 

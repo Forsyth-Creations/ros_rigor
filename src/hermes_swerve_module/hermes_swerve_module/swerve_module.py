@@ -132,7 +132,7 @@ class Module(Node):
         msg = Float64()
         msg.data = angle
         self.rqst_pivot_angle = angle.data
-        self.get_logger().info(f'{self.module_name}: Pivot Angle: {self.rqst_pivot_angle}')
+        # self.get_logger().info(f'{self.module_name}: Pivot Angle: {self.rqst_pivot_angle}')
 
 
     def update_encoder_values(self):

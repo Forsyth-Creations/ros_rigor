@@ -128,4 +128,7 @@ RUN /venv/bin/pip install catkin-pkg pyyaml
 # make a home command to go to the workspace
 RUN echo "home () { cd /ros2_jazzy/workspace; }" >> ~/.bashrc
 
+# Install nav2
+RUN apt update && apt install ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-nav2-minimal-tb* -y
+
 WORKDIR /ros2_jazzy/workspace

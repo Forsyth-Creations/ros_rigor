@@ -109,7 +109,6 @@ class RobotAbstraction(Node):
         try:
             self.pivot_direction.publish(Float64(data=direction))
             self.wheel_speed.publish(Float64(data=speed))
-            self.get_logger().info(f"Published: direction={direction}, speed={speed}")
         except Exception as e:
             self.get_logger().error(f"{Fore.RED}Error: {e}{Fore.RESET}")
 
