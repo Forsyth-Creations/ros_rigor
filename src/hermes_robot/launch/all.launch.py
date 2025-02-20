@@ -88,6 +88,17 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(robot_controller_launch_path)
     )
     
+    # --------- Nav2 Launch File ----------------
+    nav2_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'nav2.launch.py'
+    )        
+    
+    # nav2_launch = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(nav2_launch_path)
+    # )
+    
     # Add the action to the LaunchDescription
     ld.add_action(world_launch)
     ld.add_action(robot_launch)
@@ -96,5 +107,6 @@ def generate_launch_description():
     ld.add_action(robot_controller_launch)
     ld.add_action(web_controller_launch)
     ld.add_action(hermes_controller)
+    # ld.add_action(nav2_launch)
 
     return ld

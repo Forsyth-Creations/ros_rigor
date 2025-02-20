@@ -3,7 +3,7 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Float64
+from std_msgs.msg import String, Float64, Int8
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -43,6 +43,7 @@ app.add_middleware(
 class Move(BaseModel):
     direction: float
     speed: float
+    mode: Optional[str] = "Standard"
 
 
 # ROS 2 Node setup
@@ -51,6 +52,7 @@ class RobotAbstraction(Node):
         super().__init__('robot_controller_web')
         self.wheel_speed = self.create_publisher(Float64, '/hermes/rqst_wheel_speed', 10)
         self.pivot_direction = self.create_publisher(Float64, '/hermes/rqst_pivot_direction', 10)
+        self.mode_selection = self.create_publisher(Int8, '/hermes/mode', 10)
         self.get_logger().info("RobotAbstraction Node has been started.")
         
         # Subscribe to all swerve modules, A, B, C, D
@@ -105,10 +107,17 @@ class RobotAbstraction(Node):
         return callback
     
 
-    def publish_move(self, direction, speed):
+    def publish_move(self, direction, speed, mode="Standard"):
         try:
             self.pivot_direction.publish(Float64(data=direction))
             self.wheel_speed.publish(Float64(data=speed))
+            # The mode is either "Standard" or "OnADime"
+            mapping = { "Standard": 0, "OnADime": 1 }
+            # if not in the mapping, log an error
+            if mode not in mapping:
+                self.get_logger().error(f"{Fore.RED}Error: Mode {mode} not recognized. Must be either 'Standard' or 'OnADime'{Fore.RESET}")
+                return
+            self.mode_selection.publish(Int8(data=mapping[mode]))
         except Exception as e:
             self.get_logger().error(f"{Fore.RED}Error: {e}{Fore.RESET}")
 
@@ -130,11 +139,10 @@ ros_thread.start()
 @app.post("/move")
 def move(moveCommand: Move):
     # Publish the move command to ROS 2
-    direction = moveCommand.direction
-    speed = moveCommand.speed
-    node.publish_move(direction, speed)
+    print(f"Move command received: {moveCommand}")
+    node.publish_move(moveCommand.direction, moveCommand.speed, moveCommand.mode)
 
-    return {"message": "Move command received", "direction": direction, "speed": speed}
+    return {"message": "Move command received", "direction": moveCommand.direction, "speed": moveCommand.speed, "mode": moveCommand.mode}
 
 
 # Return all the position data

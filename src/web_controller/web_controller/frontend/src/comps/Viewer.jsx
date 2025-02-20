@@ -41,6 +41,7 @@ function LinearProgressWithLabel(props) {
 export default function Viewer({
   width = 200,
   height = 200,
+  showProjected = true,
 }) {
   const { data } = useGetWheelData();
 
@@ -54,31 +55,39 @@ export default function Viewer({
 
   return (
     <Paper sx={{ p: 3 }} variant="outlined">
+      <Box sx = {{width : "100%"}}>
+        <Typography variant="h5" align="center">
+          Camera
+        </Typography>
+        </Box>
       {data && (
         <Box sx={{ position: "relative", width: width, height: height + 120 }}>
           <SingleWheel
+            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_a.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_a.requested_pivot_position,
             )}
             actualSpeed={data.swerve_a.speed}
             commandedSpeed={data.swerve_a.requested_speed}
-            sx={{ top: 0, left: 0 }}
-            name="W1"
+            sx={{ top: 0, right: 0 }}
+            name="A"
             {...commonProps}
           />
           <SingleWheel
+            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_b.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_b.requested_pivot_position,
             )}
             actualSpeed={data.swerve_b.speed}
             commandedSpeed={data.swerve_b.requested_speed}
-            sx={{ top: 0, right: 0 }}
-            name="W2"
+            sx={{ bottom: 0, right: 0 }}
+            name="B"
             {...commonProps}
           />
           <SingleWheel
+            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_c.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_c.requested_pivot_position,
@@ -86,18 +95,19 @@ export default function Viewer({
             actualSpeed={data.swerve_c.speed}
             commandedSpeed={data.swerve_c.requested_speed}
             sx={{ bottom: 0, left: 0 }}
-            name="W3"
+            name="C"
             {...commonProps}
           />
           <SingleWheel
+            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_d.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_d.requested_pivot_position,
             )}
             actualSpeed={data.swerve_d.speed}
             commandedSpeed={data.swerve_d.requested_speed}
-            sx={{ bottom: 0, right: 0 }}
-            name="W4"
+            sx={{ top: 0, left: 0 }}
+            name="D"
             {...commonProps}
           />
         </Box>
@@ -115,6 +125,7 @@ function SingleWheel({
   width,
   sx,
   name,
+  showProjected,
 }) {
   const commonStyle = {
     width: width,
@@ -160,7 +171,7 @@ function SingleWheel({
         >
           <Typography align="center">{name}</Typography>
         </Paper>
-        {error && (
+        {error && showProjected && (
           <Paper
             elevation={0}
             variant="outlined"

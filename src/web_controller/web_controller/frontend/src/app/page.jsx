@@ -2,7 +2,7 @@
 
 import Controller from "@/comps/Controller";
 import styles from "./page.module.css";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { DarkmodeContext } from "@/contexts/ThemeProvider.jsx";
 
@@ -19,6 +19,9 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 
 export default function Home() {
+
+  const [mode, setMode] = useState("Standard"); // options are "Standard" or "OnADime"
+  
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -30,9 +33,9 @@ export default function Home() {
         </Stack>
         <Divider />
         <Stack direction="row" spacing={3}>
-          <Controller />
+          <Controller mode={mode} setMode={setMode} />
           <Divider orientation="vertical" flexItem />
-          <Viewer wheel_orientations={[0, 0, 0, 0]} />
+          <Viewer wheel_orientations={[0, 0, 0, 0]} showProjected={mode == "Standard"} />
         </Stack>
       </main>
     </div>

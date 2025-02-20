@@ -6,7 +6,7 @@
 # include the other packages
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Int8
 from nav_msgs.msg import Odometry
 import tf2_ros
 from geometry_msgs.msg import TransformStamped
@@ -20,6 +20,7 @@ class ConnectionManager():
     def __init__(self):
         self.pivot_publishers : list = []
         self.drive_publishers : list = []
+        self.mode_publishers : list = []
 
 class Robot(Node):
     def __init__(self, name):
@@ -77,7 +78,7 @@ class Robot(Node):
         self.y = 0.0
         self.th = 0.0
         self.vx = 0.1  # Example linear velocity
-        self.vth = 0.1  # Example angular velocity
+        self.vth = 0.0  # Example angular velocity
         
         
         self.wheel_positions = [0.0, 0.0, 0.0, 0.0]
@@ -91,6 +92,19 @@ class Robot(Node):
             self.create_subscription(Float64, f'/{prefix}/pivot_position', self.pivot_position_callback(prefix), 10)
             self.create_subscription(Float64, f'/{prefix}/wheel_speed', self.wheel_speed_callback(prefix), 10)
         
+        self.control_mode = 0
+        self.mode_sub = self.create_subscription(Int8, f'/{self.module_name}/mode', self.mode_callback, 10)
+        
+        # Create the mode publishers
+        for module in self.module_topic_prefixes:
+            self.mode_pub = self.create_publisher(Int8, f'/{module}/rqst_mode', 10)
+            self.connections.mode_publishers.append(self.mode_pub)
+        
+    def mode_callback(self, msg):
+        # Request the mode from the swerve modules
+        self.control_mode = msg.data
+        for module in self.connections.mode_publishers:
+            module.publish(msg)
         
     def wheel_speed_callback(self, prefix):
         def callback(msg):
@@ -106,7 +120,6 @@ class Robot(Node):
     def update_odometry(self):
         dt = 0.1  # Timer period
         
-
         # Calculate the average wheel speed and pivot position
         avg_wheel_position = sum(self.wheel_positions) / len(self.wheel_positions)
         avg_pivot_position = sum(self.pivot_positions) / len(self.pivot_positions)
@@ -116,50 +129,90 @@ class Robot(Node):
         self.previous_avg_wheel_speed = avg_wheel_position
         
         wheel_size = 0.18  # Diameter of the wheel in meters
-
-        # Update velocities based on wheel speeds and pivot positions
         speed_considering_wheel_size = avg_wheel_speed * wheel_size
-        # self.vth = avg_wheel_speed * sin(avg_pivot_position) # vth is hte angular velocity
-        
-        # Update pose
-        self.x += (speed_considering_wheel_size * sin(avg_pivot_position)) * dt
-        self.y += (speed_considering_wheel_size * cos(avg_pivot_position)) * dt
-        # self.th += self.vth * dt
-        self.th = 0
-        
-        # Create a dummy pose message
         odom = Odometry()
-        odom.header.stamp = self.get_clock().now().to_msg()
-        odom.header.frame_id = 'odom'
-        odom.child_frame_id = 'base_link'
-        odom.pose.pose.position.x = self.x
-        odom.pose.pose.position.y = self.y
-        odom.pose.pose.position.z = 0.0
-        
-        # Create a quaternion from the yaw angle
-        odom.pose.pose.orientation.x = 0.0
-        odom.pose.pose.orientation.y = 0.0
-        odom.pose.pose.orientation.z = 0.0
-        odom.pose.pose.orientation.w = 0.0
-        
-        # Publish the message
-        self.odom_pub.publish(odom)
-        
-        # Create a transform message
         t = TransformStamped()
-        t.header.stamp = self.get_clock().now().to_msg()
-        t.header.frame_id = 'odom'
-        t.child_frame_id = 'base_link'
-        t.transform.translation.x = self.x
-        t.transform.translation.y = self.y
-        t.transform.translation.z = 0.0
-        t.transform.rotation.x = 0.0
-        t.transform.rotation.y = 0.0
-        t.transform.rotation.z = sin(self.th / 2)
-        t.transform.rotation.w = cos(self.th / 2)
         
-        # Publish the transform
-        self.tf_broadcaster.sendTransform(t)
+        if (self.control_mode == 1): # on-a-dime movement
+            # This will only impart a change in angular velocity
+            
+            # Calculate the angular velocity
+            self.vth = speed_considering_wheel_size * cos(avg_pivot_position)
+            
+            # Update pose
+            self.th += self.vth * dt
+            
+            # Create the pose
+            odom.header.stamp = self.get_clock().now().to_msg()
+            odom.header.frame_id = 'odom'
+            odom.child_frame_id = 'base_footprint'
+            odom.pose.pose.position.x = self.x
+            odom.pose.pose.position.y = self.y
+            odom.pose.pose.position.z = 0.0
+            
+            # Create a quaternion from the yaw angle
+            odom.pose.pose.orientation.x = 0.0
+            odom.pose.pose.orientation.y = 0.0
+            odom.pose.pose.orientation.z = sin(self.th / 2)
+            odom.pose.pose.orientation.w = cos(self.th / 2)
+            
+            # Publish the message
+            self.odom_pub.publish(odom)
+            
+            # Create a transform message
+            t.header.stamp = self.get_clock().now().to_msg()
+            t.header.frame_id = 'odom'
+            t.child_frame_id = 'base_footprint'
+            t.transform.translation.x = self.x
+            t.transform.translation.y = self.y
+            t.transform.translation.z = 0.0
+            t.transform.rotation.x = 0.0
+            t.transform.rotation.y = 0.0
+            t.transform.rotation.z = sin(self.th / 2)
+            t.transform.rotation.w = cos(self.th / 2)
+            
+            # Publish the transform
+            self.tf_broadcaster.sendTransform(t)
+            
+        elif (self.control_mode == 0): # standard movement
+            
+            # Update pose
+            self.x += (speed_considering_wheel_size * sin(avg_pivot_position)) * dt
+            self.y += (speed_considering_wheel_size * cos(avg_pivot_position)) * dt
+            # self.th += self.vth * dt
+            self.th = 0
+            
+            # Create the pose
+            odom.header.stamp = self.get_clock().now().to_msg()
+            odom.header.frame_id = 'odom'
+            odom.child_frame_id = 'base_footprint'
+            odom.pose.pose.position.x = self.x
+            odom.pose.pose.position.y = self.y
+            odom.pose.pose.position.z = 0.0
+            
+            # Create a quaternion from the yaw angle
+            odom.pose.pose.orientation.x = 0.0
+            odom.pose.pose.orientation.y = 0.0
+            odom.pose.pose.orientation.z = 0.0
+            odom.pose.pose.orientation.w = 0.0
+            
+            # Publish the message
+            self.odom_pub.publish(odom)
+            
+            # Create a transform message
+            t.header.stamp = self.get_clock().now().to_msg()
+            t.header.frame_id = 'odom'
+            t.child_frame_id = 'base_footprint'
+            t.transform.translation.x = self.x
+            t.transform.translation.y = self.y
+            t.transform.translation.z = 0.0
+            t.transform.rotation.x = 0.0
+            t.transform.rotation.y = 0.0
+            t.transform.rotation.z = sin(self.th / 2)
+            t.transform.rotation.w = cos(self.th / 2)
+            
+            # Publish the transform
+            self.tf_broadcaster.sendTransform(t)
 
     def set_rqst_pivot_direction(self, msg):
         self.rqst_pivot_position = msg.data

@@ -24,7 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 // API Endpoint
 const API_ENDPOINT = "http://localhost:5000";
 
-const RobotController = () => {
+const RobotController = ({mode, setMode}) => {
   const [error, setError] = useState(null);
   const [speed, setSpeed] = useState(50); // Default speed value
   const [direction, setDirection] = useState(0); // Default direction in radians
@@ -33,9 +33,9 @@ const RobotController = () => {
   // A useEffect so that, when the live update is enabled, the robot command changes, and the speed and direction are updated
   useEffect(() => {
     if (enableLiveUpdate) {
-      sendCommandMutation.mutate({ speed: speed / 100, direction });
+      sendCommandMutation.mutate({ speed: speed / 100, direction, mode });
     }
-  }, [enableLiveUpdate, speed, direction]);
+  }, [enableLiveUpdate, speed, direction, mode]);
 
   const sendCommand = async (command) => {
     try {
@@ -63,15 +63,25 @@ const RobotController = () => {
     console.log(
       `Moving robot at speed ${speed} with direction ${direction.toFixed(2)} radians`,
     );
-    sendCommandMutation.mutate({ speed: speed / 100, direction });
+    sendCommandMutation.mutate({ speed: speed / 100, direction, mode });
   };
 
   const stopRobot = () => {
     console.log("Emergency Stop");
-    sendCommandMutation.mutate({ direction: 0, speed: 0 });
+    sendCommandMutation.mutate({ direction: 0, speed: 0, mode : "Standard" });
     // set the speed and direction to 0
     setSpeed(0);
     setDirection(0);
+  };
+
+  const changeMode = () => {
+    if (mode === "Standard") {
+      console.log("Changing mode to OnADime");
+      setMode("OnADime");
+    } else {
+      console.log("Changing mode to Standard");
+      setMode("Standard");
+    }
   };
 
   const setDefaultSpeed = (value) => {
@@ -250,6 +260,17 @@ const RobotController = () => {
       >
         Move Robot
       </Button>
+
+      {/* Change Mode */}
+      <Button
+        variant="contained"
+        onClick={changeMode}
+        fullWidth
+        color = {mode === "Standard" ? "primary" : "secondary"}
+      >
+        {mode}
+      </Button>
+
       <Tooltip title="Enable Live Update">
         <Switch checked={enableLiveUpdate} onChange={(event) => setEnableLiveUpdate(event.target.checked)} />
       </Tooltip>
