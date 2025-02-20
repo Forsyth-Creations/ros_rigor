@@ -136,8 +136,9 @@ class Robot(Node):
         if (self.control_mode == 1): # on-a-dime movement
             # This will only impart a change in angular velocity
             
+            
             # Calculate the angular velocity
-            self.vth = speed_considering_wheel_size * cos(avg_pivot_position)
+            self.vth = -speed_considering_wheel_size * cos(avg_pivot_position)
             
             # Update pose
             self.th += self.vth * dt

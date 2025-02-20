@@ -52,7 +52,7 @@ def generate_launch_description():
         namespace="swerve_d",
         output="screen",
         parameters=[
-            {"module_name": "swerve_d", "dime_angle": 0.785, "invert_drive_motor": True}
+            {"module_name": "swerve_d", "dime_angle": 0.785, "invert_drive_for_dime": True}
         ],
     )
 

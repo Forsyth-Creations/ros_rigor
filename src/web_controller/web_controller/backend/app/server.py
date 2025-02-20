@@ -139,7 +139,6 @@ ros_thread.start()
 @app.post("/move")
 def move(moveCommand: Move):
     # Publish the move command to ROS 2
-    print(f"Move command received: {moveCommand}")
     node.publish_move(moveCommand.direction, moveCommand.speed, moveCommand.mode)
 
     return {"message": "Move command received", "direction": moveCommand.direction, "speed": moveCommand.speed, "mode": moveCommand.mode}
