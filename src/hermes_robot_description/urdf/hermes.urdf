@@ -163,7 +163,7 @@ Stephen Brawner (brawner@gmail.com)
     <child
       link="Drive1" />
     <axis
-      xyz="-0.99995 0.0098663 0" />
+      xyz="1 0 0" />
     <limit
       lower="0"
       upper="0"
@@ -279,13 +279,14 @@ Stephen Brawner (brawner@gmail.com)
     <child
       link="Drive2" />
     <axis
-      xyz="0.99997 -0.0074916 0" />
+      xyz="1 0 0" />
     <limit
       lower="0"
       upper="0"
       effort="0"
       velocity="10" />
   </joint>
+  <!-- Revolve 3 -->
   <link
     name="Revolve3">
     <inertial>
@@ -305,7 +306,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 -1.57 3.14" />
       <geometry>
         <mesh
           filename="package://hermes_robot_description/meshes/Revolve3.STL" />
@@ -331,13 +332,13 @@ Stephen Brawner (brawner@gmail.com)
     type="continuous">
     <origin
       xyz="-0.14293 -0.16281 0.080887"
-      rpy="3.1416 -1.5708 0" />
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="Revolve3" />
     <axis
-      xyz="-1 0 0" />
+      xyz="0 0 -1" />
     <limit
       lower="-6.28"
       upper="6.28"
@@ -363,7 +364,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 -1.57 0" />
       <geometry>
         <mesh
           filename="package://hermes_robot_description/meshes/Drive3.STL" />
@@ -388,14 +389,14 @@ Stephen Brawner (brawner@gmail.com)
     name="Joint_Drive3"
     type="continuous">
     <origin
-      xyz="-0.23708 -0.0003149 -0.061783"
+      xyz="0.061783 -0.00014808 -0.23708"
       rpy="0 0 0" />
     <parent
       link="Revolve3" />
     <child
       link="Drive3" />
     <axis
-      xyz="0 -0.010191 -0.99995" />
+      xyz="1 0 0" />
     <limit
       lower="0"
       upper="0"
@@ -511,7 +512,7 @@ Stephen Brawner (brawner@gmail.com)
     <child
       link="Drive4" />
     <axis
-      xyz="-0.99998 -0.0068655 0" />
+      xyz="1 0 0" />
     <limit
       lower="0"
       upper="0"

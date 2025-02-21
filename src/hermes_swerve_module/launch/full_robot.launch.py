@@ -25,7 +25,6 @@ def generate_launch_description():
             {
                 "module_name": "swerve_b",
                 "dime_angle": 0.785,
-                "invert_drive_motor": True,
             }
         ],  # Invert the drive motor
     )

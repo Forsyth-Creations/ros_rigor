@@ -178,8 +178,8 @@ class Robot(Node):
         elif (self.control_mode == 0): # standard movement
             
             # Update pose
-            self.x += (speed_considering_wheel_size * sin(avg_pivot_position)) * dt
-            self.y += (speed_considering_wheel_size * cos(avg_pivot_position)) * dt
+            self.x -= (speed_considering_wheel_size * sin(avg_pivot_position)) * dt
+            self.y -= (speed_considering_wheel_size * cos(avg_pivot_position)) * dt
             # self.th += self.vth * dt
             self.th = 0
             
