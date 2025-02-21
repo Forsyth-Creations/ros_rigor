@@ -72,6 +72,7 @@ export default function Viewer({
             commandedSpeed={data.swerve_a.requested_speed}
             sx={{ top: 0, right: 0 }}
             name="A"
+            jointName="1"
             {...commonProps}
           />
           <SingleWheel
@@ -84,6 +85,7 @@ export default function Viewer({
             commandedSpeed={data.swerve_b.requested_speed}
             sx={{ bottom: 0, right: 0 }}
             name="B"
+            jointName="2"
             {...commonProps}
           />
           <SingleWheel
@@ -96,6 +98,7 @@ export default function Viewer({
             commandedSpeed={data.swerve_c.requested_speed}
             sx={{ bottom: 0, left: 0 }}
             name="C"
+            jointName="3"
             {...commonProps}
           />
           <SingleWheel
@@ -108,6 +111,7 @@ export default function Viewer({
             commandedSpeed={data.swerve_d.requested_speed}
             sx={{ top: 0, left: 0 }}
             name="D"
+            jointName="4"
             {...commonProps}
           />
         </Box>
@@ -126,6 +130,7 @@ function SingleWheel({
   sx,
   name,
   showProjected,
+  jointName = "Unknown"
 }) {
   const commonStyle = {
     width: width,
@@ -145,56 +150,57 @@ function SingleWheel({
 
   return (
     <Box
-      id={`wheel-${name}`}
-      sx={{
-        ...sx,
-        position: "absolute",
-        p: "20px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 1, // Adds spacing between wheel and gauges
-      }}
-    >
-      <Box sx={{ position: "relative", ...commonStyle, border: null }}>
-        <Paper
-          elevation={0}
-          variant="outlined"
-          sx={{
-            ...commonStyle,
-            position: "absolute",
-            transform: `rotate(${actualAngle}deg)`,
-            borderColor: error ? "blue" : "green",
-            borderWidth: borderThickness,
-          }}
-          id={`wheel-${name}-actualAngle`}
-        >
-          <Typography align="center">{name}</Typography>
-        </Paper>
-        {error && showProjected && (
+        id={`wheel-${name}`}
+        sx={{
+          ...sx,
+          position: "absolute",
+          p: "20px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 1, // Adds spacing between wheel and gauges
+        }}
+      >
+        <Tooltip title={`Joint: ${jointName}`}>
+        <Box sx={{ position: "relative", ...commonStyle, border: null }}>
           <Paper
             elevation={0}
             variant="outlined"
             sx={{
               ...commonStyle,
               position: "absolute",
-              transform: `rotate(${commandedAngle}deg)`,
-              borderColor: "red",
+              transform: `rotate(${actualAngle}deg)`,
+              borderColor: error ? "blue" : "green",
               borderWidth: borderThickness,
             }}
-            id={`wheel-${name}-commandedAngle`}
-          />
-        )}
-      </Box>
-
-      <Stack
-        sx={{ display: "flex", width: "50px", justifyContent: "space-around" }}
-      >
-        <Tooltip title="Actual Speed">
-          <LinearProgressWithLabel variant="determinate" value={actualSpeed} />
+            id={`wheel-${name}-actualAngle`}
+          >
+            <Typography align="center">{name}</Typography>
+          </Paper>
+          {error && showProjected && (
+            <Paper
+              elevation={0}
+              variant="outlined"
+              sx={{
+                ...commonStyle,
+                position: "absolute",
+                transform: `rotate(${commandedAngle}deg)`,
+                borderColor: "red",
+                borderWidth: borderThickness,
+              }}
+              id={`wheel-${name}-commandedAngle`}
+            />
+          )}
+        </Box>
         </Tooltip>
-        <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
-      </Stack>
-    </Box>
+        <Stack
+          sx={{ display: "flex", width: "50px", justifyContent: "space-around" }}
+        >
+          <Tooltip title="Actual Speed">
+            <LinearProgressWithLabel variant="determinate" value={actualSpeed} />
+          </Tooltip>
+          <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
+        </Stack>
+      </Box>
   );
 }

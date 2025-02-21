@@ -2,8 +2,8 @@
   <model name='hermes_robot_description'>
     <link name='base_link'>
       <inertial>
-        <pose>-2.10371551824301e-07 -6.0231545449449496e-08 0.043578955199602101 0 0 0</pose>
-        <mass>5.7729702362967998</mass>
+        <pose>-2.10371551824301e-07 -6.0231545449449496e-08 1 0 0 0</pose>
+        <mass>50</mass>
         <inertia>
           <ixx>0.026144234576652801</ixx>
           <ixy>2.8287760889677301e-06</ixy>
@@ -31,8 +31,8 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
@@ -43,7 +43,7 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -87,8 +87,8 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
@@ -139,7 +139,7 @@
         </material>
       </visual>
       <sensor name="camera" type="camera">
-      <pose>0 0 0 -1.57 1.57 0</pose>
+        <pose>0 0 0 -1.57 1.57 0</pose>
         <always_on>true</always_on>
         <topic>image_raw</topic>
         <update_rate>10</update_rate>
@@ -252,7 +252,7 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -295,11 +295,12 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
+
     <joint name='Joint_Revolve2' type='revolute'>
       <pose relative_to='base_link'>0.14237 -0.16281000000000001 0.080887000000000001 0 0 0</pose>
       <parent>base_link</parent>
@@ -307,7 +308,7 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -350,8 +351,8 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
@@ -363,7 +364,7 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -406,20 +407,20 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
+    <!-- End of Joint 2 -->
     <joint name='Joint_Revolve3' type='revolute'>
-      <pose relative_to='base_link'>-0.14293 -0.16281000000000001 0.080887000000000001
-        7.3464102064341006e-06 -1.5707926536057681 -3.1415926535897931</pose>
+      <pose relative_to='base_link'>-0.14293 -0.16281000000000001 0.080887000000000001 0 0 0</pose>
       <parent>base_link</parent>
       <child>Revolve3</child>
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -454,7 +455,7 @@
         </geometry>
       </collision>
       <visual name='Revolve3_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 3.1400000000000001 -1.5707963267948966 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -462,20 +463,20 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
     <joint name='Joint_Drive3' type='revolute'>
-      <pose relative_to='Revolve3'>-0.23708000000000001 -0.00031490000000000001
-        -0.061782999999999998 0 0 0</pose>
+      <pose relative_to='Revolve3'>0.061782999999999998 -0.00014808000000000001 -0.23708000000000001
+        0 0 0</pose>
       <parent>Revolve3</parent>
       <child>Drive3</child>
       <axis>
-        <xyz>0 -0.010191 -0.99995000000000001</xyz>
+        <xyz>1 0 0</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -510,7 +511,7 @@
         </geometry>
       </collision>
       <visual name='Drive3_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 0 -1.5707963267948966 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -518,11 +519,13 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
+
+    <!-- Joint 4 -->
     <joint name='Joint_Revolve4' type='revolute'>
       <pose relative_to='base_link'>-0.14237 0.16281000000000001 0.080887000000000001 0 0 0</pose>
       <parent>base_link</parent>
@@ -530,7 +533,7 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -573,8 +576,8 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
@@ -584,9 +587,9 @@
       <parent>Revolve4</parent>
       <child>Drive4</child>
       <axis>
-        <xyz>-0.99997999999999998 -0.0068655000000000001 0</xyz>
+        <xyz>1 0 0</xyz>
         <limit>
-          <effort>500</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -629,8 +632,8 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0 0 0 1</diffuse>
-          <ambient>0 0 0 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
     </link>
