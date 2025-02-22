@@ -2,7 +2,7 @@
   <model name='hermes_robot_description'>
     <link name='base_link'>
       <inertial>
-        <pose>-2.10371551824301e-07 -6.0231545449449496e-08 1 0 0 0</pose>
+        <pose>-2.10371551824301e-07 -6.0231545449449496e-08 5 0 0 0</pose>
         <mass>50</mass>
         <inertia>
           <ixx>0.026144234576652801</ixx>
@@ -414,7 +414,7 @@
     </link>
     <!-- End of Joint 2 -->
     <joint name='Joint_Revolve3' type='revolute'>
-      <pose relative_to='base_link'>-0.14293 -0.16281000000000001 0.080887000000000001 0 0 0</pose>
+      <pose relative_to='base_link'>-0.14293 -0.16281000000000001 0.080887 0 0 0</pose>
       <parent>base_link</parent>
       <child>Revolve3</child>
       <axis>

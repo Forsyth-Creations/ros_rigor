@@ -27,7 +27,7 @@ def generate_launch_description():
         
         
     # Get the file path of the SDF file
-    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes.sdf')
+    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes3.sdf')
     with open(sdf_path, 'r') as infp:
         sdf_xml = infp.read()
 

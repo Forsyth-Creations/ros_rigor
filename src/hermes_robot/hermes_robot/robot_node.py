@@ -99,7 +99,8 @@ class Robot(Node):
         for module in self.module_topic_prefixes:
             self.mode_pub = self.create_publisher(Int8, f'/{module}/rqst_mode', 10)
             self.connections.mode_publishers.append(self.mode_pub)
-        
+            
+                    
     def mode_callback(self, msg):
         # Request the mode from the swerve modules
         self.control_mode = msg.data

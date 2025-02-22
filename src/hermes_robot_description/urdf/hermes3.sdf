@@ -45,8 +45,8 @@
         <limit>
           <lower>0</lower>
           <upper>0</upper>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>50</effort>
+          <velocity>20</velocity>
         </limit>
         <dynamics>
           <spring_reference>0</spring_reference>
@@ -120,8 +120,8 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>50</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
@@ -175,7 +175,7 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -230,8 +230,8 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>50</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
@@ -285,7 +285,7 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -340,8 +340,8 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>50</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
@@ -395,7 +395,7 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -450,8 +450,8 @@
       <axis>
         <xyz>0 0 -1</xyz>
         <limit>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <effort>50</effort>
+          <velocity>20</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
         </limit>
@@ -505,7 +505,7 @@
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
-          <effort>0</effort>
+          <effort>50</effort>
           <velocity>10</velocity>
           <lower>-inf</lower>
           <upper>inf</upper>
@@ -565,5 +565,7 @@
     <frame name='CameraVision' attached_to='CameraVisionJoint'>
       <pose>0 0 0 0 0 0</pose>
     </frame>
+
+    
   </model>
 </sdf>
