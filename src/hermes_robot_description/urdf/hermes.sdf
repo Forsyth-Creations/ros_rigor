@@ -2,7 +2,7 @@
   <model name='hermes_robot_description'>
     <link name='base_link'>
       <inertial>
-        <pose>-2.10371551824301e-07 -6.0231545449449496e-08 5 0 0 0</pose>
+        <pose>-2.10371551824301e-07 -6.0231545449449496e-08 5 0 3.14 0</pose>
         <mass>50</mass>
         <inertia>
           <ixx>0.026144234576652801</ixx>
@@ -35,6 +35,7 @@
           <ambient>0.1 0.1 0.1 1</ambient>
         </material>
       </visual>
+      <!-- Adding an IMU sensor -->
     </link>
     <joint name='Joint_Revolve1' type='revolute'>
       <pose relative_to='base_link'>0.14293 0.16281000000000001 0.080887000000000001 0 0 0</pose>
@@ -781,6 +782,10 @@
       <i_min>-1</i_min>
       <cmd_max>6.28</cmd_max>
       <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin filename="gz-sim-imu-system"
+        name="gz::sim::systems::Imu">
     </plugin>
 
   </model>

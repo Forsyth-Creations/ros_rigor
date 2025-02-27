@@ -31,7 +31,7 @@ function LinearProgressWithLabel(props) {
       </Box>
       <Box sx={{ minWidth: 20 }}>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {`${Math.round(props.value)}`}
+          {props.value.toFixed(2)}
         </Typography>
       </Box>
     </Box>
@@ -41,7 +41,6 @@ function LinearProgressWithLabel(props) {
 export default function Viewer({
   width = 200,
   height = 200,
-  showProjected = true,
 }) {
   const { data } = useGetWheelData();
 
@@ -55,15 +54,14 @@ export default function Viewer({
 
   return (
     <Paper sx={{ p: 3 }} variant="outlined">
-      <Box sx = {{width : "100%"}}>
+      <Box sx={{ width: "100%" }}>
         <Typography variant="h5" align="center">
           Camera
         </Typography>
-        </Box>
+      </Box>
       {data && (
         <Box sx={{ position: "relative", width: width, height: height + 120 }}>
           <SingleWheel
-            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_a.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_a.requested_pivot_position,
@@ -76,7 +74,6 @@ export default function Viewer({
             {...commonProps}
           />
           <SingleWheel
-            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_b.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_b.requested_pivot_position,
@@ -89,7 +86,6 @@ export default function Viewer({
             {...commonProps}
           />
           <SingleWheel
-            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_c.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_c.requested_pivot_position,
@@ -102,7 +98,6 @@ export default function Viewer({
             {...commonProps}
           />
           <SingleWheel
-            showProjected={showProjected}
             actualAngle={RadiansToDegrees(data.swerve_d.pivot_position)}
             commandedAngle={RadiansToDegrees(
               data.swerve_d.requested_pivot_position,
@@ -129,8 +124,7 @@ function SingleWheel({
   width,
   sx,
   name,
-  showProjected,
-  jointName = "Unknown"
+  jointName = "Unknown",
 }) {
   const commonStyle = {
     width: width,
@@ -150,18 +144,18 @@ function SingleWheel({
 
   return (
     <Box
-        id={`wheel-${name}`}
-        sx={{
-          ...sx,
-          position: "absolute",
-          p: "20px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 1, // Adds spacing between wheel and gauges
-        }}
-      >
-        <Tooltip title={`Joint: ${jointName}`}>
+      id={`wheel-${name}`}
+      sx={{
+        ...sx,
+        position: "absolute",
+        p: "20px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 1, // Adds spacing between wheel and gauges
+      }}
+    >
+      <Tooltip title={`Joint: ${jointName}`}>
         <Box sx={{ position: "relative", ...commonStyle, border: null }}>
           <Paper
             elevation={0}
@@ -177,7 +171,7 @@ function SingleWheel({
           >
             <Typography align="center">{name}</Typography>
           </Paper>
-          {error && showProjected && (
+          {error && (
             <Paper
               elevation={0}
               variant="outlined"
@@ -192,15 +186,18 @@ function SingleWheel({
             />
           )}
         </Box>
+      </Tooltip>
+      <Stack
+        sx={{ display: "flex", width: "50px", justifyContent: "space-around" }}
+      >
+        <Tooltip title="Actual Speed">
+          <LinearProgressWithLabel variant="determinate" value={actualSpeed} />
         </Tooltip>
-        <Stack
-          sx={{ display: "flex", width: "50px", justifyContent: "space-around" }}
-        >
-          <Tooltip title="Actual Speed">
-            <LinearProgressWithLabel variant="determinate" value={actualSpeed} />
-          </Tooltip>
-          <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
-        </Stack>
-      </Box>
+        <Tooltip title="Commanded Speed">
+        <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
+        </Tooltip>  
+        <Chip label = {`${actualAngle} rads`} />
+      </Stack>
+    </Box>
   );
 }

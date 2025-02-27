@@ -1,0 +1,822 @@
+<sdf version='1.11'>
+  <model name='hermes_robot_description'>
+    <link name='base_footprint'>
+      <inertial>
+        <pose>7.9602734532240402e-06 0.0026787636026072799 0.043756141209223713 0 0 0</pose>
+        <mass>5.8359407947604698</mass>
+        <inertia>
+          <ixx>0.026232053977290299</ixx>
+          <ixy>2.8312872078049102e-06</ixy>
+          <ixz>1.7279685765075871e-08</ixz>
+          <iyy>0.022106634918272899</iyy>
+          <iyz>9.515451001901494e-09</iyz>
+          <izz>0.046325188086441899</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_footprint_fixed_joint_lump__base_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_footprint_fixed_joint_lump__base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+      <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+        <update_rate>1</update_rate>
+        <visualize>true</visualize>
+        <topic>hermes/imu</topic>
+      </sensor>
+    </link>
+    <joint name='Camera_pivot_joint' type='revolute'>
+      <pose relative_to='base_footprint'>0.0543500000000001 0.23015000000000099 0.060000000000000303
+        1.5707963267949003 0 0</pose>
+      <parent>base_footprint</parent>
+      <child>Camera_pivot</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>20</effort>
+          <velocity>10</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Camera_pivot'>
+      <pose relative_to='Camera_pivot_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.055592846981772567 0.00042034172012227151 -0.003285904715044257 0 0 0</pose>
+        <mass>1.2890901191943109</mass>
+        <inertia>
+          <ixx>0.00011782388399267299</ixx>
+          <ixy>-1.4998478874677159e-06</ixy>
+          <ixz>1.125981229121165e-05</ixz>
+          <iyy>0.00079572499828658647</iyy>
+          <iyz>7.8692840212091982e-07</iyz>
+          <izz>0.00078853055747875062</izz>
+        </inertia>
+      </inertial>
+      <collision name='Camera_pivot_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Camera_pivot.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='Camera_pivot_fixed_joint_lump__CameraVision_collision_1'>
+        <pose>-0.054499999999999597 0.0023070163905073398 -0.016858882862572599 3.14159265358979 0
+          3.14159265358979</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/CameraVision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Camera_pivot_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Camera_pivot.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='Camera_pivot_fixed_joint_lump__CameraVision_visual_1'>
+        <pose>-0.054499999999999597 0.0023070163905073398 -0.016858882862572599 3.14159265358979 0
+          3.14159265358979</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/CameraVision.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Revolve1' type='revolute'>
+      <pose relative_to='base_footprint'>0.14293 0.16281000000000001 0.080887000000000001 0 0 0</pose>
+      <parent>base_footprint</parent>
+      <child>Revolve1</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Revolve1'>
+      <pose relative_to='Joint_Revolve1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0033052616285490798 -0.00011332638682770599 -0.12936024003018001 0 0 0</pose>
+        <mass>0.360615727575473</mass>
+        <inertia>
+          <ixx>0.000866448995447055</ixx>
+          <ixy>1.4344506453762201e-06</ixy>
+          <ixz>4.4649322112541597e-08</ixz>
+          <iyy>0.0010119628351452001</iyy>
+          <iyz>-3.11537804771866e-07</iyz>
+          <izz>0.000498205901651864</izz>
+        </inertia>
+      </inertial>
+      <collision name='Revolve1_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve1.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Revolve1_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Drive1' type='revolute'>
+      <pose relative_to='Revolve1'>0.058214000000000002 -0.00060576 -0.23702999999999999 0 0 0</pose>
+      <parent>Revolve1</parent>
+      <child>Drive1</child>
+      <axis>
+        <xyz>-0.99995000000000001 0.0098662999999999997 0</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Drive1'>
+      <pose relative_to='Joint_Drive1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.056913161229907701 0.00033552248364979203 -0.00041092616493951202 0 0 0</pose>
+        <mass>0.63490886843573002</mass>
+        <inertia>
+          <ixx>0.0015700931436937601</ixx>
+          <ixy>-6.8529973808830298e-06</ixy>
+          <ixz>3.9551401684301297e-09</ixz>
+          <iyy>0.00087563870774094699</iyy>
+          <iyz>3.82089458087413e-07</iyz>
+          <izz>0.00087610882582973804</izz>
+        </inertia>
+      </inertial>
+      <collision name='Drive1_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive1.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Drive1_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Revolve2' type='revolute'>
+      <pose relative_to='base_footprint'>0.14237 -0.16281000000000001 0.080887000000000001 0 0 0</pose>
+      <parent>base_footprint</parent>
+      <child>Revolve2</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Revolve2'>
+      <pose relative_to='Joint_Revolve2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.00293343302999416 0.00012377302435367899 -0.12954185788668701 0 0 0</pose>
+        <mass>0.35662955912804001</mass>
+        <inertia>
+          <ixx>0.00086593064043737501</ixx>
+          <ixy>1.0906340399361699e-06</ixy>
+          <ixz>-4.53834609389432e-08</ixz>
+          <iyy>0.00101169229109942</iyy>
+          <iyz>3.1143417186724598e-07</iyz>
+          <izz>0.00049792938377369905</izz>
+        </inertia>
+      </inertial>
+      <collision name='Revolve2_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve2.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Revolve2_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Drive2' type='revolute'>
+      <pose relative_to='Revolve2'>0.061781222187925797 -0.00043147366877349701 -0.23702760708766701
+        0 0 0</pose>
+      <parent>Revolve2</parent>
+      <child>Drive2</child>
+      <axis>
+        <xyz>-1 0 0</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Drive2'>
+      <pose relative_to='Joint_Drive2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.063082834997876799 0.00069862325538216897 -0.00041092616829085899 0 0 0</pose>
+        <mass>0.63490887156324904</mass>
+        <inertia>
+          <ixx>0.0015701217771761299</ixx>
+          <ixy>-5.2037491235572302e-06</ixy>
+          <ixz>-3.0480976747551499e-09</ixz>
+          <iyy>0.00087561007623173802</iyy>
+          <iyz>-3.8209811580205e-07</iyz>
+          <izz>0.00087610882679484603</izz>
+        </inertia>
+      </inertial>
+      <collision name='Drive2_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive2.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Drive2_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Revolve3' type='revolute'>
+      <pose relative_to='base_footprint'>-0.14238000000000001 -0.16245999999999999
+        0.080887000000000001 0 0 0</pose>
+      <parent>base_footprint</parent>
+      <child>Revolve3</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Revolve3'>
+      <pose relative_to='Joint_Revolve3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.00327313554520364 -0.00047342748968046101 -0.12936024957747899 0 0 0</pose>
+        <mass>0.36061575015173802</mass>
+        <inertia>
+          <ixx>0.00086787100609927797</ixx>
+          <ixy>-1.4387267215430601e-05</ixy>
+          <ixz>7.8214417110374897e-08</ixz>
+          <iyy>0.0010105406287692399</iyy>
+          <iyz>-3.0497564889536799e-07</iyz>
+          <izz>0.00049820605192329797</izz>
+        </inertia>
+      </inertial>
+      <collision name='Revolve3_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve3.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Revolve3_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Drive3' type='revolute'>
+      <pose relative_to='Revolve3'>-0.061474020497119697 -0.0061683010963027004 -0.23702760708766499
+        0 0 0</pose>
+      <parent>Revolve3</parent>
+      <child>Drive3</child>
+      <axis>
+        <xyz>-0.99505421610633105 -0.099333312685199099 0</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Drive3'>
+      <pose relative_to='Joint_Drive3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.062796737894170507 0.0060416734152793101 -0.00041092972552844698 0 0 0</pose>
+        <mass>0.63490872563311396</mass>
+        <inertia>
+          <ixx>0.0015633070988804499</ixx>
+          <ixy>6.8654330880390697e-05</ixy>
+          <ixz>-3.7773299247427803e-08</ixz>
+          <iyy>0.00088242451272685298</iyy>
+          <iyz>3.80286982168367e-07</iyz>
+          <izz>0.00087610878320271395</izz>
+        </inertia>
+      </inertial>
+      <collision name='Drive3_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive3.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Drive3_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Revolve4' type='revolute'>
+      <pose relative_to='base_footprint'>-0.14238000000000001 0.16283 0.080887000000000001 0 0 0</pose>
+      <parent>base_footprint</parent>
+      <child>Revolve4</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Revolve4'>
+      <pose relative_to='Joint_Revolve4'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0029224616025000901 -0.00028181299162458002 -0.129541866870304 0 0 0</pose>
+        <mass>0.35662957954339303</mass>
+        <inertia>
+          <ixx>0.00086624077575723297</ixx>
+          <ixy>-6.7645147273900603e-06</ixy>
+          <ixz>6.2997826859860702e-08</ixz>
+          <iyy>0.00101138894722501</iyy>
+          <iyz>-3.1035933866149802e-07</iyz>
+          <izz>0.00049793144995528295</izz>
+        </inertia>
+      </inertial>
+      <collision name='Revolve4_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve4.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Revolve4_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Revolve4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='Joint_Drive4' type='revolute'>
+      <pose relative_to='Revolve4'>0.058155921867233798 0.0026727574336202799 -0.23702760708766399 0
+        0 0</pose>
+      <parent>Revolve4</parent>
+      <child>Drive4</child>
+      <axis>
+        <xyz>-0.99892069133862205 -0.046448384423680301 0</xyz>
+        <limit>
+          <effort>50</effort>
+          <velocity>20</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='Drive4'>
+      <pose relative_to='Joint_Drive4'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.060798744501471401 -0.00304784974714295 -0.00039463853149349098 0 0 0</pose>
+        <mass>0.51681467477390297</mass>
+        <inertia>
+          <ixx>0.0013936145619044399</ixx>
+          <ixy>2.8677241132764899e-05</ixy>
+          <ixz>1.2228164935837499e-07</ixz>
+          <iyy>0.00077967892345289999</iyy>
+          <iyz>1.96927193653209e-07</iyz>
+          <izz>0.00077861128013764704</izz>
+        </inertia>
+      </inertial>
+      <collision name='Drive4_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive4.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='Drive4_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/Drive4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <frame name='base_footprint_joint' attached_to='base_footprint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='base_link' attached_to='base_footprint_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='CameraVisionJoint' attached_to='Camera_pivot'>
+      <pose>-0.054499999999999597 0.0023070163905073398 -0.016858882862572599 3.14159265358979 0
+        3.14159265358979</pose>
+    </frame>
+    <frame name='CameraVision' attached_to='CameraVisionJoint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+
+
+    <!-- Additional Links to make the camera work -->
+
+    <!-- A link that connects to the CameraVision frame to use for the sensor -->
+    <link
+      name='CameraVisionLink'>
+      <pose relative_to='CameraVisionJoint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0001</iyy>
+          <iyz>0</iyz>
+          <izz>0.0001</izz>
+        </inertia>
+      </inertial>
+      <collision name='CameraVision_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='CameraVision_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://hermes_robot_description/meshes/CameraVision.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.5 0.5 0.5 1</diffuse>
+          <ambient>0.5 0.5 0.5 1</ambient>
+        </material>
+      </visual>
+      <sensor name="camera" type="camera">
+        <pose>0 0 0 -1.57 -1.57 0</pose>
+        <always_on>true</always_on>
+        <topic>image_raw</topic>
+        <update_rate>10</update_rate>
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>600</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+      </sensor>
+
+      <!-- Depth camera -->
+
+      <sensor name="depth_camera" type="depth">
+        <pose>0 0 0 -1.57 1.57 0</pose>
+        <always_on>true</always_on>
+        <topic>depth/image_raw</topic>
+        <update_rate>10</update_rate>
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>600</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+      </sensor>
+
+    </link>
+    <!-- Make sure that this link is joined to the actual camera -->
+    <joint name='Joint_Camera' type='fixed'>
+      <pose relative_to='CameraVisionJoint'>0 0 0 0 0 0</pose>
+      <parent>CameraVisionJoint</parent>
+      <child>CameraVisionLink</child>
+    </joint>
+
+
+    <!-- ####################### Plugin Section ######################### -->
+
+    <plugin
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin
+      filename="gz-sim-pose-publisher-system"
+      name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+
+    <!--  Drive motor joint controllers -->
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive1</joint_name>
+      <topic>/drive/1/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <topic>/drive/2/command</topic>
+      <joint_name>Joint_Drive2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive3</joint_name>
+      <topic>/drive/3/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive4</joint_name>
+      <topic>/drive/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <!-- Position Controllers -->
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve1</joint_name>
+      <topic>/pivot/1/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <topic>/pivot/2/command</topic>
+      <joint_name>Joint_Revolve2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve3</joint_name>
+      <topic>/pivot/3/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve4</joint_name>
+      <topic>/pivot/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Camera_pivot</joint_name>
+      <topic>/camera/pivot/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+</plugin>
+
+  </model>
+</sdf>

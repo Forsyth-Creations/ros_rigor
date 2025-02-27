@@ -2,7 +2,8 @@
 
 import Controller from "@/comps/Controller";
 import styles from "./page.module.css";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+// import RobotRender from "@/comps/RobotRender";
 
 import { DarkmodeContext } from "@/contexts/ThemeProvider.jsx";
 
@@ -19,9 +20,11 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 
 export default function Home() {
+  // const [position, setPosition] = useState([0, 0]);
+  // const [linearVelocity, setLinearVelocity] = useState([0, 0]);
+  // const wheelVectors = useRef([0, 0, 0, 0]);
+  // const wheelAngles = useRef([0, 0, 0, 0]);
 
-  const [mode, setMode] = useState("Standard"); // options are "Standard" or "OnADime"
-  
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -33,9 +36,23 @@ export default function Home() {
         </Stack>
         <Divider />
         <Stack direction="row" spacing={3}>
-          <Controller mode={mode} setMode={setMode} />
+          <Controller/>
           <Divider orientation="vertical" flexItem />
-          <Viewer wheel_orientations={[0, 0, 0, 0]} showProjected={mode == "Standard"} />
+          <Viewer
+            wheel_orientations={[0, 0, 0, 0]}
+          />
+          {/* <Box sx = {{position : "relative"}}>
+          <RobotRender 
+            position={position} 
+            linearVelocity={linearVelocity} 
+            wheelVectors={wheelVectors} 
+            wheelAngles={wheelAngles} 
+            radius = {20}
+            spacing = {50}
+            angularVelocity = {0}
+            robotAngle = {0}
+          />
+          </Box> */}
         </Stack>
       </main>
     </div>

@@ -187,6 +187,10 @@ ros2 run tf2_tools view_frames
 
 Composition for embedded
 
+https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html
+
+
+
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
 

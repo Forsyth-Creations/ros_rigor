@@ -57,3 +57,9 @@ clean: # Cleans all the ROS targets
 	cd web_controller && rm -rf build install log
 	rm -f setup_env.sh
 	rm -rf web_controller/install/web_controller/share/web_controller/frontend/node_modules
+
+.PHONY: run
+run: # Runs the ROS targets
+	# Run the web controller
+	source setup_env.sh && ros2 launch hermes_robot all.launch.py 
+

@@ -10,7 +10,7 @@ xhost +local:docker
 docker compose up -d
 docker exec -it rigor bash
 make all
-source setup_env.bash
+source setup_env.sh
 ros2 launch hermes_robot all.launch.py 
 ```
 

@@ -4,6 +4,9 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Float64, Int8
+# geometry_msgs twist
+from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Vector3
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -41,18 +44,16 @@ app.add_middleware(
 
 # Define the command structure using Pydantic
 class Move(BaseModel):
-    direction: float
-    speed: float
-    mode: Optional[str] = "Standard"
+    ang_vel: Union[float, int]
+    vel_x : Union[float, int]
+    vel_y : Union[float, int]
 
 
 # ROS 2 Node setup
 class RobotAbstraction(Node):
     def __init__(self):
         super().__init__('robot_controller_web')
-        self.wheel_speed = self.create_publisher(Float64, '/hermes/rqst_wheel_speed', 10)
-        self.pivot_direction = self.create_publisher(Float64, '/hermes/rqst_pivot_direction', 10)
-        self.mode_selection = self.create_publisher(Int8, '/hermes/mode', 10)
+        self.cmd_vel = self.create_publisher(Twist, '/hermes/cmd_vel', 10)
         self.get_logger().info("RobotAbstraction Node has been started.")
         
         # Subscribe to all swerve modules, A, B, C, D
@@ -107,20 +108,15 @@ class RobotAbstraction(Node):
         return callback
     
 
-    def publish_move(self, direction, speed, mode="Standard"):
+    def publish_move(self, moveCommand : Move):
         try:
-            self.pivot_direction.publish(Float64(data=direction))
-            self.wheel_speed.publish(Float64(data=speed))
-            # The mode is either "Standard" or "OnADime"
-            mapping = { "Standard": 0, "OnADime": 1 }
-            # if not in the mapping, log an error
-            if mode not in mapping:
-                self.get_logger().error(f"{Fore.RED}Error: Mode {mode} not recognized. Must be either 'Standard' or 'OnADime'{Fore.RESET}")
-                return
-            self.mode_selection.publish(Int8(data=mapping[mode]))
+            print(f"Publishing move command: {moveCommand}")
+            self.cmd_vel.publish(Twist(
+                linear=Vector3(x=float(moveCommand.vel_x), y=float(moveCommand.vel_y), z=0.0),
+                angular=Vector3(x=0.0, y=0.0, z=float(moveCommand.ang_vel))
+            ))
         except Exception as e:
             self.get_logger().error(f"{Fore.RED}Error: {e}{Fore.RESET}")
-
 
 # Create a ROS 2 node and start it in a separate thread
 node = None
@@ -139,9 +135,8 @@ ros_thread.start()
 @app.post("/move")
 def move(moveCommand: Move):
     # Publish the move command to ROS 2
-    node.publish_move(moveCommand.direction, moveCommand.speed, moveCommand.mode)
-
-    return {"message": "Move command received", "direction": moveCommand.direction, "speed": moveCommand.speed, "mode": moveCommand.mode}
+    node.publish_move(moveCommand)
+    return {"message": "Move command received", "command" : moveCommand}
 
 
 # Return all the position data

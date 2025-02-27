@@ -21,13 +21,13 @@ def generate_launch_description():
     pkg_hermes_robot_description = get_package_share_directory('hermes_robot_description')
         
     # Load the URDF into RVIZ
-    urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes.urdf')
+    urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes_new.urdf')
     with open(urdf_path, 'r') as infp:
         urdf_xml = infp.read()
         
         
     # Get the file path of the SDF file
-    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes3.sdf')
+    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes_new.sdf')
     with open(sdf_path, 'r') as infp:
         sdf_xml = infp.read()
 

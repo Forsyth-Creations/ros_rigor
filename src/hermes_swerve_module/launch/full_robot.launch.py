@@ -11,7 +11,7 @@ def generate_launch_description():
         namespace="swerve_a",  # Namespace for the module
         output="screen",  # Output to screen (useful for debugging)
         parameters=[
-            {"module_name": "swerve_a", "dime_angle": -0.785}
+            {"module_name": "swerve_a"}
         ],  # Pass the namespace as a parameter
     )
 
@@ -24,7 +24,6 @@ def generate_launch_description():
         parameters=[
             {
                 "module_name": "swerve_b",
-                "dime_angle": 0.785,
             }
         ],  # Invert the drive motor
     )
@@ -38,8 +37,6 @@ def generate_launch_description():
         parameters=[
             {
                 "module_name": "swerve_c",
-                "dime_angle": -0.785,
-                "invert_drive_for_dime": True,
             }
         ],
     )
@@ -51,7 +48,7 @@ def generate_launch_description():
         namespace="swerve_d",
         output="screen",
         parameters=[
-            {"module_name": "swerve_d", "dime_angle": 0.785, "invert_drive_for_dime": True}
+            {"module_name": "swerve_d"}
         ],
     )
 
