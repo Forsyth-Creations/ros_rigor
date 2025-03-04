@@ -13,10 +13,8 @@ from geometry_msgs.msg import TransformStamped, Twist
 from math import sin, cos
 from typing import Tuple
 from rclpy.duration import Duration
-from math import atan2
-
-# import the swerve module
-
+from math import atan2, pi
+from hermes_robot.swerve_math import ModuleKinematics
 
 # Create the Robot Class
 class ConnectionManager:
@@ -24,39 +22,6 @@ class ConnectionManager:
         self.pivot_publishers: list = []
         self.drive_publishers: list = []
         self.mode_publishers: list = []
-
-
-class ModuleKinematics:
-    def __init__(self, name, wheel_size, module_position : dict):
-        self.name = name
-        self.wheel_size = wheel_size
-        self.module_position : dict = module_position
-
-    def compute(
-        self,
-        robotPosition: Tuple[float, float, float],
-        robotVelocity: Tuple[float, float, float],
-        robotAngle,
-    ):
-        rotatedX = self.module_position.get("x") * cos(robotAngle) - self.module_position.get("y") * sin(robotAngle)
-        rotatedY = self.module_position.get("x") * sin(robotAngle) + self.module_position.get("y") * cos(robotAngle)
-
-        # Calculate the wheel angle and speed
-        wheel_speed = self.compute_wheel_speed(robotVelocity[0], robotVelocity[1], robotVelocity[2], rotatedX, rotatedY)
-        wheel_angle = self.compute_wheel_angle(robotVelocity[0], robotVelocity[1], robotVelocity[2], rotatedX, rotatedY)
-        
-        # 90 degree offset to radians
-        # wheel_angle -= 1.5708
-                
-        return [wheel_angle, wheel_speed]
-    
-    def compute_wheel_speed(self, Vx, Vy, omega, Xi, Yi):
-        return ( (Vx - omega * Yi) ** 2 + (Vy + omega * Xi) ** 2 ) ** 0.5
-
-    def compute_wheel_angle(self, Vx, Vy, omega, Xi, Yi):
-        # 90 degree offset to radians
-        offset = 1.5708
-        return atan2(Vy + omega * Xi, Vx - omega * Yi) - offset
 
 
 class Robot(Node):
@@ -89,7 +54,7 @@ class Robot(Node):
         # Make some pivot_publishers
         for module in self.module_topic_prefixes:
             self.pivot_position_pub = self.create_publisher(
-                Float64, f"/{module}/rqst_pivot_direction", 10
+                Float64, f"/{module}/rqst_pivot_angle", 10
             )
             self.connections.pivot_publishers.append(self.pivot_position_pub)
 
@@ -158,6 +123,9 @@ class Robot(Node):
         for idx, prefix in enumerate(self.module_topic_prefixes):
             self.get_logger().info(f"Creating Module Helper for {prefix}")
             self.module_helpers.append(ModuleKinematics(prefix, 0.1, offsets[idx]))
+            
+        # Create a publisher for the robot angle
+        self.robot_angle_pub = self.create_publisher(Float64, f"/{self.module_name}/robot_angle", 10)
 
     def set_cmd_vel(self, msg):
         # Set commanded to the message
@@ -181,6 +149,11 @@ class Robot(Node):
 
         # Note: this algorithm is based on the work done here:
         # https://www.forsythcreations.com/swerve_drive
+        
+        # Publish the current robot angle
+        robot_angle = Float64()
+        robot_angle.data = self.positions.get("th", 0.0)
+        self.robot_angle_pub.publish(robot_angle)
 
         odom = Odometry()
         t = TransformStamped()
@@ -191,14 +164,14 @@ class Robot(Node):
         wheel_angles = []
         for idx, helper in enumerate(self.module_helpers):
             wheel_angle, wheel_speed = helper.compute(
-                (self.positions.get("x", 0.0), self.positions.get("y", 0.0), self.positions.get("th", 0.0)),
                 (getattr(self.commanded_vel.linear, 'x', 0.0), getattr(self.commanded_vel.linear, 'y', 0.0), getattr(self.commanded_vel.angular, 'z', 0.0)),
+                getattr(self.commanded_vel.angular, 'z', 0.0),
                 self.positions.get("th", 0.0)
             )
             wheel_speeds.append(wheel_speed)
             wheel_angles.append(wheel_angle)
             
-        # Publish the wheel speeds and pivot positions
+        # Publish the wheel speeds and pivot positions. TODO: The angle output is wrong and increasing (whcih is odd)
         for idx, prefix in enumerate(self.module_topic_prefixes):
             self.connections.drive_publishers[idx].publish(Float64(data=float(wheel_speeds[idx])))
             self.connections.pivot_publishers[idx].publish(Float64(data=float(wheel_angles[idx])))

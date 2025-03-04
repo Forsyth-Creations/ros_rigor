@@ -127,8 +127,8 @@ function SingleWheel({
   jointName = "Unknown",
 }) {
   const commonStyle = {
-    width: width,
-    height: height,
+    height: width,
+    width: height,
     bgcolor: "transparent",
     display: "flex",
     justifyContent: "center",
@@ -163,7 +163,7 @@ function SingleWheel({
             sx={{
               ...commonStyle,
               position: "absolute",
-              transform: `rotate(${actualAngle}deg)`,
+              transform: `rotate(${90 - actualAngle * Math.PI/180}deg)`,
               borderColor: error ? "blue" : "green",
               borderWidth: borderThickness,
             }}
@@ -178,7 +178,7 @@ function SingleWheel({
               sx={{
                 ...commonStyle,
                 position: "absolute",
-                transform: `rotate(${commandedAngle}deg)`,
+                transform: `rotate(${90 - commandedAngle * Math.PI/180}deg)`,
                 borderColor: "red",
                 borderWidth: borderThickness,
               }}
@@ -196,7 +196,7 @@ function SingleWheel({
         <Tooltip title="Commanded Speed">
         <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
         </Tooltip>  
-        <Chip label = {`${actualAngle} rads`} />
+        <Typography variant="body2">{(commandedAngle * Math.PI/180).toFixed(2) }</Typography>
       </Stack>
     </Box>
   );

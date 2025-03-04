@@ -20,7 +20,6 @@ all: # Builds all the ROS targets
 	# Go into the share and install the modules. A hack, but it works
 	cd web_controller/install/web_controller/share/web_controller/frontend && npm install
 
-
 	# Make the URDF files for the robot
 	# cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
 
@@ -41,6 +40,10 @@ no-web:
 	cd hermes_swerve_module && colcon build
 	cd hermes_robot_description && colcon build
 	cd hermes_robot && colcon build
+	
+.PHONY: realsense
+realsense:
+	cd realsense_gazebo_plugin && colcon build
 
 # Optional: If you want to source the script automatically (e.g., for CI or convenience), uncomment the next line
 .PHONY: source-env

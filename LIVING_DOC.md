@@ -110,7 +110,7 @@ gz topic -l
 
 gz topic -e -t /drive/4/command
 
-ros2 topic pub /swerve_a/rqst_pivot_direction std_msgs/msg/Float64 "{data: 0}"
+ros2 topic pub /swerve_a/rqst_pivot_angle std_msgs/msg/Float64 "{data: 0}"
 
 # Goal 5.5: Simulate the Sensors
 
@@ -189,6 +189,17 @@ Composition for embedded
 
 https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html
 
+https://github.com/issaiass/realsense2_description
+
+https://www.youtube.com/watch?v=mJILStNnYyU
+
+https://gazebosim.org/docs/latest/migrating_gazebo_classic_ros2_packages/
+
+https://github.com/gazebosim/gz-harmonic
+
+https://www.youtube.com/watch?v=T9xZ22i9-Ys
+
+https://gazebosim.org/docs/latest/migrating_gazebo_classic_ros2_packages/
 
 
 

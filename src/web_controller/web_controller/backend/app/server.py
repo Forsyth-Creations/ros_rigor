@@ -83,11 +83,11 @@ class RobotAbstraction(Node):
         self.swerve_c_sub = self.create_subscription(Float64, '/swerve_c/pivot_position', self.swerve_callback("swerve_c", "pivot_position"), 10)
         self.swerve_d_sub = self.create_subscription(Float64, '/swerve_d/pivot_position', self.swerve_callback("swerve_d", "pivot_position"), 10)
         
-        # Also do it for the rqst_pivot_direction
-        self.swerve_a_rqst_sub = self.create_subscription(Float64, '/swerve_a/rqst_pivot_direction', self.swerve_callback("swerve_a", "requested_pivot_position"), 10)
-        self.swerve_b_rqst_sub = self.create_subscription(Float64, '/swerve_b/rqst_pivot_direction', self.swerve_callback("swerve_b", "requested_pivot_position"), 10)
-        self.swerve_c_rqst_sub = self.create_subscription(Float64, '/swerve_c/rqst_pivot_direction', self.swerve_callback("swerve_c", "requested_pivot_position"), 10)
-        self.swerve_d_rqst_sub = self.create_subscription(Float64, '/swerve_d/rqst_pivot_direction', self.swerve_callback("swerve_d", "requested_pivot_position"), 10)
+        # Also do it for the pivot angle
+        self.swerve_a_rqst_sub = self.create_subscription(Float64, '/swerve_a/rqst_pivot_angle', self.swerve_callback("swerve_a", "requested_pivot_position"), 10)
+        self.swerve_b_rqst_sub = self.create_subscription(Float64, '/swerve_b/rqst_pivot_angle', self.swerve_callback("swerve_b", "requested_pivot_position"), 10)
+        self.swerve_c_rqst_sub = self.create_subscription(Float64, '/swerve_c/rqst_pivot_angle', self.swerve_callback("swerve_c", "requested_pivot_position"), 10)
+        self.swerve_d_rqst_sub = self.create_subscription(Float64, '/swerve_d/rqst_pivot_angle', self.swerve_callback("swerve_d", "requested_pivot_position"), 10)
         
         # Actual speed
         self.swerve_a_speed_sub = self.create_subscription(Float64, '/swerve_a/wheel_speed', self.swerve_callback("swerve_a", "speed"), 10)

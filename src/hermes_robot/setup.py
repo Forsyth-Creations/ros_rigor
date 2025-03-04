@@ -16,6 +16,10 @@ setup(
         (
             os.path.join("share", package_name, "launch"),
             glob(os.path.join("launch", "*.launch.py")),
+        ),
+        (
+            os.path.join("lib", "python", "site-packages", package_name),
+            [os.path.join("hermes_robot", "swerve_math.py")]
         )
     ],
     install_requires=['setuptools'],

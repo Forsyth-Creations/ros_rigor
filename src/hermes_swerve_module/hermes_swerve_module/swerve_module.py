@@ -97,7 +97,7 @@ class Module(Node):
         self.limit_switch_sub = self.create_publisher(Float64, f'/{self.module_name}/limit_switch', 10)
 
         # Pub/Sub for target pivot angle
-        self.rqst_pivot_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_pivot_direction', self.set_rqst_pivot_direction, 10)
+        self.rqst_pivot_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_pivot_angle', self.set_rqst_pivot_angle, 10)
         self.pivot_position_pub = self.create_publisher(Float64, f'/{self.module_name}/pivot_position', 10)
         
         # Pub/Sub for motor speed
@@ -132,6 +132,8 @@ class Module(Node):
             1 / self.odom_frequency, self.update_position
         )
         
+        self.offset = 1.5708
+        
 
     def set_rqst_wheel_speed(self, speed):
         # Method to set drive speed
@@ -139,7 +141,7 @@ class Module(Node):
         msg.data = speed
         self.rqst_wheel_speed = speed.data
 
-    def set_rqst_pivot_direction(self, angle):
+    def set_rqst_pivot_angle(self, angle):
         # Method to set pivot angle
         msg = Float64()
         msg.data = angle
@@ -190,10 +192,10 @@ class Module(Node):
         self.drive_motor_pub.publish(drive_msg)
         
         # -------------------------- Pivot Wheel --------------------------------------
-        modified_rqst_pivot_angle = max(-6.28, min(6.28, self.rqst_pivot_angle))
+        modified_rqst_pivot_angle = self.rqst_pivot_angle
         pivot_output = self.pivot_pid_controller.compute_move(modified_rqst_pivot_angle, self.actual_pivot_angle)
         pivot_msg = Float64()
-        pivot_msg.data = pivot_output
+        pivot_msg.data = pivot_output # add the offset to the pivot angle to keep it synced with the sim 
         self.pivot_position_pub.publish(pivot_msg)
         
         # if we are mocking the hardware, then the actual values are the commanded values
