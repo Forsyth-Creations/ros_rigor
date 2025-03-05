@@ -203,6 +203,36 @@ https://gazebosim.org/docs/latest/migrating_gazebo_classic_ros2_packages/
 
 ros2 run rqt_tf_tree rqt_tf_tree
 
+https://github.com/jyang-cpr/husky-sphinx-tutorials/blob/1e4a13c9e30689f5ec28002c1f812da136907379/doc/additional_sim_worlds.rst#L228
+
+
+https://github.com/search?q=repo%3Agazebosim%2Fgz-sim%20%3Csensor&type=code
+
+gz topic -i -t /lidar/points
+
+---
+
+Why not Ionic for Gazebo?
+
+because it's not compatible with Jazzy:
+
+https://gazebosim.org/docs/all/ros_installation/
+
+---
+
+https://github.com/turtlebot/turtlebot4
+
+https://github.com/ros-navigation/navigation2/blob/main/nav2_bringup/launch/tb3_simulation_launch.py
+
+https://github.com/ros-navigation/nav2_minimal_turtlebot_simulation/blob/main/nav2_minimal_tb3_sim/urdf/gz_waffle_gps.sdf.xacro#L167
+
+https://github.com/ros-navigation/nav2_minimal_turtlebot_simulation/blob/main/nav2_minimal_tb3_sim/launch/spawn_tb3.launch.py
+
+https://github.com/ros-navigation/nav2_minimal_turtlebot_simulation/blob/main/nav2_minimal_tb3_sim/urdf/gz_waffle.sdf.xacro
+
+**Clean XACRO layout**
+https://github.com/turtlebot/turtlebot4/tree/jazzy/turtlebot4_description
+
 
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning

@@ -20,18 +20,38 @@ import subprocess
 
 def generate_launch_description():
     pkg_hermes_robot_description = get_package_share_directory('hermes_robot_description')
+    
+    # Convert hte corrected.urdf.xacro file to a urdf file
+    xacro_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.urdf.xacro')
+    
+    # Convert the xacro file to a urdf file
+    result = subprocess.run(['xacro', xacro_path], capture_output=True, text=True)
+    urdf_xml = result.stdout
+    
+    # Save the urdf to a file
+    urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.urdf')
+    with open(urdf_path, 'w') as outfp:
+        outfp.write(urdf_xml)
+    
         
     # Load the URDF into RVIZ
-    urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.urdf')
-    with open(urdf_path, 'r') as infp:
-        urdf_xml = infp.read()
+    # urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.urdf')
+    # with open(urdf_path, 'r') as infp:
+    #     urdf_xml = infp.read()
         
     # Convert the urdf to sdf using the urdf_to_sdf tool
     # Convert URDF to SDF
     result = subprocess.run(['gz', 'sdf', '-p', urdf_path], capture_output=True, text=True)
     sdf_content = result.stdout
     
-    print(sdf_content)
+    # Write the sdf to a file
+    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.sdf')
+    with open(sdf_path, 'w') as outfp:
+        outfp.write(sdf_content)
+        
+    print("-------------------------------------------------------")
+    print(f"These files are saved to: {sdf_path} and {urdf_path}")
+    print("-------------------------------------------------------")
 
     spawn_robot = Node(
         package="ros_gz_sim",
