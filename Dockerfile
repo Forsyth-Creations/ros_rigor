@@ -129,6 +129,6 @@ RUN /venv/bin/pip install catkin-pkg pyyaml
 RUN echo "home () { cd /ros2_jazzy/workspace; }" >> ~/.bashrc
 
 # Install nav2
-RUN apt update && apt install ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-nav2-minimal-tb* ros-jazzy-camera-info-manager ros-jazzy-rclcpp-components -y
+RUN apt update && apt install ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-nav2-minimal-tb* ros-jazzy-camera-info-manager ros-jazzy-rclcpp-components ros-jazzy-rqt-tf-tree -y
 
 WORKDIR /ros2_jazzy/workspace

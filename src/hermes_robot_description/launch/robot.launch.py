@@ -16,6 +16,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
+import subprocess
 
 def generate_launch_description():
     pkg_hermes_robot_description = get_package_share_directory('hermes_robot_description')
@@ -25,18 +26,19 @@ def generate_launch_description():
     with open(urdf_path, 'r') as infp:
         urdf_xml = infp.read()
         
-        
-    # Get the file path of the SDF file
-    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.sdf')
-    with open(sdf_path, 'r') as infp:
-        sdf_xml = infp.read()
+    # Convert the urdf to sdf using the urdf_to_sdf tool
+    # Convert URDF to SDF
+    result = subprocess.run(['gz', 'sdf', '-p', urdf_path], capture_output=True, text=True)
+    sdf_content = result.stdout
+    
+    print(sdf_content)
 
     spawn_robot = Node(
         package="ros_gz_sim",
         executable="create",
         arguments=[
             "-string",
-            sdf_xml,
+            sdf_content,
             "-name",
             "hermes_robot_description",
             "-x",

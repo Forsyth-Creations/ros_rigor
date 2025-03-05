@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by
+Stephen Brawner (brawner@gmail.com) 
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="hermes_robot_description">
-    <!-- Base Footprint -->
+  <!-- Base Footprint -->
   <joint name="base_footprint_joint" type="fixed">
     <parent link="base_footprint" />
     <child link="base_link" />
@@ -614,7 +615,51 @@
           filename="package://hermes_robot_description/meshes/CameraVision.STL" />
       </geometry>
     </collision>
+
+
   </link>
+
+  <!-- Sensors -->
+  <gazebo reference="Camera_pivot">
+    <sensor name="camera" type="camera">
+      <pose>0 0 0 -1.57 -1.57 0</pose>
+      <topic>image_raw</topic>
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>600</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+      </camera>
+    </sensor>
+
+    <sensor name="depth_camera" type="depth">
+      <pose>0 0 0 -1.57 1.57 0</pose>
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>600</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+      </camera>
+    </sensor>
+  </gazebo>
+
+
   <joint
     name="CameraVisionJoint"
     type="fixed">
@@ -632,36 +677,158 @@
       velocity="10" />
   </joint>
 
-  <!-- Add an additionl link to handle the depth_camera link. This can have the same pose as the CameraVisionLink -->
+  <!-- ####################### Plugin Section ######################### -->
 
-  <link name="depth_camera">
-    <inertial>
-      <origin xyz="-3.83807569059869E-17 -6.77896212537346E-05 -0.000495383252896442" rpy="0 0 0" />
-      <mass value="0.00122306679751053" />
-      <inertia ixx="2.45260777746173E-08" ixy="1.49835825799552E-22" ixz="-7.43449114089117E-22" iyy="6.15023324061756E-07" iyz="3.26714169017072E-09" izz="6.38451387870187E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://hermes_robot_description/meshes/CameraVision.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://hermes_robot_description/meshes/CameraVision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint name="depth_camera_joint" type="fixed">
-    <origin xyz="-0.0544999999999996 0.00230701639050734 -0.0168588828625726" rpy="3.14159265358979 0 3.14159265358979" />
-    <parent link="CameraVisionLink" />
-    <child link="depth_camera" />
-    <axis xyz="0 0 0" />
-    <limit effort="20" velocity="10" />
-  </joint>
+  <gazebo>
+
+
+    <plugin
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin
+      filename="gz-sim-pose-publisher-system"
+      name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+
+    <!--  Drive motor joint controllers -->
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive1</joint_name>
+      <topic>/drive/1/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <topic>/drive/2/command</topic>
+      <joint_name>Joint_Drive2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive3</joint_name>
+      <topic>/drive/3/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive4</joint_name>
+      <topic>/drive/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <!-- Position Controllers -->
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve1</joint_name>
+      <topic>/pivot/1/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <topic>/pivot/2/command</topic>
+      <joint_name>Joint_Revolve2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve3</joint_name>
+      <topic>/pivot/3/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve4</joint_name>
+      <topic>/pivot/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Camera_pivot_joint</joint_name>
+      <topic>/camera/pivot/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+
+  </gazebo>
 
 </robot>

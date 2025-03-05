@@ -201,6 +201,8 @@ https://www.youtube.com/watch?v=T9xZ22i9-Ys
 
 https://gazebosim.org/docs/latest/migrating_gazebo_classic_ros2_packages/
 
+ros2 run rqt_tf_tree rqt_tf_tree
+
 
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
