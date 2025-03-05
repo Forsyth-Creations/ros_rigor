@@ -233,6 +233,10 @@ https://github.com/ros-navigation/nav2_minimal_turtlebot_simulation/blob/main/na
 **Clean XACRO layout**
 https://github.com/turtlebot/turtlebot4/tree/jazzy/turtlebot4_description
 
+RGBD:
+https://github.com/turtlebot/turtlebot4/blob/jazzy/turtlebot4_description/urdf/sensors/oakd.urdf.xacro
+
+
 
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
