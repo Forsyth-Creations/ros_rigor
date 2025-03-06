@@ -110,7 +110,6 @@ class RobotAbstraction(Node):
 
     def publish_move(self, moveCommand : Move):
         try:
-            print(f"Publishing move command: {moveCommand}")
             self.cmd_vel.publish(Twist(
                 linear=Vector3(x=float(moveCommand.vel_x), y=float(moveCommand.vel_y), z=0.0),
                 angular=Vector3(x=0.0, y=0.0, z=float(moveCommand.ang_vel))
