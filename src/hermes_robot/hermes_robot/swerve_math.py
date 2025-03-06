@@ -23,7 +23,7 @@ class ModuleKinematics:
     
     @classmethod
     def compute_wheel_speed(cls, Vx, Vy, omega, Xi, Yi): # These are the same as the webapp
-        return ( (Vx - omega * Yi) ** 2 + (Vy + omega * Xi) ** 2 ) ** 0.5
+        return (( (Vx - omega * Yi) ** 2 + (Vy + omega * Xi) ** 2 ) ** 0.5) 
 
     @classmethod
     def compute_wheel_angle(cls, Vx, Vy, omega, Xi, Yi): # These are the same as the webapp
@@ -55,7 +55,7 @@ class ModuleKinematics:
         rotatedY = self.module_position.get("x") * sin(robotAngle) + self.module_position.get("y") * cos(robotAngle)
 
         # Calculate the wheel angle and speed
-        wheel_speed = self.compute_wheel_speed(robotVelocity[0], robotVelocity[1], robot_angular_velocity, rotatedX, rotatedY)
+        wheel_speed = self.compute_wheel_speed(robotVelocity[0], robotVelocity[1], robot_angular_velocity, rotatedX, rotatedY) / self.wheel_size
         wheel_angle = self.shortest_angle(self.angle,  self.compute_wheel_angle(robotVelocity[0], robotVelocity[1], robot_angular_velocity, rotatedX, rotatedY) - robotAngle)
         self.angle = wheel_angle
         return [round(wheel_angle, 2), round(wheel_speed, 2)]

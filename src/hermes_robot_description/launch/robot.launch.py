@@ -108,12 +108,35 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(depth_to_laser_launch_path)
     )
     
+    # Launch Nav2
+    
+    nav2_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'nav2.launch.py'
+    )
+    
+    nav2_node =  IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(nav2_launch_path)
+    )
+    
+    twist_mux_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'mux.launch.py'
+    )
+    
+    twist_mux = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(twist_mux_launch_path)
+    )
     
     ld = LaunchDescription()
     
+    ld.add_action(twist_mux)
     ld.add_action(spawn_robot)
     ld.add_action(robot_state_publisher)
     ld.add_action(depth_to_laser_node)
     ld.add_action(slam_toolbox_node)
+    ld.add_action(nav2_node)
     
     return ld

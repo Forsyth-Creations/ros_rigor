@@ -10,11 +10,13 @@ from std_msgs.msg import Float64, Int8
 from nav_msgs.msg import Odometry
 import tf2_ros
 from geometry_msgs.msg import TransformStamped, Twist
-from math import sin, cos
+from math import sin, cos, atan2, pi, asin
 from typing import Tuple
 from rclpy.duration import Duration
-from math import atan2, pi
 from hermes_robot.swerve_math import ModuleKinematics
+
+# IMU message type
+from sensor_msgs.msg import Imu
 
 # Create the Robot Class
 class ConnectionManager:
@@ -29,7 +31,9 @@ class Robot(Node):
         # Initialize the node
         super().__init__("hermes")
 
-        self.odom_frequency = 10.0
+        self.odom_frequency = 20.0
+        
+        self.fatal_flag = False
 
         self.get_logger().info(f"Creating Module: {name}")
 
@@ -122,13 +126,55 @@ class Robot(Node):
 
         for idx, prefix in enumerate(self.module_topic_prefixes):
             self.get_logger().info(f"Creating Module Helper for {prefix}")
-            self.module_helpers.append(ModuleKinematics(prefix, 0.1, offsets[idx]))
+            self.module_helpers.append(ModuleKinematics(prefix, 0.4, offsets[idx]))
             
         # Create a publisher for the robot angle
         self.robot_angle_pub = self.create_publisher(Float64, f"/{self.module_name}/robot_angle", 10)
+        
+        self.imu_data = Imu()
+        
+        # Subscribe to the hermes/imu topic
+        self.create_subscription(Imu, "/hermes/imu", self.imu_callback, 10)
+        
+    def imu_callback(self, msg):
+        # Get the orientation from the message
+        orientation = msg.orientation
+        roll, pitch, yaw = self.quaternion_to_euler(orientation.x, orientation.y, orientation.z, orientation.w)
+        self.positions["th"] = yaw
+        self.imu_data = msg
+        
+        # Determine if I have fallen over
+        if abs(roll) > 0.5 or abs(pitch) > 0.5:
+            self.get_logger().error("I have fallen over")
+            self.commanded_vel = Twist()
+            self.commanded_vel.linear.x = 0.0
+            self.commanded_vel.linear.y = 0.0
+            self.commanded_vel.angular.z = 0.0  # Stop the robot
+            self.update_odometry()
+            self.fatal_flag = True
+        
+        
+    def quaternion_to_euler(self, x, y, z, w):
+        # Convert a quaternion to euler angles
+        t0 = +2.0 * (w * x + y * z)
+        t1 = +1.0 - 2.0 * (x * x + y * y)
+        X = atan2(t0, t1)
+        
+        t2 = +2.0 * (w * y - z * x)
+        t2 = +1.0 if t2 > +1.0 else t2
+        t2 = -1.0 if t2 < -1.0 else t2
+        Y = asin(t2)
+        
+        t3 = +2.0 * (w * z + x * y)
+        t4 = +1.0 - 2.0 * (y * y + z * z)
+        Z = atan2(t3, t4)
+        
+        return X, Y, Z
 
     def set_cmd_vel(self, msg):
         # Set commanded to the message
+        if self.fatal_flag:
+            return
         self.commanded_vel = msg
         self.commanded_vel.linear.x /= 10
         self.commanded_vel.linear.y /= 10
@@ -144,8 +190,71 @@ class Robot(Node):
             self.pivot_positions[self.module_topic_prefixes.index(prefix)] = msg.data
 
         return callback
-
+    
     def update_odometry(self):
+        # Update the odometry based on the current mode
+        self.wheel_based_update_odometry()
+    
+    def imu_based_update_odometry(self):
+        robot_angle = Float64()
+        robot_angle.data = self.imu_data.orientation.z
+        self.robot_angle_pub.publish(robot_angle)
+        
+        # Use the imu data to update the odometry
+        odom = Odometry()
+        t = TransformStamped()
+        
+        # Pull the x and y velocities from the imu
+        x_vel = self.imu_data.linear_acceleration.x
+        y_vel = self.imu_data.linear_acceleration.y
+        z_vel = self.imu_data.angular_velocity.z
+        
+        # Calculate the new x, y, and theta positions
+        dt = 1 / self.odom_frequency
+        
+        xt1 = self.positions.get("x", 0.0) + x_vel * dt
+        yt1 = self.positions.get("y", 0.0) + y_vel * dt
+        tht1 = self.positions.get("th", 0.0) + z_vel * dt
+        
+        # Update the positions
+        self.positions["x"] = xt1
+        self.positions["y"] = yt1
+        self.positions["th"] = tht1
+        
+        # Create the pose
+        odom.header.stamp = self.get_clock().now().to_msg()
+        odom.header.frame_id = "odom"
+        odom.child_frame_id = "base_footprint"
+        odom.pose.pose.position.x = self.positions.get("x", 0.0)
+        odom.pose.pose.position.y = self.positions.get("y", 0.0)
+        odom.pose.pose.position.z = 0.0
+        
+        # Create a quaternion from the yaw angle
+        odom.pose.pose.orientation.x = 0.0
+        odom.pose.pose.orientation.y = 0.0
+        odom.pose.pose.orientation.z = sin(self.positions.get("th", 0.0) / 2)
+        odom.pose.pose.orientation.w = cos(self.positions.get("th", 0.0) / 2)
+        
+        # Publish the message
+        self.odom_pub.publish(odom)
+        
+        # Create a transform message
+        t.header.stamp = self.get_clock().now().to_msg()
+        t.header.frame_id = "odom"
+        t.child_frame_id = "base_footprint"
+        t.transform.translation.x = self.positions.get("x", 0.0)
+        t.transform.translation.y = self.positions.get("y", 0.0)
+        t.transform.translation.z = self.positions.get("z", 0.0)
+        t.transform.rotation.x = 0.0
+        t.transform.rotation.y = 0.0
+        t.transform.rotation.z = sin(self.positions.get("th", 0.0) / 2)
+        t.transform.rotation.w = cos(self.positions.get("th", 0.0) / 2)
+        
+        # Publish the transform
+        self.tf_broadcaster.sendTransform(t)
+        
+
+    def wheel_based_update_odometry(self):
 
         # Note: this algorithm is based on the work done here:
         # https://www.forsythcreations.com/swerve_drive

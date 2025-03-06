@@ -238,6 +238,10 @@ https://github.com/turtlebot/turtlebot4/blob/jazzy/turtlebot4_description/urdf/s
 
 https://index.ros.org/p/slam_toolbox/#jazzy
 
+Example this is based on:
+
+ros2 launch nav2_bringup tb3_simulation_launch.py headless:=False
+
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
 

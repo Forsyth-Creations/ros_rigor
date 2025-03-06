@@ -85,7 +85,6 @@
   ros_type_name: "sensor_msgs/msg/Imu"
   gz_type_name: "gz.msgs.IMU"
   direction: GZ_TO_ROS
-  
 - ros_topic_name: "/depth_camera/image"
   gz_topic_name: "/depth_camera/image"
   ros_type_name: "sensor_msgs/msg/Image"

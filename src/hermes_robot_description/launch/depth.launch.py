@@ -16,7 +16,7 @@ def generate_launch_description():
             ],
             parameters=[{
                 'scan_height': 10,  # Adjust as needed
-                'scan_time': .003,  # Adjust to match camera frame rate
+                'scan_time': .0003,  # Adjust to match camera frame rate
                 'range_min': 1.0,
                 'range_max': 10.0,
                 'output_frame' : 'DepthCameraFrame',

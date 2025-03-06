@@ -53,7 +53,7 @@ class Move(BaseModel):
 class RobotAbstraction(Node):
     def __init__(self):
         super().__init__('robot_controller_web')
-        self.cmd_vel = self.create_publisher(Twist, '/hermes/cmd_vel', 10)
+        self.cmd_vel = self.create_publisher(Twist, '/joystick_cmd_vel', 10)
         self.get_logger().info("RobotAbstraction Node has been started.")
         
         # Subscribe to all swerve modules, A, B, C, D
