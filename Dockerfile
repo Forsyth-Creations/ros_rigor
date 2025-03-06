@@ -33,6 +33,7 @@ RUN apt update && apt install ros-dev-tools \
     ros-jazzy-urdf-tutorial \
     ros-jazzy-joint-state-publisher \
     ros-jazzy-nav2-minimal-tb* \
+    ros-jazzy-depthimage-to-laserscan \
     -y
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc

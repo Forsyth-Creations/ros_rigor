@@ -236,7 +236,7 @@ https://github.com/turtlebot/turtlebot4/tree/jazzy/turtlebot4_description
 RGBD:
 https://github.com/turtlebot/turtlebot4/blob/jazzy/turtlebot4_description/urdf/sensors/oakd.urdf.xacro
 
-
+https://index.ros.org/p/slam_toolbox/#jazzy
 
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning

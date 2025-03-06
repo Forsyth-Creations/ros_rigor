@@ -17,6 +17,9 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 import subprocess
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+
 
 def generate_launch_description():
     pkg_hermes_robot_description = get_package_share_directory('hermes_robot_description')
@@ -82,9 +85,35 @@ def generate_launch_description():
         ]
     )
     
+    depth_to_laser_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'depth.launch.py'
+    )
+    
+    
+    depth_to_laser_node =  IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(depth_to_laser_launch_path)
+    )
+    
+    # Launch SLAM
+    
+    depth_to_laser_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'slam_online_async_launch.py'
+    )
+    
+    slam_toolbox_node =  IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(depth_to_laser_launch_path)
+    )
+    
+    
     ld = LaunchDescription()
     
     ld.add_action(spawn_robot)
     ld.add_action(robot_state_publisher)
+    ld.add_action(depth_to_laser_node)
+    ld.add_action(slam_toolbox_node)
     
     return ld

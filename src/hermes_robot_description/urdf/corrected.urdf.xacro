@@ -641,11 +641,11 @@
 
   <!-- Create a static link that connects to CameraVisionLink but is moved slighly -->
   <link name="DepthCameraFrame">
-    <pose>0 0 0 0 0 0</pose> <!-- Offset and rotation -->
+    <pose>0 0 0 0 0 1.57</pose> <!-- Offset and rotation -->
   </link>
 
   <joint name="DepthCameraJoint" type="fixed">
-    <origin rpy="0 -1.5708 0" />
+    <origin rpy="-1.57 -1.57 0" />
     <parent link="CameraVisionLink"/>
     <child link="DepthCameraFrame"/>
   </joint>
