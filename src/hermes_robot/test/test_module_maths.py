@@ -87,6 +87,30 @@ def test_45_degree():
     assert kinematicsC.compute([0, 0, 0], angularVelocity, theta)[0] == approx(-fourty_five_deg, rel=1e-2)
     assert kinematicsD.compute([0, 0, 0], angularVelocity, theta)[0] == approx(-fourty_five_deg - ninety_deg, rel=1e-2)
     
+    
+def test_wheel_speeds():
+    
+        # Test 0 degree (as radians) angle
+    x = 0.5
+    y = 0.5
+    z = 0.5
+    theta = 0
+    angularVelocity = 1 # 1 rad/s
+    
+    kinematicsA = ModuleKinematics("SwerveA", 20, {"x": x, "y": y, "z": z})
+    kinematicsB = ModuleKinematics("SwerveB", 20, {"x": x, "y": -y, "z": z})
+    kinematicsC = ModuleKinematics("SwerveC", 20, {"x": -x, "y": -y, "z": z})
+    kinematicsD = ModuleKinematics("SwerveD", 20, {"x": -x, "y": y, "z": z})
+    
+    theta = fourty_five_deg
+    
+    assert kinematicsA.compute([0, 0, 0], angularVelocity, theta)[1] > 0
+    assert kinematicsB.compute([0, 0, 0], angularVelocity, theta)[1] > 0
+    assert kinematicsC.compute([0, 0, 0], angularVelocity, theta)[1] > 0
+    assert kinematicsD.compute([0, 0, 0], angularVelocity, theta)[1] > 0
+
+    
+    
 
     
     

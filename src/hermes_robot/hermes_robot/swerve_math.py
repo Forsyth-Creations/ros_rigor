@@ -50,7 +50,23 @@ class ModuleKinematics:
         robotVelocity: Tuple[float, float, float], # This is the x, y, and z velocity of the robot
         robot_angular_velocity: float,
         robotAngle,
-    ):
+    ) -> Tuple[float, float]:
+        """
+        Compute the angle and speed of a wheel in a swerve drive system.
+        
+        This method calculates the angle and speed of a wheel based on the given velocities and
+        the position of the wheel relative to the robot's center.
+        
+        Args:
+            robotVelocity (Tuple[float, float, float]): The velocity of the robot along the x, y, and z axes.
+            robot_angular_velocity (float): The angular velocity of the robot.
+            robotAngle (float): The angle of the robot in radians.
+            
+        Returns:
+            Tuple[float, float]: The angle and speed of the wheel.
+        """
+        
+        
         rotatedX = self.module_position.get("x") * cos(robotAngle) - self.module_position.get("y") * sin(robotAngle)
         rotatedY = self.module_position.get("x") * sin(robotAngle) + self.module_position.get("y") * cos(robotAngle)
 

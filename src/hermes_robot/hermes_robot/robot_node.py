@@ -142,6 +142,10 @@ class Robot(Node):
         roll, pitch, yaw = self.quaternion_to_euler(orientation.x, orientation.y, orientation.z, orientation.w)
         self.positions["th"] = yaw
         self.imu_data = msg
+        # Publish the robot angle
+        robot_angle = Float64()
+        robot_angle.data = yaw
+        self.robot_angle_pub.publish(robot_angle)
         
         # Determine if I have fallen over
         if abs(roll) > 0.5 or abs(pitch) > 0.5:
@@ -152,6 +156,7 @@ class Robot(Node):
             self.commanded_vel.angular.z = 0.0  # Stop the robot
             self.update_odometry()
             self.fatal_flag = True
+            
         
         
     def quaternion_to_euler(self, x, y, z, w):
@@ -176,8 +181,8 @@ class Robot(Node):
         if self.fatal_flag:
             return
         self.commanded_vel = msg
-        self.commanded_vel.linear.x /= 10
-        self.commanded_vel.linear.y /= 10
+        # self.commanded_vel.linear.x /= 10
+        # self.commanded_vel.linear.y /= 10
 
     def wheel_speed_callback(self, prefix):
         def callback(msg):
@@ -301,8 +306,8 @@ class Robot(Node):
         odom.header.stamp = self.get_clock().now().to_msg()
         odom.header.frame_id = "odom"
         odom.child_frame_id = "base_footprint"
-        odom.pose.pose.position.x = self.positions.get("x", 0.0)
-        odom.pose.pose.position.y = self.positions.get("y", 0.0)
+        odom.pose.pose.position.x = self.positions.get("y", 0.0)
+        odom.pose.pose.position.y = -self.positions.get("x", 0.0)
         odom.pose.pose.position.z = 0.0
 
         # Create a quaternion from the yaw angle
@@ -318,8 +323,8 @@ class Robot(Node):
         t.header.stamp = self.get_clock().now().to_msg()
         t.header.frame_id = "odom"
         t.child_frame_id = "base_footprint"
-        t.transform.translation.x = self.positions.get("x", 0.0)
-        t.transform.translation.y = self.positions.get("y", 0.0)
+        t.transform.translation.x = self.positions.get("y", 0.0)
+        t.transform.translation.y = -self.positions.get("x", 0.0)
         t.transform.translation.z = self.positions.get("z", 0.0)
         t.transform.rotation.x = 0.0
         t.transform.rotation.y = 0.0

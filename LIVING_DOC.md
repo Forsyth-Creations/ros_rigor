@@ -242,6 +242,8 @@ Example this is based on:
 
 ros2 launch nav2_bringup tb3_simulation_launch.py headless:=False
 
+https://docs.nav2.org/setup_guides/transformation/setup_transforms.html
+
 
 # Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
 

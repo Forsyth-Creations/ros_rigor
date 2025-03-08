@@ -19,7 +19,7 @@ def generate_launch_description():
                 'scan_time': .0003,  # Adjust to match camera frame rate
                 'range_min': 1.0,
                 'range_max': 10.0,
-                'output_frame' : 'DepthCameraFrame',
+                'output_frame' : 'CameraVision',
                 'use_sim_time': True
             }]
         )

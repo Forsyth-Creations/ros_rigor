@@ -8,6 +8,10 @@
     <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
     <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
 
+
+    <!-- <gravity>0 0 0</gravity> -->
+
+
     <light name="sun" type="directional">
       <pose>0 0 10 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
@@ -183,11 +187,11 @@
             <box>
               <size>1 1 1</size>
             </box>
-            </geometry>
-            <material>
+          </geometry>
+          <material>
             <ambient>1 0 0 1</ambient>
             <diffuse>1 0 0 1</diffuse>
-            </material>
+          </material>
         </visual>
       </link>
     </model>
@@ -207,11 +211,11 @@
             <box>
               <size>1.5 1.5 1</size>
             </box>
-            </geometry>
-            <material>
+          </geometry>
+          <material>
             <ambient>0 1 0 1</ambient>
             <diffuse>0 1 0 1</diffuse>
-            </material>
+          </material>
         </visual>
       </link>
     </model>

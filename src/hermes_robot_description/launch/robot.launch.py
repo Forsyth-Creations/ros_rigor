@@ -25,7 +25,7 @@ def generate_launch_description():
     pkg_hermes_robot_description = get_package_share_directory('hermes_robot_description')
     
     # Convert hte corrected.urdf.xacro file to a urdf file
-    xacro_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.urdf.xacro')
+    xacro_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected2.urdf.xacro')
     
     # Convert the xacro file to a urdf file
     result = subprocess.run(['xacro', xacro_path], capture_output=True, text=True)
@@ -70,6 +70,8 @@ def generate_launch_description():
             "0",
             "-z",
             ".4",
+            "-Y",
+            "1.5708",  # 90 degrees in radians
         ],
         output="screen",
     )

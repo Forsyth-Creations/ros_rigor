@@ -7,6 +7,8 @@ from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
 
 file_name = "config5_depth.rviz"
 
+# file_name = "testing_config.rviz"
+
 def generate_launch_description():
     
     # Get the share directory for the package

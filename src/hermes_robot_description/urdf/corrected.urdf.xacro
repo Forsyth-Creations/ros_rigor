@@ -5,7 +5,7 @@
   <joint name="base_footprint_joint" type="fixed">
     <parent link="base_footprint" />
     <child link="base_link" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0 0 .22" rpy="0 0 0" />
   </joint>
   <link name="base_footprint">
   </link>
@@ -641,7 +641,7 @@
 
   <!-- Create a static link that connects to CameraVisionLink but is moved slighly -->
   <link name="DepthCameraFrame">
-    <pose>0 0 0 0 0 1.57</pose> <!-- Offset and rotation -->
+    <pose>0 0 0 0 0 0</pose> <!-- Offset and rotation -->
   </link>
 
   <joint name="DepthCameraJoint" type="fixed">
