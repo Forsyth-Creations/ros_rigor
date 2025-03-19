@@ -7,3 +7,4 @@ log
 install
 devel
 ./src/ros_gz_project_template
+*__pycache__

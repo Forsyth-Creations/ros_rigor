@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="1866.6667"
+   height="696"
+   viewBox="0 0 1866.6667 696"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="g1">
+    <path
+       id="path1"
+       d="m 464.395,48 h 314 v 75 h -314 z"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text1"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,735.19271,84.265625)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 8.2453232 12.72294 21.008242 32.991848 39.753967 45.005699 51.7542 60.003021 73.502647 81.745949 89.252647 93.744926 104.24412 112.52942 119.99413 129.01088 133.48849"
+         y="0"
+         id="tspan1">view_frames Result</tspan></text>
+    <path
+       id="path2"
+       d="m 190.379,317 c 0,9.941 -33.57,18 -74.984,18 -41.415,0 -74.989,-8.059 -74.989,-18 0,-9.941 33.574,-18 74.989,-18 41.414,0 74.984,8.059 74.984,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text2"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,87.859375,427.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.502097 18.750921 32.250546 40.493847 47.256348 55.505169 62.253288 71.215355 75.748978 83.994301 92.255157"
+         y="0"
+         id="tspan2">Camera_pivot</tspan></text>
+    <path
+       id="path3"
+       d="m 190.68,464 c 0,9.941 -33.707,18 -75.285,18 -41.583,0 -75.29,-8.059 -75.29,-18 0,-9.941 33.707,-18 75.29,-18 41.578,0 75.285,8.059 75.285,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text3"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,87.192708,623.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.502097 18.750921 32.250546 40.493847 47.256348 55.505169 65.251694 69.729309 77.250008 81.727631 90.00248"
+         y="0"
+         id="tspan3">CameraVision</tspan></text>
+    <path
+       id="path4"
+       d="m 115.395,335.203 c 0,24.856 0,71.055 0,100.57"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path5"
+       d="m 118.895,435.82 -3.5,10 -3.5,-10 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g5" />
+    <text
+       id="text5"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,159.86774,485.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan5">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="27.493719 37.240242 45.499565 53.742867 60.491364 68.740189 77.744263 85.987556 90.493835 97.242332 105.49116 111.49524 119.73854 124.24541 128.73769 137.74307 146.74846 155.73984 164.74522 173.75061 178.24287"
+         y="15.000001"
+         id="tspan6">Average rate: 10000.0</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="43.993721 54.491989"
+         y="30.000004"
+         id="tspan7">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="63.508751"
+         y="30.000004"
+         id="tspan8">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="73.245209 81.48851 88.237007 92.743279 97.220901 105.5062 114.52296 123.48503 129.48911 138.50587 142.99875 147.49101 156.4964 160.98868"
+         y="30.000004"
+         id="tspan9">er length: 0.0</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="10.493728 24.744936 32.991791 40.498493 46.488575 50.994846 57.743347 66.028648 73.4916 81.776901 90.737656 96.741737 101.24801 107.23809 114.0006 122.24942 131.26617 138.74487 143.99661 152.24347 158.99196 172.49159 176.99846 181.49074 190.49612 194.9884"
+         y="45.000004"
+         id="tspan10">Most recent transform: 0.0</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="30.493734 41.747471 46.225086 55.243156 63.528458 70.993156 76.997238 81.489517 87.493591 94.242096 102.49092 111.50768 119.00038 124.23811 132.49896 139.24747 152.74709 157.23996 161.74625 170.73763 175.2439"
+         y="60.000008"
+         id="tspan11">Oldest transform: 0.0</tspan></text>
+    <path
+       id="path11"
+       d="m 675.285,170 c 0,9.941 -24.129,18 -53.89,18 -29.766,0 -53.891,-8.059 -53.891,-18 0,-9.941 24.125,-18 53.891,-18 29.761,0 53.89,8.059 53.89,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text11"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,783.85937,231.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 9.0040712 17.252895 24.745596 33.030895 39.751015 44.22863 48.748249 57.765007"
+         y="0"
+         id="tspan12">base_link</tspan></text>
+    <path
+       id="path12"
+       d="m 567.156,171.113 c -120.91,0.785 -404.41,5.746 -435.761,34.887 -22.266,20.691 -23.192,57.559 -20.606,82.867"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path13"
+       d="m 114.277,288.566 -2.218,10.36 -4.727,-9.485 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g13" />
+    <text
+       id="text13"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,185.20107,289.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan13">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan14">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan15">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan16">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan17">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan18">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan19">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path19"
+       d="m 421.484,317 c 0,9.941 -23.769,18 -53.089,18 -29.325,0 -53.094,-8.059 -53.094,-18 0,-9.941 23.769,-18 53.094,-18 29.32,0 53.089,8.059 53.089,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text19"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,447.19271,427.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.499199 18.7845 27.001822 35.248676 39.726295 47.999619 56.28492"
+         y="0"
+         id="tspan20">Revolve1</tspan></text>
+    <path
+       id="path20"
+       d="M 567.555,171.961 C 506.52,174.23 412.25,181.699 387.395,206 c -21.707,21.219 -23.965,57.648 -22.446,82.734"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path21"
+       d="m 368.438,288.457 -2.653,10.258 -4.324,-9.676 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g21" />
+    <text
+       id="text21"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,526.53441,289.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan21">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan22">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan23">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan24">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan25">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan26">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan27">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path27"
+       d="m 674.484,317 c 0,9.941 -23.769,18 -53.089,18 -29.325,0 -53.094,-8.059 -53.094,-18 0,-9.941 23.769,-18 53.094,-18 29.32,0 53.089,8.059 53.089,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text27"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,784.52604,427.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.499199 18.7845 27.001822 35.248676 39.726295 47.999619 56.28492"
+         y="0"
+         id="tspan28">Revolve2</tspan></text>
+    <path
+       id="path28"
+       d="m 621.395,188.203 c 0,24.856 0,71.055 0,100.57"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path29"
+       d="m 624.895,288.82 -3.5,10 -3.5,-10 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g29" />
+    <text
+       id="text29"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,838.53441,289.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan29">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan30">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan31">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan32">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan33">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan34">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan35">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path35"
+       d="m 927.484,317 c 0,9.941 -23.769,18 -53.089,18 -29.325,0 -53.094,-8.059 -53.094,-18 0,-9.941 23.769,-18 53.094,-18 29.32,0 53.089,8.059 53.089,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text35"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1121.8594,427.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.499199 18.7845 27.001822 35.248676 39.726295 47.999619 56.28492"
+         y="0"
+         id="tspan36">Revolve3</tspan></text>
+    <path
+       id="path36"
+       d="m 674.973,172.191 c 60.168,2.497 152.66,10.184 177.422,33.809 11.617,11.086 17.398,53.547 20.039,82.352"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path37"
+       d="m 875.949,288.371 -2.652,10.258 -4.324,-9.672 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g37" />
+    <text
+       id="text37"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1171.8677,289.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan37">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan38">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan39">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan40">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan41">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan42">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan43">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path43"
+       d="m 1180.484,317 c 0,9.941 -23.769,18 -53.089,18 -29.325,0 -53.094,-8.059 -53.094,-18 0,-9.941 23.769,-18 53.094,-18 29.32,0 53.089,8.059 53.089,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text43"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1459.1927,427.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.499199 18.7845 27.001822 35.248676 39.726295 47.999619 56.28492"
+         y="0"
+         id="tspan44">Revolve4</tspan></text>
+    <path
+       id="path44"
+       d="m 675.309,171.281 c 119.464,1.137 398.414,6.785 430.086,34.719 23.003,20.289 26.027,57.25 24.949,82.688"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path45"
+       d="m 1133.828,289.055 -4.148,9.75 -2.836,-10.211 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g45" />
+    <text
+       id="text45"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1517.2011,289.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan45">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan46">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan47">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan48">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan49">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan50">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan51">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path51"
+       d="m 410.887,464 c 0,9.941 -19.024,18 -42.492,18 -23.469,0 -42.497,-8.059 -42.497,-18 0,-9.941 19.028,-18 42.497,-18 23.468,0 42.492,8.059 42.492,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text51"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,458.52604,623.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 11.224805 18.001307 22.478924 30.752247 38.995548"
+         y="0"
+         id="tspan52">Drive1</tspan></text>
+    <path
+       id="path52"
+       d="m 368.395,335.203 c 0,24.856 0,71.055 0,100.57"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path53"
+       d="m 371.895,435.82 -3.5,10 -3.5,-10 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g53" />
+    <text
+       id="text53"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,501.20107,485.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan53">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan54">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan55">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan56">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan57">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan58">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan59">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path59"
+       d="m 663.887,464 c 0,9.941 -19.024,18 -42.492,18 -23.469,0 -42.497,-8.059 -42.497,-18 0,-9.941 19.028,-18 42.497,-18 23.468,0 42.492,8.059 42.492,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text59"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,795.85937,623.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 11.224805 18.001307 22.478924 30.752247 38.995548"
+         y="0"
+         id="tspan60">Drive2</tspan></text>
+    <path
+       id="path60"
+       d="m 621.395,335.203 c 0,24.856 0,71.055 0,100.57"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path61"
+       d="m 624.895,435.82 -3.5,10 -3.5,-10 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g61" />
+    <text
+       id="text61"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,838.53441,485.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan61">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan62">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan63">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan64">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan65">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan66">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan67">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path67"
+       d="m 916.887,464 c 0,9.941 -19.024,18 -42.492,18 -23.469,0 -42.497,-8.059 -42.497,-18 0,-9.941 19.028,-18 42.497,-18 23.468,0 42.492,8.059 42.492,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text67"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1133.1927,623.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 11.224805 18.001307 22.478924 30.752247 38.995548"
+         y="0"
+         id="tspan68">Drive3</tspan></text>
+    <path
+       id="path68"
+       d="m 874.395,335.203 c 0,24.856 0,71.055 0,100.57"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path69"
+       d="m 877.895,435.82 -3.5,10 -3.5,-10 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g69" />
+    <text
+       id="text69"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1175.8677,485.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan69">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan70">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan71">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan72">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan73">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan74">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan75">Oldest transform: 1001.8</tspan></text>
+    <path
+       id="path75"
+       d="m 1169.887,464 c 0,9.941 -19.024,18 -42.492,18 -23.469,0 -42.497,-8.059 -42.497,-18 0,-9.941 19.028,-18 42.497,-18 23.468,0 42.492,8.059 42.492,18"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <text
+       id="text75"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1470.526,623.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 11.224805 18.001307 22.478924 30.752247 38.995548"
+         y="0"
+         id="tspan76">Drive4</tspan></text>
+    <path
+       id="path76"
+       d="m 1127.395,335.203 c 0,24.856 0,71.055 0,100.57"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <path
+       id="path77"
+       d="m 1130.895,435.82 -3.5,10 -3.5,-10 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1.3333333)" />
+    <g
+       id="g77" />
+    <text
+       id="text77"
+       xml:space="preserve"
+       transform="matrix(1.3333333,0,0,1.3333333,1513.2011,485.59896)"><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="0 10.498269 17.246769 25.493624 33.742447 42.746517 50.237469 58.500294 65.992996 71.997078 80.240372 86.988876 91.49575 95.988022 104.9921 113.2774 118.45913 126.74995 135.76671 140.24432 146.24841 152.99652 161.24535 170.26212 176.23819 185.25494 193.48781 200.25031 204.72792 210.746"
+         y="0"
+         id="tspan77">Broadcaster: default_authority</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="31.993721 41.740242 49.999565 58.242867 64.991364 73.240189 82.244263 90.487556 94.993835 101.74233 109.99116 115.99524 124.23854 128.74541 133.23769 142.24307 151.24846 155.74072 164.74611 173.73749"
+         y="15.000001"
+         id="tspan78">Average rate: 20.206</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="39.493721 49.991989"
+         y="30.000004"
+         id="tspan79">Bu</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="59.008747"
+         y="30.000004"
+         id="tspan80">ﬀ</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="68.745209 76.98851 83.737007 88.243279 92.720901 101.0062 110.02296 118.98503 124.98911 134.00587 138.49875 142.99101 151.9964 156.48868 165.49406"
+         y="30.000004"
+         id="tspan81">er length: 4.85</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-7.5062742 6.744935 14.99179 22.498491 28.488571 32.994846 39.743347 48.028648 55.491596 63.776897 72.737656 78.741737 83.248009 89.238091 96.000595 104.24941 113.26617 120.74487 125.9966 134.24347 140.99196 154.49159 158.99846 163.49074 172.49612 181.4875 190.49289 199.49828 203.99054 212.99593"
+         y="45.000004"
+         id="tspan82">Most recent transform: 1006.65</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="16.993719 28.247454 32.725071 41.743141 50.028442 57.493145 63.497223 67.989502 73.993576 80.742081 88.990906 98.00766 105.50037 110.7381 118.99895 125.74745 139.24707 143.73994 148.24623 157.23761 166.243 175.24838 184.23976 188.74603"
+         y="60.000008"
+         id="tspan83">Oldest transform: 1001.8</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-size:14.0002px;font-family:'DejaVu Serif';writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         x="-654.00629 -643.50708 -635.2218 -627.75885 -619.51196 -612.74945 -603.78741 -595.50208 -586.54004 -582.00574 -573.75696 -567.75287 -563.26056 -557.25647 -552.77887 -539.25128 -531.00793 -526.5011 -522.00879 -513.00342 -504.01205 -495.00665 -486.00128 -477.00989 -468.00452 -459.01312 -450.00775 -441.00235 -432.01099 -427.5047 -418.49933 -409.50793 -400.50256 -391.51117 -382.50577"
+         y="-263.5"
+         id="tspan84">Recorded at time: 1739910147.476778</tspan></text>
+  </g>
+</svg>

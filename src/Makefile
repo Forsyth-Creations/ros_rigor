@@ -8,14 +8,17 @@ SHELL := /bin/bash
 all: # Builds all the ROS targets
 	# call the no-web
 	$(MAKE) no-web
-	cd web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
-	cd web_controller/web_controller/frontend && npm install -g && npm run build
+
+	cd /ros2_jazzy/workspace/web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
+	cd /ros2_jazzy/workspace/web_controller/web_controller/frontend && npm install -g && npm install && npm run build
 	
+	# Delete the node_modules folder
+	rm -rf web_controller/install/web_controller/share/web_controller/frontend/node_modules
+
 	cd web_controller && colcon build
 
 	# Go into the share and install the modules. A hack, but it works
 	cd web_controller/install/web_controller/share/web_controller/frontend && npm install
-
 
 	# Make the URDF files for the robot
 	# cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
@@ -37,6 +40,10 @@ no-web:
 	cd hermes_swerve_module && colcon build
 	cd hermes_robot_description && colcon build
 	cd hermes_robot && colcon build
+	
+.PHONY: realsense
+realsense:
+	cd realsense_gazebo_plugin && colcon build
 
 # Optional: If you want to source the script automatically (e.g., for CI or convenience), uncomment the next line
 .PHONY: source-env
@@ -52,3 +59,10 @@ clean: # Cleans all the ROS targets
 	cd web_controller/web_controller/backend && rm -rf .venv
 	cd web_controller && rm -rf build install log
 	rm -f setup_env.sh
+	rm -rf web_controller/install/web_controller/share/web_controller/frontend/node_modules
+
+.PHONY: run
+run: # Runs the ROS targets
+	# Run the web controller
+	source setup_env.sh && ros2 launch hermes_robot all.launch.py 
+

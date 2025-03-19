@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by
+Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="hermes_robot_description" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Base Footprint -->
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="base_link" />
+    <origin xyz="0 0 .22" rpy="0 0 0" />
+  </joint>
+  <link name="base_footprint">
+  </link>
+  <!-- End of Base Footprint -->
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00268094779402119 1.80421101611517E-05 0.0405811412092236"
+        rpy="0 0 0" />
+      <mass
+        value="5.83594079476047" />
+      <inertia
+        ixx="0.0221067059512389"
+        ixy="-2.75289714906996E-06"
+        ixz="1.52879512972929E-09"
+        iyy="0.0262319829443243"
+        iyz="-1.56106763719774E-09"
+        izz="0.0463251880864419" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Revolve1">
+    <inertial>
+      <origin
+        xyz="-0.00014594 0.003304 -0.12936"
+        rpy="0 0 0" />
+      <mass
+        value="0.36062" />
+      <inertia
+        ixx="0.001012"
+        ixy="5.7583E-10"
+        ixz="-3.1291E-07"
+        iyy="0.00086644"
+        iyz="-4.8674E-08"
+        izz="0.00049821" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Revolve1"
+    type="continuous">
+    <origin
+      xyz="0.162367298941792 -0.142812746894596 0.0777115217166801"
+      rpy="0 0 -1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Drive1">
+    <inertial>
+      <origin
+        xyz="-0.000226014040974054 0.0569137014546195 -0.000410926178411986"
+        rpy="0 0 0" />
+      <mass
+        value="0.63490888023755" />
+      <inertia
+        ixx="0.000875571090230351"
+        ixy="3.28321233997798E-10"
+        ixz="3.82111291760166E-07"
+        iyy="0.00157016076845386"
+        iyz="-1.86508941509458E-10"
+        izz="0.000876108829479964" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Drive1"
+    type="continuous">
+    <origin
+      xyz="-3.1376E-05 -0.058217 -0.23703"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve1" />
+    <child
+      link="Drive1" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Revolve2">
+    <inertial>
+      <origin
+        xyz="0.00014575 -0.0029324 -0.12954"
+        rpy="0 0 0" />
+      <mass
+        value="0.35663" />
+      <inertia
+        ixx="0.0010117"
+        ixy="5.7579E-10"
+        ixz="3.1291E-07"
+        iyy="0.00086593"
+        iyz="4.8674E-08"
+        izz="0.00049793" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Revolve2"
+    type="continuous">
+    <origin
+      xyz="-0.16237 -0.14249 0.077712"
+      rpy="0 0 -1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Drive2">
+    <inertial>
+      <origin
+        xyz="0.000226014026485727 0.0630862984739214 -0.000410926178319615"
+        rpy="0 0 0" />
+      <mass
+        value="0.634908880237551" />
+      <inertia
+        ixx="0.000875571090230351"
+        ixy="3.28321234825462E-10"
+        ixz="-3.82111291760112E-07"
+        iyy="0.00157016076845386"
+        iyz="1.86508939225587E-10"
+        izz="0.000876108829479963" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Drive2"
+    type="continuous">
+    <origin
+      xyz="3.13759120329493E-05 -0.0617827010582004 -0.237027607087662"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve2" />
+    <child
+      link="Drive2" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Revolve3">
+    <inertial>
+      <origin
+        xyz="0.00014594 -0.003304 -0.12936"
+        rpy="0 0 0" />
+      <mass
+        value="0.36062" />
+      <inertia
+        ixx="0.001012"
+        ixy="5.7578E-10"
+        ixz="3.1291E-07"
+        iyy="0.00086644"
+        iyz="4.8674E-08"
+        izz="0.00049821" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Revolve3"
+    type="continuous">
+    <origin
+      xyz="-0.16237 0.14281 0.077712"
+      rpy="0 0 -1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Drive3">
+    <inertial>
+      <origin
+        xyz="0.000226013860824659 0.0630862988598239 -0.000410926178318699"
+        rpy="0 0 0" />
+      <mass
+        value="0.634908880237551" />
+      <inertia
+        ixx="0.000875571090230352"
+        ixy="3.28321234711081E-10"
+        ixz="-3.82111291761126E-07"
+        iyy="0.00157016076845386"
+        iyz="1.86508939069532E-10"
+        izz="0.000876108829479963" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Drive3"
+    type="continuous">
+    <origin
+      xyz="3.13759120332546E-05 -0.0617827010582005 -0.237027607087663"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve3" />
+    <child
+      link="Drive3" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Revolve4">
+    <inertial>
+      <origin
+        xyz="-0.00014575 0.0029324 -0.12954"
+        rpy="0 0 0" />
+      <mass
+        value="0.35663" />
+      <inertia
+        ixx="0.0010117"
+        ixy="5.7578E-10"
+        ixz="-3.1291E-07"
+        iyy="0.00086593"
+        iyz="-4.8674E-08"
+        izz="0.00049793" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Revolve4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Revolve4"
+    type="continuous">
+    <origin
+      xyz="0.16237 0.14249 0.077712"
+      rpy="0 0 -1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Revolve4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Drive4">
+    <inertial>
+      <origin
+        xyz="-0.000220556953194034 0.0608746936394261 -0.000394638722712198"
+        rpy="0 0 0" />
+      <mass
+        value="0.516814718226391" />
+      <inertia
+        ixx="0.000778342323598232"
+        ixy="-6.79583691506493E-08"
+        ixz="1.9103031334667E-07"
+        iyy="0.00139495120008227"
+        iyz="-1.31296817796961E-07"
+        izz="0.000778611296294089" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Drive4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Drive4"
+    type="continuous">
+    <origin
+      xyz="-3.1376E-05 -0.058217 -0.23703"
+      rpy="0 0 0" />
+    <parent
+      link="Revolve4" />
+    <child
+      link="Drive4" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="50"
+      velocity="20" />
+  </joint>
+  <link
+    name="Camera_pivot">
+    <inertial>
+      <origin
+        xyz="-0.055594 -2.9073E-05 -0.0033"
+        rpy="0 0 0" />
+      <mass
+        value="1.2879" />
+      <inertia
+        ixx="0.00011759"
+        ixy="4.0556E-08"
+        ixz="1.1341E-05"
+        iyy="0.00079497"
+        iyz="-2.0885E-07"
+        izz="0.00078781" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Camera_pivot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/Camera_pivot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Camera_pivot_joint"
+    type="fixed">
+    <origin
+      xyz="0.23015 -0.05435 0.056825"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Camera_pivot" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="20"
+      velocity="10" />
+  </joint>
+  <link
+    name="CameraVision">
+    <inertial>
+      <origin
+        xyz="-0.0005 -1.30646361784503E-17 6.93889390390723E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.00122306679751054" />
+      <inertia
+        ixx="6.38898472620157E-07"
+        ixy="6.22614811001454E-24"
+        ixz="3.16361098869787E-24"
+        iyy="2.45260777746174E-08"
+        iyz="5.84871889904023E-22"
+        izz="6.14576239311791E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/CameraVision.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/CameraVision.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="CameraVisionJoint"
+    type="fixed">
+    <origin
+      xyz="-0.0545 0 -0.017016"
+      rpy="-1.5707963267949 1.5707963267949 0" />
+    <parent
+      link="Camera_pivot" />
+    <child
+      link="CameraVision" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      effort="20"
+      velocity="10" />
+  </joint>
+  <link
+    name="IMU_Link">
+    <inertial>
+      <origin
+        xyz="0.0026809 1.8042E-05 0.040581"
+        rpy="0 0 0" />
+      <mass
+        value="5.8359" />
+      <inertia
+        ixx="0.022107"
+        ixy="-2.7529E-06"
+        ixz="1.5288E-09"
+        iyy="0.026232"
+        iyz="-1.5611E-09"
+        izz="0.046325" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/IMU_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://hermes_robot_description/meshes/IMU_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="IMU_Joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="IMU_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <!-- ####################### Plugin Section ######################### -->
+
+  <gazebo reference="IMU_Link">
+    <sensor name="imu" type="imu">
+      <topic>hermes/imu</topic>
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+    </sensor>
+  </gazebo>
+
+
+  <gazebo reference="CameraVision">
+    <sensor name="RealsenseD435" type="rgbd_camera">
+      <pose>0 0 0 0 0 0</pose>
+      <camera>
+        <horizontal_fov>1.25</horizontal_fov>
+        <image>
+          <width>320</width>
+          <height>240</height>
+        </image>
+        <clip>
+          <near>0.3</near>
+          <far>100</far>
+        </clip>
+        <optical_frame_id>CameraVision</optical_frame_id>
+      </camera>
+      <update_rate>10</update_rate>
+      <topic>depth_camera</topic>
+      <always_on>true</always_on>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="CameraVision">
+    <sensor name="camera" type="camera">
+      <pose>0 0 0 0 0 0</pose>
+      <topic>image_raw</topic>
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>600</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+      </camera>
+    </sensor>
+  </gazebo>
+
+
+  <gazebo>
+
+    <plugin
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin
+      filename="gz-sim-pose-publisher-system"
+      name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+
+    <!--  Drive motor joint controllers -->
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive1</joint_name>
+      <topic>/drive/1/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <topic>/drive/2/command</topic>
+      <joint_name>Joint_Drive2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive3</joint_name>
+      <topic>/drive/3/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Drive4</joint_name>
+      <topic>/drive/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <!-- Position Controllers -->
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve1</joint_name>
+      <topic>/pivot/1/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <topic>/pivot/2/command</topic>
+      <joint_name>Joint_Revolve2</joint_name>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve3</joint_name>
+      <topic>/pivot/3/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Joint_Revolve4</joint_name>
+      <topic>/pivot/4/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>Camera_pivot_joint</joint_name>
+      <topic>/camera/pivot/command</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>6.28</cmd_max>
+      <cmd_min>-6.28</cmd_min>
+    </plugin>
+
+    <plugin filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+
+  </gazebo>
+
+</robot>

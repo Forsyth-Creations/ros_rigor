@@ -31,4 +31,9 @@ install(DIRECTORY worlds/
   DESTINATION share/${PROJECT_NAME}/worlds
 )
 
+# Add in the world_meshes files
+install(DIRECTORY world_meshes/
+  DESTINATION share/${PROJECT_NAME}/world_meshes
+)
+
 ament_package()
