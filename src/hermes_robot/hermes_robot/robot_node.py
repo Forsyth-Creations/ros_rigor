@@ -31,7 +31,7 @@ class Robot(Node):
         # Initialize the node
         super().__init__("hermes")
 
-        self.odom_frequency = 20.0
+        self.odom_frequency = 60.0
         
         self.fatal_flag = False
 
@@ -201,6 +201,8 @@ class Robot(Node):
         self.wheel_based_update_odometry()
     
     def imu_based_update_odometry(self):
+        
+        
         robot_angle = Float64()
         robot_angle.data = self.imu_data.orientation.z
         self.robot_angle_pub.publish(robot_angle)
@@ -219,7 +221,7 @@ class Robot(Node):
         
         xt1 = self.positions.get("x", 0.0) + x_vel * dt
         yt1 = self.positions.get("y", 0.0) + y_vel * dt
-        tht1 = self.positions.get("th", 0.0) + z_vel * dt
+        tht1 = self.positions.get("th", 0.0) + z_vel * dt 
         
         # Update the positions
         self.positions["x"] = xt1
@@ -291,9 +293,9 @@ class Robot(Node):
             self.connections.pivot_publishers[idx].publish(Float64(data=float(wheel_angles[idx])))
 
         # Calculate the average wheel speed and pivot position
-        xt1 = self.positions.get("x", 0.0) + getattr(self.commanded_vel.linear, 'x', 0.0) * dt
-        yt1 = self.positions.get("y", 0.0) + getattr(self.commanded_vel.linear, 'y', 0.0) * dt
-        tht1 = self.positions.get("th", 0.0) + getattr(self.commanded_vel.angular, 'z', 0.0) * dt
+        xt1 = self.positions.get("x", 0.0) + getattr(self.commanded_vel.linear, 'x', 0.0) * dt * 2
+        yt1 = self.positions.get("y", 0.0) + getattr(self.commanded_vel.linear, 'y', 0.0) * dt * 2
+        tht1 = self.positions.get("th", 0.0) + getattr(self.commanded_vel.angular, 'z', 0.0) * dt * 2
 
         # Update the positions
         self.positions["x"] = xt1

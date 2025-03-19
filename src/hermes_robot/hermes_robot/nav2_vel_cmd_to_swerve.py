@@ -31,7 +31,7 @@ class TwistTransformer(Node):
         new_twist.angular = msg.angular  # Preserve angular velocity
         
         # Get the logger and print the new twist
-        self.get_logger().info(f"New twist: x : {new_twist.linear.x}, y : {new_twist.linear.y}, z : {new_twist.linear.z} from angle {proper_angle}")
+        # self.get_logger().info(f"New twist: x : {new_twist.linear.x}, y : {new_twist.linear.y}, z : {new_twist.linear.z} from angle {proper_angle}")
         
         self.publisher.publish(new_twist)
 

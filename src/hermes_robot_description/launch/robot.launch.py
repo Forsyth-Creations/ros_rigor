@@ -52,10 +52,6 @@ def generate_launch_description():
     with open(sdf_path, 'w') as outfp:
         outfp.write(sdf_content)
         
-    print("-------------------------------------------------------")
-    print(f"These files are saved to: {sdf_path} and {urdf_path}")
-    print("-------------------------------------------------------")
-
     spawn_robot = Node(
         package="ros_gz_sim",
         executable="create",
@@ -69,7 +65,7 @@ def generate_launch_description():
             "-y",
             "0",
             "-z",
-            ".4",
+            "1.0",
             "-Y",
             "1.5708",  # 90 degrees in radians
         ],
