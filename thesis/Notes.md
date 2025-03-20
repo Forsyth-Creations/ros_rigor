@@ -25,3 +25,7 @@ Without charts, a page is about 700 words. For a 40 page paper, that is 28,000 w
 
 # How I want to structure my argument
 
+
+# Other links
+
+https://www.aliexpress.us/item/3256806768276509.html?gatewayAdapt=glo2usa4itemAdapt
