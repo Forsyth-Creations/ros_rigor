@@ -2,15 +2,15 @@
 
 Precision Robotics with Lightweight Hardware and Software: A Swerve Drive Implementation
 
-Henry Forsyth 
+Henry Forsyth
 
 # Keywords
 
-Robotics, Swerve Drive, Intel Realsense D435i, slam_toolbox, Nav2, PID tuning, Gazebo
+Robotics, Swerve Drive, Intel Realsense D435i, slam_toolbox, Nav2, PID tuning, Gazebo, twist_mux, ROS2, simulation, path planning, cost map, pose, quaternion, navigation stack, depth camera, four-wheel drive, omnidirectional movement, software stack, hardware architecture, general purpose robotics, computational power, optimization, real-world application, robotic design.
 
 # Specific Abstract
 
-The era of AI demands ever increasing computational power. As we dawn the era of general purpose robotics, this trend repeats. For complex robotics systems, thoughtful choices of both software and hardware architecure are required for optimal performance. This paper explores one such implentation: a swerve drive robot, leveraging an Intel Realsense D435i depth camera, to navigate a room using the slam_toolbox and Nav2 stack. The controller is optimized using PID tuning and the robot is tested in a variety of environments. Using Gazebo as the simulation environment, and with the eventual goal of moving the software stack to a physical robot, this paper explores the optimal development choices for robotic design.
+The era of AI demands ever increasing computational power. As we dawn the era of general purpose robotics, this trend continues. For complex robotics systems, thoughtful choices of both software and hardware architecure are required for optimal performance. This paper explores one such implentation: a swerve drive robot, leveraging an Intel Realsense D435i depth camera, to navigate a room using the slam_toolbox and Nav2 stack. Using Gazebo as the simulation environment, and with the eventual goal of moving the software stack to a physical robot, this paper explores the optimal development choices for robotic design. It also explores considerations for compute utilization to prevent system bottlenecks.
 
 # General Audience Abstract
 
@@ -31,7 +31,7 @@ My Family
 
 # Acknowledgements
 
-I would like to thank my committee members, Dr. Thidapat Chantem, Dr. Ryan Williams, and Dr. Scot Ransbottom, for their guidance and support throughout this project. I would also like to thank David Spadaccia, Michael Yanoshak, and Catherine Hebert for their assistance with the project. Finally, I would like to thank my family for their unwavering support.
+I would like to thank my committee members, Dr. Thidapat Chantem, Dr. Ryan Williams, and Dr. Scot Ransbottom, for their guidance and support throughout this project. I would also like to thank David Spadaccia, Michael Yanoshak, and Catherine Hebert for encouraging me through this process. Finally, I would like to thank my family for their support.
 
 # Key Terms
 
@@ -43,4 +43,9 @@ I would like to thank my committee members, Dr. Thidapat Chantem, Dr. Ryan Willi
 - Swerve Drive: A type of robotic drive system that allows for omnidirectional movement.
 - Cost Map: A map of the environment that assigns a cost to each cell based on its traversability. Obstables are assigned a higher cost, while open areas are assigned a lower cost. Used for path planning.
 - Pose: The position and orientation of a robot in space. This is typically represented as a 3D coordinate and a quaternion.
-- Quaternion: A mathematical construct used to represent rotations in 3D space. It is a more compact representation than Euler angles.
+- Quaternion: A mathematical construct used to represent rotations in 3D space. It is a more compact representation than Euler angles. Instead of using a six number representation, it uses four numbers to represent the same information. This approach is more efficient for computation and avoids issues with gimbal lock.
+- Swerve Module: The individual wheel assembly of a swerve drive robot. Each module can pivot independently to allow for omnidirectional movement.
+- Swerve Drive Radial Axis: The axis around which the swerve module pivots. This is typically perpendicular to the ground and parallel to the wheel. Used synonymously with "pivot axis".
+- Swerve Drive Axial Axis: The axis along which the wheel rotates. This is typically parallel to the ground and perpendicular to the swerve module. Used synonymously with "drive axis".
+- Twist_mux: A tool used to manage multiple sources of velocity commands in ROS2.
+- "Differential Drivetrain" vs "Swerve Drive Differential": A differential drivetrain is a type of drive system that uses two wheels to control the direction of the robot. A swerve drive differential describes the differential drive system of a swerve drive robot. This entails two motors on a module, which depending on the combination of commands to the two motors and their difference in motion can yield either a radial, axial, or radial and axial motion. This is a unique feature of swerve drive robots, and is not present in traditional differential drive systems.
