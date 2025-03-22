@@ -123,23 +123,8 @@ This research leans into the 3D printing of parts to reduce the cost of the robo
 
 ## Turtlebot Perception "State of the Art"
 
-## Math behind swerve drive systems
+"Turtlebot" is a term used to describe a small, low-cost robot that is often used for research and education. Turtlebot4 is the most recent iteration of the work, relying on a perception stack of both a puck lidar and a depth camera. Mirroring the Turtlebot implementation, this research leverages a depth camera. The intent of this robot was to create a framework to scale to any need, and support additional sensors. Moreover, the design presented in the research is an MVP of a swerve drive robot, and is not intended to be a fully-featured robot. The goal is to provide a foundation for future research and development in the field of swerve drive robots, while also highlighting the tuning and creation process of the vehicle. 
 
-## Limitations of python architecutre vs a C++ fully compiled software architecture
+## Mathematics Behind the Kinematic Model
 
-## Swerve Drive vs Differential Drive
-
-## Other notes on existing swerve drive systems
-
-
-
-
-Within the body of existing work, there is a clear trend of attaching motors directly to the wheels of swerve drive systems. This approach is not without its drawbacks, as it can lead to wiring issues and increased complexity in the design. In contrast, the research presented in this paper utilizes a belt system to drive the wheels, which not only simplifies the design but also mitigates potential wiring problems. However, it is not without it's faults. Existing designs leverage an encoder directly on the pivot motor, which would accout for belt slip within this paper's proposed design. 
-
-Additionally, the state of the art had defined a method of tracking 
-
-## Critique
-
-## Contrast
-
-## Connection
+The mathematics to control this swerve drive robot are largely inspired by LR2. 
