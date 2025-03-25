@@ -78,6 +78,8 @@ Links and Notes:
 
 (LR16) https://github.com/SteveMacenski/slam_toolbox
 
+(LR17) https://github.com/ros-navigation/navigation2/blob/humble/nav2_voxel_grid/README.md
+
 -->
 
 # Literary Review
@@ -123,8 +125,12 @@ This research leans into the 3D printing of parts to reduce the cost of the robo
 
 ## Turtlebot Perception "State of the Art"
 
-"Turtlebot" is a term used to describe a small, low-cost robot that is often used for research and education. Turtlebot4 is the most recent iteration of the work, relying on a perception stack of both a puck lidar and a depth camera. Mirroring the Turtlebot implementation, this research leverages a depth camera. The intent of this robot was to create a framework to scale to any need, and support additional sensors. Moreover, the design presented in the research is an MVP of a swerve drive robot, and is not intended to be a fully-featured robot. The goal is to provide a foundation for future research and development in the field of swerve drive robots, while also highlighting the tuning and creation process of the vehicle. 
+"Turtlebot" is a term used to describe a small, low-cost robot that is often used for research and education. Turtlebot4 is the most recent iteration of the work, relying on a perception stack of both a puck lidar and a depth camera. Mirroring the Turtlebot implementation, this research leverages a depth camera. The intent of this robot was to create a framework to scale to any need, and support additional sensors. Moreover, the design presented in the research is an MVP of a swerve drive robot, and is not intended to be a fully-featured robot. The goal is to provide a foundation for future research and development in the field of swerve drive robots, while also highlighting the tuning and creation process of the vehicle.
+
+# Slam Toolbox vs Voxel Mapping
+
+While the Nav2 stack supports voxel grids out of the box (LR17), the presumed additional processing used to determine and maintain this data was contrary to the hardware selection, which is intended to be minimal (Raspberry Pi 5). Instead, we relied on a basic perception model which we could tune for the environment. This offered a signifigant cost savings as well, as the research limited the amount of sensors within the sensor set. 
 
 ## Mathematics Behind the Kinematic Model
 
-The mathematics to control this swerve drive robot are largely inspired by LR2. 
+The mathematics to control this swerve drive robot are largely inspired by LR2. I have expanded upon their notation to make it easier to read.
