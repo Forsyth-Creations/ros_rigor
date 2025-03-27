@@ -18,19 +18,21 @@ def generate_launch_description():
     # Declare any launch arguments if needed (e.g., for FastAPI port, etc.)
 
     # Start the ROS 2 node (RobotPublisher)
-    ld.add_action(ExecuteProcess(
-        cmd=['ros2', 'run', 'web_controller', 'robot_publisher_node'],
-        name='robot_publisher_node',
-        output='screen',
-        shell=True
-    ))
+    # ld.add_action(ExecuteProcess(
+    #     cmd=['ros2', 'run', 'web_controller', 'robot_publisher_node'],
+    #     name='robot_publisher_node',
+    #     output='screen',
+    #     shell=True,
+    #     sigkill_timeout = "1"
+    # ))
 
     # Start the FastAPI backend as a separate process
     ld.add_action(ExecuteProcess(
         cmd=['python3', lib_directory],
         name='fastapi_server',
         output='screen',
-        shell=True
+        shell=True,
+        sigkill_timeout = "0.5"
     ))
     
     # Change to the frontend directory and start the frontend
@@ -39,8 +41,11 @@ def generate_launch_description():
         name='frontend',
         output='screen',
         shell=True,
-        cwd=[os.path.join(package_prefix, 'share', 'web_controller', 'frontend')]
+        cwd=[os.path.join(package_prefix, 'share', 'web_controller', 'frontend')],
+        sigkill_timeout = "0.5"
     ))
+    
+    
     
     return ld
 

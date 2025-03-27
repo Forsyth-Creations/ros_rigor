@@ -3,7 +3,10 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Float64
+from std_msgs.msg import String, Float64, Int8
+# geometry_msgs twist
+from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Vector3
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -41,26 +44,78 @@ app.add_middleware(
 
 # Define the command structure using Pydantic
 class Move(BaseModel):
-    direction: float
-    speed: float
+    ang_vel: Union[float, int]
+    vel_x : Union[float, int]
+    vel_y : Union[float, int]
 
 
 # ROS 2 Node setup
-class RobotPublisher(Node):
+class RobotAbstraction(Node):
     def __init__(self):
         super().__init__('robot_controller_web')
-        self.wheel_speed = self.create_publisher(Float64, '/hermes/rqst_wheel_speed', 10)
-        self.pivot_direction = self.create_publisher(Float64, '/hermes/rqst_pivot_direction', 10)
-        self.get_logger().info("RobotPublisher Node has been started.")
+        self.cmd_vel = self.create_publisher(Twist, '/joystick_cmd_vel', 10)
+        self.get_logger().info("RobotAbstraction Node has been started.")
+        
+        # Subscribe to all swerve modules, A, B, C, D
+        self.swerve_a = {
+            "pivot_position" : 0,
+            "requested_pivot_position" : 0,
+        }
+        
+        self.swerve_b = {
+            "pivot_position" : 0,
+            "requested_pivot_position" : 0,
+        }
+        
+        self.swerve_c = {
+            "pivot_position" : 0,
+            "requested_pivot_position" : 0,
+        }
+        
+        self.swerve_d = {
+            "pivot_position" : 0,
+            "requested_pivot_position" : 0,
+        }
+        
+        # Create subscribers for each swerve module, actual data
+        self.swerve_a_sub = self.create_subscription(Float64, '/swerve_a/pivot_position', self.swerve_callback("swerve_a", "pivot_position"), 10)
+        self.swerve_b_sub = self.create_subscription(Float64, '/swerve_b/pivot_position', self.swerve_callback("swerve_b", "pivot_position"), 10)
+        self.swerve_c_sub = self.create_subscription(Float64, '/swerve_c/pivot_position', self.swerve_callback("swerve_c", "pivot_position"), 10)
+        self.swerve_d_sub = self.create_subscription(Float64, '/swerve_d/pivot_position', self.swerve_callback("swerve_d", "pivot_position"), 10)
+        
+        # Also do it for the pivot angle
+        self.swerve_a_rqst_sub = self.create_subscription(Float64, '/swerve_a/rqst_pivot_angle', self.swerve_callback("swerve_a", "requested_pivot_position"), 10)
+        self.swerve_b_rqst_sub = self.create_subscription(Float64, '/swerve_b/rqst_pivot_angle', self.swerve_callback("swerve_b", "requested_pivot_position"), 10)
+        self.swerve_c_rqst_sub = self.create_subscription(Float64, '/swerve_c/rqst_pivot_angle', self.swerve_callback("swerve_c", "requested_pivot_position"), 10)
+        self.swerve_d_rqst_sub = self.create_subscription(Float64, '/swerve_d/rqst_pivot_angle', self.swerve_callback("swerve_d", "requested_pivot_position"), 10)
+        
+        # Actual speed
+        self.swerve_a_speed_sub = self.create_subscription(Float64, '/swerve_a/wheel_speed', self.swerve_callback("swerve_a", "speed"), 10)
+        self.swerve_b_speed_sub = self.create_subscription(Float64, '/swerve_b/wheel_speed', self.swerve_callback("swerve_b", "speed"), 10)
+        self.swerve_c_speed_sub = self.create_subscription(Float64, '/swerve_c/wheel_speed', self.swerve_callback("swerve_c", "speed"), 10)
+        self.swerve_d_speed_sub = self.create_subscription(Float64, '/swerve_d/wheel_speed', self.swerve_callback("swerve_d", "speed"), 10)
+        
+        # Requested speed
+        self.swerve_a_rqst_speed_sub = self.create_subscription(Float64, '/swerve_a/rqst_wheel_speed', self.swerve_callback("swerve_a", "requested_speed"), 10)
+        self.swerve_b_rqst_speed_sub = self.create_subscription(Float64, '/swerve_b/rqst_wheel_speed', self.swerve_callback("swerve_b", "requested_speed"), 10)
+        self.swerve_c_rqst_speed_sub = self.create_subscription(Float64, '/swerve_c/rqst_wheel_speed', self.swerve_callback("swerve_c", "requested_speed"), 10)
+        self.swerve_d_rqst_speed_sub = self.create_subscription(Float64, '/swerve_d/rqst_wheel_speed', self.swerve_callback("swerve_d", "requested_speed"), 10)
+        
+                
+    def swerve_callback(self, swerve_module, data_name):
+        def callback(msg):
+            getattr(self, swerve_module)[data_name] = msg.data
+        return callback
+    
 
-    def publish_move(self, direction, speed):
+    def publish_move(self, moveCommand : Move):
         try:
-            self.pivot_direction.publish(Float64(data=direction))
-            self.wheel_speed.publish(Float64(data=speed))
-            self.get_logger().info(f"Published: direction={direction}, speed={speed}")
+            self.cmd_vel.publish(Twist(
+                linear=Vector3(x=float(moveCommand.vel_x), y=float(moveCommand.vel_y), z=0.0),
+                angular=Vector3(x=0.0, y=0.0, z=float(moveCommand.ang_vel))
+            ))
         except Exception as e:
             self.get_logger().error(f"{Fore.RED}Error: {e}{Fore.RESET}")
-
 
 # Create a ROS 2 node and start it in a separate thread
 node = None
@@ -68,7 +123,7 @@ node = None
 def start_ros_node():
     global node
     rclpy.init()
-    node = RobotPublisher()
+    node = RobotAbstraction()
     rclpy.spin(node)
     
 # Start a separate thread to run ROS 2 node (since FastAPI runs asynchronously)
@@ -79,8 +134,17 @@ ros_thread.start()
 @app.post("/move")
 def move(moveCommand: Move):
     # Publish the move command to ROS 2
-    direction = moveCommand.direction
-    speed = moveCommand.speed
-    node.publish_move(direction, speed)
+    node.publish_move(moveCommand)
+    return {"message": "Move command received", "command" : moveCommand}
 
-    return {"message": "Move command received", "direction": direction, "speed": speed}
+
+# Return all the position data
+@app.get("/swerve_data")
+def swerve_data():
+        
+    return {
+        "swerve_a": node.swerve_a,
+        "swerve_b": node.swerve_b,
+        "swerve_c": node.swerve_c,
+        "swerve_d": node.swerve_d,
+    }

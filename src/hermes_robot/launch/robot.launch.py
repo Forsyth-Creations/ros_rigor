@@ -23,7 +23,10 @@ def generate_launch_description():
         executable='robot_node',  
         name='hermes_robot',  
         output='screen',  
-        parameters=[{'module_topic_prefixes': LaunchConfiguration('module_topic_prefixes')}],  
+        parameters=[
+            {'module_topic_prefixes': LaunchConfiguration('module_topic_prefixes')},
+            {'use_sim_time': True}
+        ],  
     )
     
     # JointStateAggregator

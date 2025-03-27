@@ -16,27 +16,48 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
+import subprocess
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+
 
 def generate_launch_description():
     pkg_hermes_robot_description = get_package_share_directory('hermes_robot_description')
+    
+    # Convert hte corrected.urdf.xacro file to a urdf file
+    xacro_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected2.urdf.xacro')
+    
+    # Convert the xacro file to a urdf file
+    result = subprocess.run(['xacro', xacro_path], capture_output=True, text=True)
+    urdf_xml = result.stdout
+    
+    # Save the urdf to a file
+    urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.urdf')
+    with open(urdf_path, 'w') as outfp:
+        outfp.write(urdf_xml)
+    
         
     # Load the URDF into RVIZ
-    urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes.urdf')
-    with open(urdf_path, 'r') as infp:
-        urdf_xml = infp.read()
+    # urdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.urdf')
+    # with open(urdf_path, 'r') as infp:
+    #     urdf_xml = infp.read()
         
+    # Convert the urdf to sdf using the urdf_to_sdf tool
+    # Convert URDF to SDF
+    result = subprocess.run(['gz', 'sdf', '-p', urdf_path], capture_output=True, text=True)
+    sdf_content = result.stdout
+    
+    # Write the sdf to a file
+    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'corrected.sdf')
+    with open(sdf_path, 'w') as outfp:
+        outfp.write(sdf_content)
         
-    # Get the file path of the SDF file
-    sdf_path = os.path.join(pkg_hermes_robot_description, 'urdf', 'hermes.sdf')
-    with open(sdf_path, 'r') as infp:
-        sdf_xml = infp.read()
-
     spawn_robot = Node(
         package="ros_gz_sim",
         executable="create",
         arguments=[
             "-string",
-            sdf_xml,
+            sdf_content,
             "-name",
             "hermes_robot_description",
             "-x",
@@ -44,7 +65,9 @@ def generate_launch_description():
             "-y",
             "0",
             "-z",
-            ".4",
+            "1.0",
+            "-Y",
+            "1.5708",  # 90 degrees in radians
         ],
         output="screen",
     )
@@ -60,9 +83,58 @@ def generate_launch_description():
         ]
     )
     
+    depth_to_laser_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'depth.launch.py'
+    )
+    
+    
+    depth_to_laser_node =  IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(depth_to_laser_launch_path)
+    )
+    
+    # Launch SLAM
+    
+    depth_to_laser_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'slam_online_async_launch.py'
+    )
+    
+    slam_toolbox_node =  IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(depth_to_laser_launch_path)
+    )
+    
+    # Launch Nav2
+    
+    nav2_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'nav2.launch.py'
+    )
+    
+    nav2_node =  IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(nav2_launch_path)
+    )
+    
+    twist_mux_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'mux.launch.py'
+    )
+    
+    twist_mux = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(twist_mux_launch_path)
+    )
+    
     ld = LaunchDescription()
     
+    ld.add_action(twist_mux)
     ld.add_action(spawn_robot)
     ld.add_action(robot_state_publisher)
+    ld.add_action(depth_to_laser_node)
+    ld.add_action(slam_toolbox_node)
+    ld.add_action(nav2_node)
     
     return ld

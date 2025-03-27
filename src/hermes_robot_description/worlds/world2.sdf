@@ -1,43 +1,20 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <sdf version="1.8">
   <world name="demo">
-    <plugin
-      filename="gz-sim-physics-system"
-      name="gz::sim::systems::Physics">
-    </plugin>
-    <plugin
-      filename="gz-sim-sensors-system"
-      name="gz::sim::systems::Sensors">
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics" />
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
-    <plugin
-      filename="gz-sim-scene-broadcaster-system"
-      name="gz::sim::systems::SceneBroadcaster">
-    </plugin>
-    <plugin
-      filename="gz-sim-user-commands-system"
-      name="gz::sim::systems::UserCommands">
-    </plugin>
-    <plugin
-      filename="BasicSystem"
-      name="ros_gz_example_gazebo::BasicSystem">
-    </plugin>
-    <plugin
-      filename="FullSystem"
-      name="ros_gz_example_gazebo::FullSystem">
-    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
+
+
+    <!-- <gravity>0 0 0</gravity> -->
+
 
     <light name="sun" type="directional">
-      <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <attenuation>
-        <range>1000</range>
-        <constant>0.9</constant>
-        <linear>0.01</linear>
-        <quadratic>0.001</quadratic>
-      </attenuation>
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
@@ -48,7 +25,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>100 100</size>
+              <size>10 10</size>
             </plane>
           </geometry>
         </collision>
@@ -56,19 +33,145 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>100 100</size>
+              <size>10 10</size>
             </plane>
           </geometry>
           <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.8 0.8 0.8 1</diffuse>
-            <specular>0.8 0.8 0.8 1</specular>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
           </material>
         </visual>
       </link>
     </model>
 
-    <!-- Box 1 -->
+    <!-- Walls -->
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0 5 1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.5 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.5 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 1 1</ambient>
+            <diffuse>0.5 0.5 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_south">
+      <static>true</static>
+      <pose>0 -5 1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.5 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.5 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 1 1</ambient>
+            <diffuse>0.5 0.5 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_east">
+      <static>true</static>
+      <pose>5 0 1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.5 10 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.5 10 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 1 1</ambient>
+            <diffuse>0.5 0.5 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-5 0 1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.5 10 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.5 10 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 1 1</ambient>
+            <diffuse>0.5 0.5 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Hallway wall -->
+    <model name="wall_hallway">
+      <static>true</static>
+      <pose>3 2 1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.5 8 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.5 8 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 1 1</ambient>
+            <diffuse>0.5 0.5 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Obstacles -->
     <model name="box1">
       <pose>1 1 0.5 0 0 0</pose>
       <link name="link">
@@ -86,14 +189,13 @@
             </box>
           </geometry>
           <material>
-            <ambient>0.3 0.4 0.6 1</ambient>
-            <diffuse>0.3 0.4 0.6 1</diffuse>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
           </material>
         </visual>
       </link>
     </model>
 
-    <!-- Box 2 -->
     <model name="box2">
       <pose>-2 2 0.5 0 0 0</pose>
       <link name="link">
@@ -111,67 +213,11 @@
             </box>
           </geometry>
           <material>
-            <ambient>0.5 0.2 0.2 1</ambient>
-            <diffuse>0.5 0.2 0.2 1</diffuse>
+            <ambient>0 1 0 1</ambient>
+            <diffuse>0 1 0 1</diffuse>
           </material>
         </visual>
       </link>
     </model>
-
-    <!-- Box 3 -->
-    <model name="box3">
-      <pose>3 -3 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>2 1 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>2 1 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.2 0.7 0.3 1</ambient>
-            <diffuse>0.2 0.7 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- This will be the robot -->
-    <!-- <model name="swerve_robot">
-      <self_collide>true</self_collide>
-      <pose>0 0 0.35 0 0 0</pose>
-      <include merge="true">
-        <uri>package://ros_gz_example_description/models/diff_drive</uri>
-      </include>
-
-      <plugin
-        filename="gz-sim-joint-state-publisher-system"
-        name="gz::sim::systems::JointStatePublisher">
-      </plugin>
-
-      <plugin
-        filename="gz-sim-pose-publisher-system"
-        name="gz::sim::systems::PosePublisher">
-        <publish_link_pose>true</publish_link_pose>
-        <use_pose_vector_msg>true</use_pose_vector_msg>
-        <static_publisher>true</static_publisher>
-        <static_update_frequency>1</static_update_frequency>
-      </plugin>
-
-      <plugin
-        filename="gz-sim-odometry-publisher-system"
-        name="gz::sim::systems::OdometryPublisher">
-        <odom_frame>diff_drive/odom</odom_frame>
-        <robot_base_frame>diff_drive</robot_base_frame>
-      </plugin>
-    </model> -->
-    
   </world>
 </sdf>

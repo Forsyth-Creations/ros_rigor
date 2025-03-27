@@ -22,7 +22,10 @@ setup(
             os.path.join("share", package_name, "config"),
             glob(os.path.join("config", "*.yaml")),
         ),
-        
+        (
+            os.path.join("lib", "python", "site-packages", package_name),
+            [os.path.join("hermes_swerve_module", "pid.py")]
+        )
     ],
     install_requires=['setuptools'],
     zip_safe=True,
