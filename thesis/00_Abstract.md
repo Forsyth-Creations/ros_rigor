@@ -24,9 +24,9 @@ Scot Ransbottom
 
 ---
 
+Catherine Hebert
 David Spadaccia
 Michael Yanoshak
-Catherine Hebert
 My Family
 
 # Acknowledgements
@@ -51,3 +51,5 @@ I would like to thank my committee members, Dr. Thidapat Chantem, Dr. Ryan Willi
 - "Differential Drivetrain" vs "Swerve Drive Differential": A differential drivetrain is a type of drive system that uses two wheels to control the direction of the robot. A swerve drive differential describes the differential drive system of a swerve drive robot. This entails two motors on a module, which depending on the combination of commands to the two motors and their difference in motion can yield either a radial, axial, or radial and axial motion. This is a unique feature of swerve drive robots, and is not present in traditional differential drive systems.
 - MVP or Minimum Viable Product. The simplest version of a product that can be released to the market.
 - Puck Lidar: A type of Lidar sensor that is used for navigation and mapping in robotic systems. It is a compact and lightweight sensor that is ideal for use in small robots. It's field of view is 360 degrees, with most having a range of 10-20 meters. It is typically used for indoor navigation and mapping.
+- IMU or Inertial Measurement Unit. A sensor that measures the orientation, velocity, and gravitational forces acting on an object. It typically consists of an accelerometer, gyroscope, and magnetometer. It is used for navigation and control in robotic systems, usually alongside other sensors to prevent IMU drift (error accumulation over time due to the antiderivative of sensor data).
+- SLAM: Simultaneous Localization and Mapping. A technique used in robotics to create a map of an unknown environment while simultaneously localizing the robot within that environment. Aids in generating a proper transform between the robot and the world frame (typically the base_link and map frame in ROS)
