@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64, Int8
 from sensor_msgs.msg import JointState
-from pid import PIDVelocityController as PIDController
+from hermes_swerve_module.pid import PIDController
 
 CSI = '\033['
 
