@@ -63,11 +63,9 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        CameraVisionLink:
+        CameraVision:
           Value: true
         Camera_pivot:
-          Value: false
-        DepthCameraFrame:
           Value: false
         Drive1:
           Value: false
@@ -106,9 +104,8 @@ Visualization Manager:
             base_footprint:
               base_link:
                 Camera_pivot:
-                  CameraVisionLink:
-                    DepthCameraFrame:
-                      {}
+                  CameraVision:
+                    {}
                 IMU_Link:
                   {}
                 Revolve1:
@@ -139,7 +136,7 @@ Visualization Manager:
       Enabled: true
       Links:
         All Links Enabled: true
-        CameraVisionLink:
+        CameraVision:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -149,10 +146,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        DepthCameraFrame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         Drive1:
           Alpha: 1
           Show Axes: false
@@ -427,6 +420,7 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /clicked_point
+    - Class: nav2_rviz_plugins/GoalTool
   Transformation:
     Current:
       Class: rviz_default_plugins/TF
@@ -434,7 +428,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 2.4341838359832764
+      Distance: 33.338783264160156
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -449,10 +443,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7003962993621826
+      Pitch: 1.4653960466384888
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.697221279144287
+      Yaw: 3.1940362453460693
     Saved: ~
 Window Geometry:
   Depth Image:
@@ -478,5 +472,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1920
-  X: 3840
+  X: 1920
   Y: 0
