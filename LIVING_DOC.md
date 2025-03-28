@@ -246,12 +246,8 @@ https://docs.nav2.org/setup_guides/transformation/setup_transforms.html
 
 ros2 launch hermes_robot all.launch.py world_file_name:=dynamic.sdf
 
-# Goal 6.5: (Maybe) Use Isaac to create a locomotion policy based on Reinforcement Learning
-
-# Goal 7: Run that code on Raspberry Pi, with simulated Sensors
-
-# Goal 8: Orchestrate Testing from PC to Pi 
-
 # Goal 9: Compile Data from Testing to Come to a Conclusion
+
+/opt/ros/jazzy/opt/gz_msgs_vendor/lib/python/gz/msgs10
 
 # Goal 10: Write Thesis

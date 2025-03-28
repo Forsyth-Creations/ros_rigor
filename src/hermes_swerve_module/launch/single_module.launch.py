@@ -15,7 +15,7 @@ def generate_launch_description():
         executable='hermes_swerve_module',  # The executable to run
         name='swerve_module',  # Node name
         output='screen',  # Output to screen (useful for debugging)
-        parameters=[{'module_name': LaunchConfiguration('module_name')}],  # Pass the namespace as a parameter
+        parameters=[{'module_name': LaunchConfiguration('module_name')}, {"use_sim_time" : True}],  # Pass the namespace as a parameter
     )
 
     # Launch description

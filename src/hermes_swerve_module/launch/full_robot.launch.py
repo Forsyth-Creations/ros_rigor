@@ -11,7 +11,8 @@ def generate_launch_description():
         namespace="swerve_a",  # Namespace for the module
         output="screen",  # Output to screen (useful for debugging)
         parameters=[
-            {"module_name": "swerve_a"}
+            {"module_name": "swerve_a"},
+            {"use_sim_time": True}  # Use simulation time if needed
         ],  # Pass the namespace as a parameter
     )
 
@@ -24,7 +25,8 @@ def generate_launch_description():
         parameters=[
             {
                 "module_name": "swerve_b",
-            }
+            },
+            {"use_sim_time": True}  # Use simulation time if needed
         ],  # Invert the drive motor
     )
 
@@ -37,7 +39,8 @@ def generate_launch_description():
         parameters=[
             {
                 "module_name": "swerve_c",
-            }
+            },
+            {"use_sim_time": True}  # Use simulation time if needed
         ],
     )
 
@@ -48,7 +51,8 @@ def generate_launch_description():
         namespace="swerve_d",
         output="screen",
         parameters=[
-            {"module_name": "swerve_d"}
+            {"module_name": "swerve_d"},
+            {"use_sim_time": True}  # Use simulation time if needed
         ],
     )
 

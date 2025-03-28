@@ -695,6 +695,30 @@ Stephen Brawner (brawner@gmail.com)
       <topic>hermes/imu</topic>
       <always_on>true</always_on>
       <update_rate>100</update_rate>
+      <imu>
+        <angular_velocity>
+          <x>
+            <noise type="none"></noise>
+          </x>
+          <y>
+            <noise type="none"></noise>
+          </y>
+          <z>
+            <noise type="none"></noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="none"></noise>
+          </x>
+          <y>
+            <noise type="none"></noise>
+          </y>
+          <z>
+            <noise type="none"></noise>
+          </z>
+        </linear_acceleration>
+      </imu>
     </sensor>
   </gazebo>
 
