@@ -18,8 +18,8 @@ setup(
             glob(os.path.join("launch", "*.launch.py")),
         ),
         (
-            os.path.join("lib", "python", "site-packages", package_name),
-            [os.path.join("hermes_robot", "swerve_math.py")]
+            os.path.join("lib", package_name, package_name),
+            glob(os.path.join(package_name, "*.py"))
         )
     ],
     install_requires=['setuptools'],
