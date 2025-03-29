@@ -194,19 +194,24 @@ The gradient decent method is a more advanced tuning method that uses a mathemat
 This method converged within two seconds, consistent with the brute force method above. Additionally, the oscillations are reduced to zero. To further validate this, researchers used the same PID parameters to try and govern the motion across multiple goal states. The following are the results:
 
 **Goal: Move from 0 to 2 m/s**
-![Move from 0 to 2 m/s](/assets/Goal6/PID_data/images/single_pid_velocity_control_2.png)
+
+![Move from 0 to 2 m/s](../assets/Goal6/PID_data/images/single_pid_velocity_control_2.png)
 
 **Goal: Move from 0 to 4 m/s**
-![Move from 0 to 4 m/s](/assets/Goal6/PID_data/images/single_pid_velocity_control_4.png)
+
+![Move from 0 to 4 m/s](../assets/Goal6/PID_data/images/single_pid_velocity_control_4.png)
 
 **Goal: Move from 0 to 6 m/s**
-![Move from 0 to 6 m/s](/assets/Goal6/PID_data/images/single_pid_velocity_control_6.png)
+
+![Move from 0 to 6 m/s](../assets/Goal6/PID_data/images/single_pid_velocity_control_6.png)
 
 **Goal: Move from 0 to 8 m/s**
-![Move from 0 to 8 m/s](/assets/Goal6/PID_data/images/single_pid_velocity_control_8.png)
+
+![Move from 0 to 8 m/s](../assets/Goal6/PID_data/images/single_pid_velocity_control_8.png)
 
 **Goal: Move from 0 to 10 m/s**
-![Move from 0 to 10 m/s](/assets/Goal6/PID_data/images/single_pid_velocity_control_10.png)
+
+![Move from 0 to 10 m/s](../assets/Goal6/PID_data/images/single_pid_velocity_control_10.png)
 
 
 Note the following results for these tests:
