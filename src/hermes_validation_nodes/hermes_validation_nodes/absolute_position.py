@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import Point, PoseArray
+from geometry_msgs.msg import PoseArray, PointStamped
 
 class AbsolutePosition(Node):
     def __init__(self, name="absolute_gazebo_position"):
@@ -26,7 +26,7 @@ class AbsolutePosition(Node):
         
         # Create a publisher for the Point message
         self.publisher = self.create_publisher(
-            Point,
+            PointStamped,
             position_topic,
             10
         )
@@ -44,10 +44,13 @@ class AbsolutePosition(Node):
         pose = msg.poses[self.position_index]
         
         # Create a Point message
-        point_msg = Point()
+        point_msg = PointStamped()
         # Extract x, y, z coordinates from the pose
-        point_msg.x = pose.position.x
-        point_msg.y = pose.position.y
+        point_msg.point.x = pose.position.y
+        point_msg.point.y = -pose.position.x
+        
+        # Add in the timestamp
+        point_msg.header.stamp = self.get_clock().now().to_msg()
         
         # Publish the Point message
         self.publisher.publish(point_msg)

@@ -32,7 +32,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'hermes_validation_nodes = hermes_validation_nodes.absolute_position:main'
+            'hermes_validation_nodes = hermes_validation_nodes.absolute_position:main',
+            'hermes_validation_clamp = hermes_validation_nodes.clamp:main',
         ],
     },
 )

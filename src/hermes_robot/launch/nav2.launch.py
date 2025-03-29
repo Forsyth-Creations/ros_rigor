@@ -11,7 +11,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(nav2_bringup_dir, 'launch', 'slam_launch.py')),
             launch_arguments={
-                'use_sim_time': 'False',
+                'use_sim_time': True,
                 # 'autostart': 'True'
             }.items(),
         )
