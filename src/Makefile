@@ -6,8 +6,8 @@ SHELL := /bin/bash
 
 .PHONY: all
 all: # Builds all the ROS targets
+	$(MAKE) reset_setup
 	# call the no-web
-	$(MAKE) no-web
 
 	cd /ros2_jazzy/workspace/web_controller/web_controller/backend && poetry config virtualenvs.create false && poetry install
 	cd /ros2_jazzy/workspace/web_controller/web_controller/frontend && npm install -g && npm install && npm run build
@@ -20,27 +20,34 @@ all: # Builds all the ROS targets
 	# Go into the share and install the modules. A hack, but it works
 	cd web_controller/install/web_controller/share/web_controller/frontend && npm install
 
-	# Make the URDF files for the robot
-	# cd hermes_robot_description/urdf && gz sdf -p hermes.urdf > hermes.sdf
-
-	# Build the plugin
-	# cd gazebo_swerve_plugin && mkdir -p build && cd build && cmake .. && make && cd ../..
-
-	# After the build, generate a script to source the setup.bash files
-	@echo "Generating setup_env.sh script"
-	echo ". $(PWD)/hermes_swerve_module/install/setup.bash" > setup_env.sh
-	echo ". $(PWD)/hermes_robot_description/install/setup.bash" >> setup_env.sh
-	echo ". $(PWD)/hermes_robot/install/setup.bash" >> setup_env.sh
-	echo ". $(PWD)/web_controller/install/setup.bash" >> setup_env.sh
+	$(MAKE) no-web
 	chmod +x setup_env.sh
 	@echo "Run 'source setup_env.sh' to source the setup files"
+
+.PHONY: reset_setup
+reset_setup:
+	rm -f setup_env.sh
 
 .PHONY: no-web
 no-web:
 	cd hermes_swerve_module && colcon build
 	cd hermes_robot_description && colcon build
 	cd hermes_robot && colcon build
-	
+	# After the build, generate a script to source the setup.bash files
+	@echo "Generating setup_env.sh script"
+	echo ". $(PWD)/hermes_swerve_module/install/setup.bash" > setup_env.sh
+	echo ". $(PWD)/hermes_robot_description/install/setup.bash" >> setup_env.sh
+	echo ". $(PWD)/hermes_robot/install/setup.bash" >> setup_env.sh
+	echo ". $(PWD)/web_controller/install/setup.bash" >> setup_env.sh
+
+	make validation
+
+
+.PHONY: validation
+validation:
+	cd hermes_validation_nodes && colcon build
+	echo ". $(PWD)/hermes_validation_nodes/install/setup.bash" >> setup_env.sh
+
 .PHONY: realsense
 realsense:
 	cd realsense_gazebo_plugin && colcon build
@@ -65,4 +72,9 @@ clean: # Cleans all the ROS targets
 run: # Runs the ROS targets
 	# Run the web controller
 	source setup_env.sh && ros2 launch hermes_robot all.launch.py 
+
+.PHONY: run_validation
+run_validation: # Runs the validation nodes
+	# Ensure the setup script is sourced
+	source setup_env.sh && ros2 launch hermes_validation_nodes validation.launch.py
 

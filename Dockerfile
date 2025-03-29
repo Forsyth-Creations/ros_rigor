@@ -35,6 +35,7 @@ RUN apt update && apt install ros-dev-tools \
     ros-jazzy-nav2-minimal-tb* \
     ros-jazzy-depthimage-to-laserscan \
     ros-jazzy-twist-mux \
+    python3-gz-transport13 \
     -y
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
