@@ -1,8 +1,9 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float64, Int8
+from std_msgs.msg import Float64
 from sensor_msgs.msg import JointState
 from hermes_swerve_module.pid import PIDController
+from geometry_msgs.msg import Twist
 
 CSI = '\033['
 
@@ -50,11 +51,10 @@ class Module(Node):
         
         self.warning_flag_for_dime = False
         self.module_name = self.declare_parameter('module_name', 'module_default').get_parameter_value().string_value
-        self.dime_angle = self.declare_parameter('dime_angle', 0.785).get_parameter_value().double_value # The angle to go to when on a dime
         self.mock_encoder_values = self.declare_parameter('mock_encoder_values', True).get_parameter_value().bool_value # For running without actual hardware
         self.invert_drive_motor = self.declare_parameter('invert_drive_motor', False).get_parameter_value().bool_value # For running without actual hardware
         # self.invert_drive_motor = True
-        self.get_logger().info(f'Creating Module: {name} with dime angle : {self.dime_angle}')
+        self.get_logger().info(f'Creating Module: {name}')
         
         # Print out that the invert_drive_motor parameter is set
         if self.invert_drive_motor:
@@ -65,13 +65,26 @@ class Module(Node):
         self.limit_switch_sub = self.create_publisher(Float64, f'/{self.module_name}/limit_switch', 10)
 
         # Pub/Sub for target pivot angle
-        self.rqst_pivot_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_pivot_angle', self.set_rqst_pivot_angle, 10)
+        # self.rqst_pivot_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_pivot_angle', self.set_rqst_pivot_angle, 10)
         self.pivot_position_pub = self.create_publisher(Float64, f'/{self.module_name}/pivot_position', 10)
         
+        # Move all request commands to a common "Twist" command, where X is the speed and Z is the pivot angle
+        self.command_sub = self.create_subscription(Twist, f'/{self.module_name}/command', self.command_callback, 10)
+        
         # Pub/Sub for motor speed
-        self.drive_motor_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_wheel_speed', self.set_rqst_wheel_speed, 10)
+        # self.drive_motor_sub = self.create_subscription(Float64, f'/{self.module_name}/rqst_wheel_speed', self.set_rqst_wheel_speed, 10)
         self.drive_motor_pub = self.create_publisher(Float64, f'/{self.module_name}/wheel_position', 10)
         self.speed_motor_pub = self.create_publisher(Float64, f'/{self.module_name}/wheel_speed', 10)
+        
+        # Create an error publisher for the pivot direction
+        self.pivot_error_pub = self.create_publisher(Float64, f'/{self.module_name}/pivot_error', 10)
+        
+        # Publish the error at an interval (compute_pivot_error)
+        self.error_timer = self.create_timer(
+            1 / 2,  # Publish every 2 seconds to reduce CPU usage
+            self.compute_pivot_error
+        )
+        self.pivot_error = 0.0  # Initialize pivot error
 
         # Internal state variables for module
         self.actual_wheel_speed = 0.0    # actual drive velocity from encoder
@@ -99,21 +112,33 @@ class Module(Node):
         self.timer = self.create_timer(
             1 / self.odom_frequency, self.update_position
         )
+                
+    def command_callback(self, msg):
+        # Set the requested wheel speed and pivot angle based on the Twist message
+        self.set_rqst_pivot_angle(msg.angular.z)    # Use the angular.z for pivot angle, add offset to match the simulation
+        self.compute_pivot_error()                  # Compute the pivot error after setting the angle
+        self.set_rqst_wheel_speed(msg.linear.x)     # Use the linear.x for wheel speed
         
-        self.offset = 1.5708
+    def compute_pivot_error(self):
+        error = self.rqst_pivot_angle - self.actual_pivot_angle
         
+        # Publish the pivot error for debugging purposes
+        pivot_error_msg = Float64()
+        pivot_error_msg.data = error
+        self.pivot_error = error
+        self.pivot_error_pub.publish(pivot_error_msg)
+            
 
-    def set_rqst_wheel_speed(self, speed):
+    def set_rqst_wheel_speed(self, speed : float):
         # Method to set drive speed
-        msg = Float64()
-        msg.data = speed
-        self.rqst_wheel_speed = speed.data
+        if (self.pivot_error > 0.1):
+            self.rqst_wheel_speed = self.rqst_wheel_speed * 0.95 # Reduce speed if the pivot error is too high to try and correct it
+        else:
+            self.rqst_wheel_speed = speed
 
-    def set_rqst_pivot_angle(self, angle):
+    def set_rqst_pivot_angle(self, angle : float):
         # Method to set pivot angle
-        msg = Float64()
-        msg.data = angle
-        self.rqst_pivot_angle = angle.data
+        self.rqst_pivot_angle = angle
 
     def update_encoder_values(self):
         # Callback to receive encoder feedback

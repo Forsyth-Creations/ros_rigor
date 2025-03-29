@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 from glob import glob
 
-package_name = 'hermes_robot'
+package_name = 'hermes_validation_nodes'
 
 setup(
     name=package_name,
@@ -12,15 +12,16 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-                 # include all launch files.
+         # include all launch files.
         (
             os.path.join("share", package_name, "launch"),
             glob(os.path.join("launch", "*.launch.py")),
         ),
+        # install yaml parameter files
         (
-            os.path.join("lib", package_name, package_name),
-            glob(os.path.join(package_name, "*.py"))
-        )
+            os.path.join("share", package_name, "config"),
+            glob(os.path.join("config", "*.yaml")),
+        ),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -31,9 +32,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "robot_node = hermes_robot.robot_node:main",
-            "joint_state_aggregator = hermes_robot.joint_state_aggregator:main",
-            "converter_node = hermes_robot.nav2_vel_cmd_to_swerve:main",
+            'hermes_validation_nodes = hermes_validation_nodes.absolute_position:main',
+            'hermes_validation_clamp = hermes_validation_nodes.clamp:main',
         ],
     },
 )
