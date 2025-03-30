@@ -252,6 +252,8 @@ ros2 launch hermes_robot all.launch.py world_file_name:=dynamic.sdf
 
 https://github.com/gazebosim/ros_gz/blob/ros2/ros_gz_bridge/README.md
 
+rqt_graph
+
 # Goal 10: Write Thesis
 
 Haha oh boy here we go
