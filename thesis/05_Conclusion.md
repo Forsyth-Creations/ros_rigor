@@ -1,0 +1,3 @@
+# Conclusion
+
+This paper examined the computational demands of AI-driven robotics, focusing on the design and implementation of a swerve drive robot. Utilizing an Intel RealSense D435i depth camera, slam_toolbox, and the Nav2 stack, the robot navigated a room within the Gazebo simulation environment, with plans for deployment on a physical platform. The study explores optimal software and hardware architecture choices to enhance performance while addressing compute utilization to prevent system bottlenecks.

@@ -35,7 +35,7 @@ I would like to thank my committee members, Dr. Thidapat Chantem, Dr. Ryan Willi
 
 # Key Terms
 
-- "Stack" or "Software Stack": A collection of software tools that work together to achieve a common goal.
+- "Stack", "Software Stack", "Software Suite": A collection of software tools that work together to achieve a common goal. Typically used with more nuiance, but for the purpose of this paper they will mean essentially the same.
 - PID Tuning: A method of adjusting the parameters of a proportional-integral-derivative controller to achieve optimal performance.
 - Gazebo: A robot simulation environment that allows for testing of robotic systems in a virtual environment.
 - slam_toolbox: A set of tools for performing simultaneous localization and mapping (SLAM) in robotic systems.
@@ -53,3 +53,7 @@ I would like to thank my committee members, Dr. Thidapat Chantem, Dr. Ryan Willi
 - Puck Lidar: A type of Lidar sensor that is used for navigation and mapping in robotic systems. It is a compact and lightweight sensor that is ideal for use in small robots. It's field of view is 360 degrees, with most having a range of 10-20 meters. It is typically used for indoor navigation and mapping.
 - IMU or Inertial Measurement Unit. A sensor that measures the orientation, velocity, and gravitational forces acting on an object. It typically consists of an accelerometer, gyroscope, and magnetometer. It is used for navigation and control in robotic systems, usually alongside other sensors to prevent IMU drift (error accumulation over time due to the antiderivative of sensor data).
 - SLAM: Simultaneous Localization and Mapping. A technique used in robotics to create a map of an unknown environment while simultaneously localizing the robot within that environment. Aids in generating a proper transform between the robot and the world frame (typically the base_link and map frame in ROS)
+- TF: The ROS ecosystem transformation tree topic which allows physical bodies to register their position based on a parent transformation frame. TF2 is its successor, but is not used within the body of this work. 
+- URDF: Universal Robot Description Format. A file format used to describe the physical properties of a robot, including its geometry, kinematics, and dynamics. It is used in ROS to represent the robot model and is typically used in conjunction with Gazebo for simulation.
+- SDF or Simulation Description Format. A file format used to describe the physical properties of a robot and its environment. It is used in Gazebo for simulation and is typically used in conjunction with URDF for representing the robot model.
+- ROS2: Robot Operating System 2. An open-source framework for building robotic systems. It provides a set of tools and libraries for developing robot software and is widely used in the robotics community.

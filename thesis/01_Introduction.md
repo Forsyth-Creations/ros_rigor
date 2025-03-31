@@ -8,13 +8,13 @@ Swerve drive robots are a unique hybrid of traditional four-wheel drive and meca
 
 ---
 
-![Diagram of My Swerve Module](/thesis/assets/placeholder_image.png "Placeholder Image")
+![Diagram of My Swerve Module](../thesis/assets/placeholder_image_2.png "Placeholder Image")
 
 Figure 1: Diagram of Swerve Module
 
 ---
 
-![Diagram of Existing Swerve Module](/thesis/assets/placeholder_image.png "Placeholder Image")
+![Diagram of Existing Swerve Module](../thesis/assets/placeholder_image_2.png "Placeholder Image")
 
 Figure 2: Diagram of Existing Swerve Module
 
@@ -62,6 +62,6 @@ The research questions this paper aims to answer are as follows:
 
 ## Section 1.5: Scope and Limitations
 
-The scope of this paper is on traditional methods of robot development as they relate to ROS2. While this paper will branch into leveraging artificial intelligence as a means of optimizing the robot's path planning (tradiationally with A* search), softwares like Issac Sim are not within the scope of this paper. However, these are areas of interest of the author, and will be explored in future works. 
+The scope of this paper is on traditional methods of robot development as they relate to ROS2. While this paper will branch into leveraging machine learning as a means of optimizing the robot's PID parameters, as well as discussions of A* search patterns for navigation, softwares like Issac Lab or Omniverse are not within the scope of this paper. However, these are areas of interest of the author, and will be explored in future works. 
 
 

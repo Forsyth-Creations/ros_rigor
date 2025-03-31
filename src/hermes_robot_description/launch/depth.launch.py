@@ -5,7 +5,7 @@ def generate_launch_description():
     
     ld = LaunchDescription()
     
-    depth_to_laser_node =         Node(
+    depth_to_laser_node = Node(
             package='depthimage_to_laserscan',
             executable='depthimage_to_laserscan_node',
             name='depth_to_scan',

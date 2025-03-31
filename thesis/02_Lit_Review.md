@@ -133,4 +133,4 @@ While the Nav2 stack supports voxel grids out of the box (LR17), the presumed ad
 
 ## Mathematics Behind the Kinematic Model
 
-The mathematics to control this swerve drive robot are largely inspired by LR2. I have expanded upon their notation to make it easier to read.
+The mathematics to control this swerve drive robot are largely inspired by LR2. I have expanded upon their notation to make it easier to read. **I"M GOING TO ADD MORE HERE SOON**
