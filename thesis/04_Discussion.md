@@ -1,13 +1,9 @@
 # Discussion of Results
 
-## PID Control: Tuned vs Untuned
+## Raspberry Pi 5 Utilization and Performance
 
+## Quantitative Error Procuced by Incorrect Odometry
 
+## Expanding the Robot to Nth Degree Robotic Models
 
-## SLAM mapping with a proper kinematic model
-
-
-## Nav2 With Increased Distance for Mapping
-
-
-## Line Following Error with Different Speed Thresholds
+## Recommendations for Future Work With Issac Sim and Nvidia Jetson

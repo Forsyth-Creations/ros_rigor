@@ -232,7 +232,7 @@ V_{\text{c}} &= \sqrt{(V_{\text{xr}} + \omega_{\text{r}} \cdot O_{\text{xc}})^2 
 \end{aligned}
 $$
 
-With the addition of this formula, **3**, we can then calculate the angular velocity of the caster (wheel) as it relates to the linear velocity of the wheel as well as the radius of the wheel 
+With the addition of this formula, **#3**, we can then calculate the angular velocity of the caster (wheel) as it relates to the linear velocity of the wheel as well as the radius of the wheel 
 $$
 \omega_c = \frac{V_c}{r}
 $$
