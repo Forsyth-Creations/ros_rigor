@@ -78,7 +78,7 @@ def launch_setup(context, *args, **kwargs):
         ld.add_action(bridge_launch)
         ld.add_action(realsense_launch)
     
-    return ld
+    return [ld]
 
 
 def generate_launch_description():
