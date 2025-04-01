@@ -141,6 +141,6 @@ def generate_launch_description():
     ld.add_action(hermes_controller)
     ld.add_action(web_controller_launch)
     ld.add_action(nav_updater_launch)
-    ld.add_action(realsense_launch)
+    # ld.add_action(realsense_launch)
 
     return ld
