@@ -2,7 +2,6 @@ from launch import LaunchDescription
 from launch_ros.actions import Node, SetRemap
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, GroupAction, OpaqueFunction
 from launch.substitutions import LaunchConfiguration
-from launch.conditions import IfCondition
 from ament_index_python.packages import get_package_share_directory
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os
@@ -64,11 +63,31 @@ def launch_setup(context, *args, **kwargs):
     # Retrieve Simulation Mode
     simulation_mode = LaunchConfiguration('simulation_mode')
     
-    # Add Actions Based on Simulation Mode (using IfCondition)
-    ld.add_action(IfCondition(simulation_mode, ['robot', 'all'], [robot_additional_nodes, robot_controller, hermes_controller, web_controller, nav_updater]))
-    ld.add_action(IfCondition(simulation_mode, ['world', 'all'], [robot_description, world_launch, rviz_launch, bridge_launch]))
+    print("---------------------------------------------------")
+    simulation_mode_value = simulation_mode.perform(context)
+    print(f"The value of simulation_mode is {simulation_mode_value}")
+    print("---------------------------------------------------")
 
+    
+    # Add Actions Based on Simulation Mode
+    if simulation_mode_value in ['robot', 'all']:
+        print("Starting sim with robot actions")
+        ld.add_action(robot_additional_nodes)
+        ld.add_action(robot_controller)
+        ld.add_action(hermes_controller)
+        ld.add_action(web_controller)
+        ld.add_action(nav_updater)
+    
+    if simulation_mode_value in ['world', 'all']:
+        print("Starting sim with world actions")
+        ld.add_action(robot_description)
+        ld.add_action(bridge_launch)
+        ld.add_action(world_launch)
+        ld.add_action(rviz_launch)
+    # ld.add_action(realsense_launch)
+    
     return [ld]
+
 
 def generate_launch_description():
     """Main entry point for the launch file."""
