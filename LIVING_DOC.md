@@ -260,3 +260,4 @@ Haha oh boy here we go
 
 ros2 run realsense2_camera realsense2_camera_node
 
+ros2 launch hermes_robot minimal.launch.py simulation_mode:=world
