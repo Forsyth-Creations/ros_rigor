@@ -255,3 +255,8 @@ https://github.com/gazebosim/ros_gz/blob/ros2/ros_gz_bridge/README.md
 # Goal 10: Write Thesis
 
 Haha oh boy here we go
+
+# Goal 11: Pi
+
+ros2 run realsense2_camera realsense2_camera_node
+

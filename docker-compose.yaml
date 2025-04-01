@@ -5,6 +5,7 @@ services:
     container_name: rigor
     command : tail -f /dev/null
     privileged: true
+    network_mode: host
     environment:
       - DISPLAY=$DISPLAY
     ports:
