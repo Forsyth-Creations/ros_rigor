@@ -2,6 +2,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node, SetRemap
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, GroupAction, OpaqueFunction
 from launch.substitutions import LaunchConfiguration
+from launch.conditions import IfCondition
 from ament_index_python.packages import get_package_share_directory
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os
@@ -63,26 +64,11 @@ def launch_setup(context, *args, **kwargs):
     # Retrieve Simulation Mode
     simulation_mode = LaunchConfiguration('simulation_mode')
     
-    # Add Actions Based on Simulation Mode
-    if simulation_mode in ['robot', 'all']:
-        print("Adding Robot Nodes")
-        ld.add_action(robot_additional_nodes)
-        ld.add_action(robot_controller)
-        ld.add_action(hermes_controller)
-        ld.add_action(web_controller)
-        ld.add_action(nav_updater)
-    
-    if simulation_mode in ['world', 'all']:
-        print("Adding World Nodes")
-        ld.add_action(robot_description)
-        ld.add_action(world_launch)
-        ld.add_action(rviz_launch)
-        ld.add_action(bridge_launch)
-        ld.add_action(realsense_launch)
+    # Add Actions Based on Simulation Mode (using IfCondition)
+    ld.add_action(IfCondition(simulation_mode, ['robot', 'all'], [robot_additional_nodes, robot_controller, hermes_controller, web_controller, nav_updater]))
+    ld.add_action(IfCondition(simulation_mode, ['world', 'all'], [robot_description, world_launch, rviz_launch, bridge_launch]))
 
-    
     return [ld]
-
 
 def generate_launch_description():
     """Main entry point for the launch file."""
