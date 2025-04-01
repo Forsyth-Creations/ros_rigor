@@ -11,62 +11,83 @@ from launch_ros.actions import SetRemap
 def generate_launch_description():
     # Create a new LaunchDescription object
     ld = LaunchDescription()
-
-    world_file_name = LaunchConfiguration('world_file_name')
-
-    # ------------------ Add a param for the world file -------------------
-    # declare_world_arg = DeclareLaunchArgument(
-    #     'world_file_name',
-    #     default_value='world2.sdf',
-    #     description='Name of the world file'
-    # )
-
-    # ----------------- Set up the world -----------------
-    # world_launch_path = os.path.join(
-    #     get_package_share_directory('hermes_robot_description'), 
-    #     'launch', 
-    #     'world.launch.py'
-    # )
-
-    # # Include the world launch file
-    # world_launch = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(world_launch_path),
-    #     launch_arguments={'world_file_name': world_file_name}.items()
-    # )
     
-    # ----------------- Set up the robot -----------------
-    robot_launch_path = os.path.join(
+    # Create a launch argument to determine if I'm the bench or the world sim
+    simulation_mode_arg = DeclareLaunchArgument(
+        'simulation_mode', 
+        default_value='all', 
+        description='Set to robot to run the nodes for the robot, set to world to run the nodes for the world'
+    )
+    
+    
+    # ---------------- The Robot Description/Spawning the Robot Node in ----------------
+    
+    robot_description_launch_and_spawn_in_path = os.path.join(
         get_package_share_directory('hermes_robot_description'), 
         'launch', 
-        'robot.launch.py'
+        'robot_description_w_gazebo.launch.py'
     ) # This seems to be erroring on large worlds
     
-    robot_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(robot_launch_path)
+    robot_description_launch_and_spawn_in = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(robot_description_launch_and_spawn_in_path)
     )
+    
+    # ---------- The Extra Nodes to be Launched on the Robot (Nav2, SLAM, etc) ------------
+    
+    robot_additional_nodes_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'robot_additional_nodes.launch.py'
+    )
+    
+    robot_additional_nodes_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(robot_additional_nodes_launch_path)
+    )
+
+    # ------------------ Add a param for the world file -------------------
+    world_file_name = LaunchConfiguration('world_file_name')
+    declare_world_arg = DeclareLaunchArgument(
+        'world_file_name',
+        default_value='world2.sdf',
+        description='Name of the world file'
+    )
+
+    # ----------------- Set up the world -----------------
+    world_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'world.launch.py'
+    )
+
+    # Include the world launch file
+    world_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(world_launch_path),
+        launch_arguments={'world_file_name': world_file_name}.items()
+    )
+    
     
     # --------------- Start the bridge node ---------------
     
-    # bridge_launch_path = os.path.join(
-    #     get_package_share_directory('hermes_robot_description'), 
-    #     'launch', 
-    #     'bridge.launch.py'
-    # )
+    bridge_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'bridge.launch.py'
+    )
     
-    # bridge_launch = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(bridge_launch_path)
-    # )
+    bridge_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(bridge_launch_path)
+    )
     
     # ------- Launch RVIZ with the robot model -----------
-    # rviz_launch_path = os.path.join(
-    #     get_package_share_directory('hermes_robot_description'), 
-    #     'launch', 
-    #     'rviz.launch.py'
-    # )
+    rviz_launch_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'rviz.launch.py'
+    )
     
-    # rviz_launch = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(rviz_launch_path)
-    # )
+    rviz_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(rviz_launch_path)
+    )
     
     # ------------ Set up all the swerve modules ------------
     robot_controller_launch_path = os.path.join(
@@ -131,16 +152,24 @@ def generate_launch_description():
     
     
     
-    # Add the action to the LaunchDescription
-    # ld.add_action(declare_world_arg)
-    # ld.add_action(world_launch)
-    ld.add_action(robot_launch)
-    # ld.add_action(rviz_launch)
-    # ld.add_action(bridge_launch)
-    ld.add_action(robot_controller_launch)
-    ld.add_action(hermes_controller)
-    ld.add_action(web_controller_launch)
-    ld.add_action(nav_updater_launch)
-    # ld.add_action(realsense_launch)
+    simulation_mode = LaunchConfiguration('simulation_mode')
+    
+    ld.add_action(simulation_mode_arg)
+    
+    if simulation_mode == 'robot' or simulation_mode == 'all':
+        ld.add_action(robot_description_launch_and_spawn_in)
+        ld.add_action(robot_controller_launch)
+        ld.add_action(hermes_controller)
+        ld.add_action(web_controller_launch)
+        ld.add_action(nav_updater_launch)
+        
+    elif simulation_mode == 'world' or simulation_mode == 'all':
+        # Add the action to the LaunchDescription
+        ld.add_action(robot_description_launch_and_spawn_in)
+        ld.add_action(declare_world_arg)
+        ld.add_action(world_launch)
+        ld.add_action(rviz_launch)
+        ld.add_action(bridge_launch)
+        ld.add_action(realsense_launch)
 
     return ld
