@@ -157,7 +157,7 @@ def generate_launch_description():
     ld.add_action(simulation_mode_arg)
     
     if simulation_mode == 'robot' or simulation_mode == 'all':
-        ld.add_action(robot_description_launch_and_spawn_in)
+        ld.add_action(robot_additional_nodes_launch)
         ld.add_action(robot_controller_launch)
         ld.add_action(hermes_controller)
         ld.add_action(web_controller_launch)
