@@ -1,12 +1,12 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node, SetRemap
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, GroupAction
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, GroupAction, OpaqueFunction
 from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os
 
-def generate_launch_description():
+def launch_setup(context, *args, **kwargs):
     ld = LaunchDescription()
     
     # Launch Argument for Simulation Mode
@@ -79,3 +79,20 @@ def generate_launch_description():
         ld.add_action(realsense_launch)
     
     return ld
+
+
+def generate_launch_description():
+    """Main entry point for the launch file."""
+    return LaunchDescription([
+        DeclareLaunchArgument(
+            'simulation_mode',
+            default_value='all',
+            description='Set to "robot" to run robot nodes, "world" to run world nodes, "all" for both'
+        ),
+        DeclareLaunchArgument(
+            'world_file_name',
+            default_value='world2.sdf',
+            description='Name of the world file'
+        ),
+        OpaqueFunction(function=launch_setup)
+    ])
