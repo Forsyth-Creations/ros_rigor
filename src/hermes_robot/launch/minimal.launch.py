@@ -65,6 +65,7 @@ def launch_setup(context, *args, **kwargs):
     
     # Add Actions Based on Simulation Mode
     if simulation_mode in ['robot', 'all']:
+        print("Adding Robot Nodes")
         ld.add_action(robot_additional_nodes)
         ld.add_action(robot_controller)
         ld.add_action(hermes_controller)
@@ -72,11 +73,13 @@ def launch_setup(context, *args, **kwargs):
         ld.add_action(nav_updater)
     
     if simulation_mode in ['world', 'all']:
+        print("Adding World Nodes")
         ld.add_action(robot_description)
         ld.add_action(world_launch)
         ld.add_action(rviz_launch)
         ld.add_action(bridge_launch)
         ld.add_action(realsense_launch)
+
     
     return [ld]
 
