@@ -23,7 +23,7 @@ class HermesRobotNode : public rclcpp::Node
 {
 public:
     HermesRobotNode()
-        : Node("hermes_robot_node"), odom_frequency_(10.0), fatal_flag_(false)
+        : Node("hermes_robot_node"), odom_frequency_(30.0), fatal_flag_(false)
     {
         this->declare_parameter("module_topic_prefixes", "swerve_a,swerve_b,swerve_c,swerve_d");
         this->get_parameter("module_topic_prefixes", module_prefix_string_);
@@ -115,7 +115,7 @@ public:
 
             });
 
-        odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
+        odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
         tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
         odom_timer_ = this->create_wall_timer(
             std::chrono::milliseconds(static_cast<int>(1000 / odom_frequency_)),

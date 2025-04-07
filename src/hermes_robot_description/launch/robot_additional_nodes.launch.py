@@ -16,9 +16,9 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-import subprocess
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import TimerAction
 
 
 def generate_launch_description():
@@ -73,7 +73,7 @@ def generate_launch_description():
     
     ld.add_action(twist_mux)
     ld.add_action(depth_to_laser_node)
-    ld.add_action(slam_toolbox_node)
+    ld.add_action(TimerAction(period=5.0, actions=[slam_toolbox_node]))
     ld.add_action(nav2_node)
     
     return ld

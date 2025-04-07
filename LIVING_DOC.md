@@ -281,3 +281,9 @@ DDS issue between the container and host machine? Detailed here: https://discour
 ros2 launch hermes_robot minimal.launch.py simulation_mode:=world world_file_name:=empty.sdf
 
 ros2 launch hermes_robot_cpp minimal_cpp.launch.py
+
+MAN even after the conversion of the controller to cpp I'm still at 95% utilization. Looks like twist_mux is eating up a LOT of CPU. Why? It just forwards topics
+
+ros2 run rqt_tf_tree rqt_tf_tree
+
+

@@ -31,8 +31,6 @@ public:
         odom_frequency_ = this->declare_parameter<double>("odom_frequency", 10.0);
         enable_logging_ = this->declare_parameter<bool>("enable_logging", false);
 
-
-
         if (invert_drive_motor_)
         {
             RCLCPP_INFO(this->get_logger(), "\033[32mInverting Drive Motor for %s\033[39m", module_name_.c_str());
@@ -197,7 +195,7 @@ private:
         //     pivot_msg.data = commanded_pivot_position_;
         // }
 
-        pivot_msg.data = 0;
+        pivot_msg.data = invert_pivot_motor_ ? -pivot_output : pivot_output;
 
         pivot_position_pub_->publish(pivot_msg);
 
