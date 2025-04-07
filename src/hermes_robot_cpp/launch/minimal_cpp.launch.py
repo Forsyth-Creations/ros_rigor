@@ -77,8 +77,8 @@ def launch_setup(context, *args, **kwargs):
         ld.add_action(robot_additional_nodes)
         # ld.add_action(robot_controller)
         ld.add_action(hermes_controller)
-        ld.add_action(web_controller)
-        ld.add_action(nav_updater)
+        # ld.add_action(web_controller)
+        # ld.add_action(nav_updater)
     
     if simulation_mode_value in ['world', 'all']:
         print("Starting sim with world actions")
