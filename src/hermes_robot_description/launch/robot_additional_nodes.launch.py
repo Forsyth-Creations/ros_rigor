@@ -71,7 +71,7 @@ def generate_launch_description():
     )
     
     
-    # ld.add_action(twist_mux)
+    ld.add_action(twist_mux)
     ld.add_action(depth_to_laser_node)
     ld.add_action(slam_toolbox_node)
     ld.add_action(nav2_node)
