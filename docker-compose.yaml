@@ -4,16 +4,12 @@ services:
     build: .
     container_name: rigor
     command : tail -f /dev/null
-    privileged: true
+    ipc: host
     network_mode: host
     environment:
       - DISPLAY=$DISPLAY
-    ports:
-      - "3000:3000"
-      - "5000:5000"
-      - "9876:9876"
-      # Forward the ROS port
-      # - "7400:7400"
+      - RMW_IMPLEMENTATION
+      - ROS_DOMAIN_ID
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./src:/ros2_jazzy/workspace

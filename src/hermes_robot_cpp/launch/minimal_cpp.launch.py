@@ -38,7 +38,7 @@ def launch_setup(context, *args, **kwargs):
     robot_description = include_launch('hermes_robot_description', 'robot_description_w_gazebo.launch.py')
     robot_additional_nodes = include_launch('hermes_robot_description', 'robot_additional_nodes.launch.py')
     robot_controller = include_launch('hermes_swerve_module', 'full_robot.launch.py')
-    hermes_controller = include_launch('hermes_robot', 'robot.launch.py')
+    hermes_controller = include_launch('hermes_robot_cpp', 'controller.launch.py')
     nav_updater = include_launch('hermes_robot', 'nav_updater.launch.py')
     
     # World Setup
@@ -75,7 +75,7 @@ def launch_setup(context, *args, **kwargs):
     if simulation_mode_value in ['robot', 'all']:
         print("Starting sim with robot actions")
         ld.add_action(robot_additional_nodes)
-        ld.add_action(robot_controller)
+        # ld.add_action(robot_controller)
         ld.add_action(hermes_controller)
         ld.add_action(web_controller)
         ld.add_action(nav_updater)
