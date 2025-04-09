@@ -1,6 +1,7 @@
 "use client";
 
 import Controller from "@/comps/Controller";
+import VelocityDisplay from "@/comps/VelocityDisplay";
 import styles from "./page.module.css";
 import React, { useContext } from "react";
 // import RobotRender from "@/comps/RobotRender";
@@ -41,6 +42,7 @@ export default function Home() {
           <Viewer
             wheel_orientations={[0, 0, 0, 0]}
           />
+          <VelocityDisplay/>
           {/* <Box sx = {{position : "relative"}}>
           <RobotRender 
             position={position} 

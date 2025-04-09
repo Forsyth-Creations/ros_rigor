@@ -6,10 +6,27 @@
 
 using std::placeholders::_1;
 
+/*
+
+Note that, for this module, linear.x and angular.z are the wheel speed and pivot angle respectively
+
+*/
+
+// create a set of enums to track state of the module
+enum class ModuleState
+{
+    IDLE,
+    ATTAINING_TARGET,
+    REACHED_TARGET,
+    STOPPED,
+    ERROR,
+    SLOW_DOWN
+};
+
 class Module : public rclcpp::Node
 {
 public:
-    Module(const std::string& name) : Node(name)
+    Module(const std::string &name) : Node(name)
     {
         pivot_error_ = 0.0;
         actual_wheel_speed_ = 0.0;
@@ -21,6 +38,7 @@ public:
         commanded_wheel_speed_ = 0.0;
         commanded_pivot_position_ = 0.0;
         limit_switch_triggered_ = false;
+        show_changing_values_ = false;
 
         warning_flag_for_dime_ = false;
 
@@ -51,6 +69,7 @@ public:
         pivot_pid_controller_ = std::make_unique<PIDController>(0.1, 0.1, 0.01, rqst_pivot_angle_, -6.28, 6.28, this->get_logger());
 
         RCLCPP_INFO(this->get_logger(), "\033[34m Module Ready: %s\033[39m", module_name_.c_str());
+        set_state(ModuleState::IDLE);
     }
 
 private:
@@ -60,6 +79,7 @@ private:
     bool invert_pivot_motor_;
     bool warning_flag_for_dime_;
     bool limit_switch_triggered_;
+    bool show_changing_values_;
 
     double odom_frequency_;
     double pivot_error_;
@@ -86,19 +106,122 @@ private:
     std::unique_ptr<PIDController> drive_pid_controller_;
     std::unique_ptr<PIDController> pivot_pid_controller_;
 
+    ModuleState module_state_;
+
     bool enable_logging_;
+
+    void set_state(ModuleState state)
+    {
+        module_state_ = state;
+        debugging_logging("\033[32mModule " + module_name_ + " state changed to: " + state_to_string(state) + "\033[39m");
+    }
+
+    std::string state_to_string(ModuleState state)
+    {
+        switch (state)
+        {
+        case ModuleState::IDLE:
+            return "IDLE";
+        case ModuleState::ATTAINING_TARGET:
+            return "ATTAINING_TARGET";
+        case ModuleState::STOPPED:
+            return "STOPPED";
+        case ModuleState::ERROR:
+            return "ERROR";
+        case ModuleState::REACHED_TARGET:
+            return "REACHED_TARGET";
+        case ModuleState::SLOW_DOWN:
+            return "SLOW_DOWN";
+        default:
+            return "UNKNOWN";
+        }
+    }
 
     void command_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
     {
+        switch (module_state_)
+        {
+        case ModuleState::IDLE:
+            set_rqst_pivot_angle(msg->angular.z);
+            compute_pivot_error();
+            set_rqst_wheel_speed(msg->linear.x);
+            // print out the target wheel speed and pivot angle
+            debugging_logging("Target wheel speed: " + std::to_string(msg->linear.x) + ", Target pivot angle: " + std::to_string(msg->angular.z));
+            if (enable_logging_)
+            {
+                show_changing_values_ = true;
+            }
+            set_state(ModuleState::ATTAINING_TARGET);
+            break;
 
+        case ModuleState::ATTAINING_TARGET:
+            if (std::abs(pivot_error_) < 0.1 && std::abs(rqst_wheel_speed_ - actual_wheel_speed_) < 0.1)
+            {
+                show_changing_values_ = false;
+                set_state(ModuleState::REACHED_TARGET);
+                debugging_logging("Reached target wheel speed: " + std::to_string(msg->linear.x) + ", target pivot angle: " + std::to_string(msg->angular.z));
+            }
 
-        set_rqst_pivot_angle(msg->angular.z);
-        compute_pivot_error();
-        set_rqst_wheel_speed(msg->linear.x);
+            // if the pivot error is too large, slow down the robot
+            // if (std::abs(pivot_error_) > 0.5)
+            // {
+            //     set_state(ModuleState::SLOW_DOWN);
+            //     debugging_logging("Pivot error too large, slowing down the robot.");
+            // }
 
-        // // Log that the command was received
-        // RCLCPP_INFO(this->get_logger(), "Command received for module %s: linear.x=%.2f, angular.z=%.2f",
-        //             module_name_.c_str(), msg->linear.x, msg->angular.z);
+            break;
+
+        case ModuleState::REACHED_TARGET:
+            compute_pivot_error();
+            
+            if (msg->linear.x == 0.0)
+            {
+                set_state(ModuleState::STOPPED);
+            }
+
+            // track if the commanded value has changed
+            if (msg->linear.x != rqst_wheel_speed_ || msg->angular.z != rqst_pivot_angle_)
+            {
+
+                // move me to the ATTAINING_TARGET state
+                set_rqst_pivot_angle(msg->angular.z);
+                compute_pivot_error();
+                set_rqst_wheel_speed(msg->linear.x);
+                set_state(ModuleState::ATTAINING_TARGET);
+                debugging_logging("Target wheel speed: " + std::to_string(msg->linear.x) + ", Target pivot angle: " + std::to_string(msg->angular.z));
+                show_changing_values_ = true;
+            }
+
+            break;
+
+        case ModuleState::STOPPED:
+            // print out some data for debugging
+            debugging_logging("Module is stopped. Drive wheel speed: " + std::to_string(actual_wheel_speed_) + ", Pivot angle: " + std::to_string(actual_pivot_angle_));
+            // print out some things about the message
+            debugging_logging("Requested wheel speed: " + std::to_string(msg->linear.x) + ", Requested pivot angle: " + std::to_string(msg->angular.z));
+
+            if (msg->linear.x != 0.0 || msg->angular.z != rqst_pivot_angle_)
+            {
+                set_state(ModuleState::IDLE);
+            }
+            break;
+
+        case ModuleState::ERROR:
+            debugging_logging("Module is in error state.");
+            break;
+
+        default:
+            debugging_logging("Module is in an unknown state.");
+            break;
+        }
+    }
+
+    void debugging_logging(std::string message)
+    {
+        if (enable_logging_)
+        {
+            RCLCPP_INFO(this->get_logger(), "%s", message.c_str());
+        }
     }
 
     void compute_pivot_error()
@@ -111,18 +234,12 @@ private:
 
     void set_rqst_wheel_speed(double speed)
     {
-        if (pivot_error_ > 0.1)
-            rqst_wheel_speed_ *= 0.95;
-        else
-            rqst_wheel_speed_ = speed;
+        rqst_wheel_speed_ = speed;
     }
 
     void set_rqst_pivot_angle(double angle)
     {
         rqst_pivot_angle_ = angle;
-
-        // Print the requested pivot angle
-        // RCLCPP_INFO(this->get_logger(), "Requested pivot angle for module %s: %.2f", module_name_.c_str(), rqst_pivot_angle_);
     }
 
     void update_encoder_values()
@@ -155,15 +272,17 @@ private:
         update_encoder_values();
         update_limit_switch();
 
-        double drive_output = drive_pid_controller_->compute_move(rqst_wheel_speed_, actual_wheel_speed_);
-        // double drive_output = 0;
+        // -------------------------- Linear Motion --------------------------------------
+        double drive_output = 0.0;
 
-        if (enable_logging_)
+        if (std::abs(pivot_error_) < 0.1)
         {
-            RCLCPP_INFO(this->get_logger(), "Drive output for module %s: %.2f when I requested %.2f",
-                        module_name_.c_str(), drive_output, rqst_wheel_speed_);
+            drive_output = drive_pid_controller_->compute_move(rqst_wheel_speed_, actual_wheel_speed_);
         }
-
+        else
+        {
+            drive_output = drive_pid_controller_->compute_move( 0 , actual_wheel_speed_);
+        }
 
         // Publish the speed and drive motor values
         std_msgs::msg::Float64 speed_msg;
@@ -175,29 +294,25 @@ private:
         drive_msg.data = drive_wheel_position_;
         drive_motor_pub_->publish(drive_msg);
 
-        // print out the drive wheel position
-        if (enable_logging_)
+        // -------------------------- Pivot Motion --------------------------------------
+
+        // if the speed error is too high and the pivot error is too high, don't change the pivot angle
+        double pivot_output = actual_pivot_angle_; // default to the current pivot angle
+        if (!(std::abs(actual_wheel_speed_) > 0.1 && std::abs(pivot_error_) > 0.1))
         {
-            RCLCPP_INFO(this->get_logger(), "Drive wheel position for module %s: %.2f", module_name_.c_str(), drive_wheel_position_);
+            // if we're within the limit switch range, move the pivot
+            pivot_output = pivot_pid_controller_->compute_move(rqst_pivot_angle_, actual_pivot_angle_);
         }
 
-        double pivot_output = pivot_pid_controller_->compute_move(rqst_pivot_angle_, actual_pivot_angle_);
         std_msgs::msg::Float64 pivot_msg;
-
-        // if (rqst_wheel_speed_ != 0.0)
-        // {
-        //     pivot_msg.data = invert_pivot_motor_ ? -pivot_output : pivot_output;
-        // }
-        // else
-        // {
-        //     // print that the pivot is not moving
-        //     RCLCPP_INFO(this->get_logger(), "You have commanded no velocity, so the pivot is not moving");
-        //     pivot_msg.data = commanded_pivot_position_;
-        // }
-
         pivot_msg.data = invert_pivot_motor_ ? -pivot_output : pivot_output;
-
         pivot_position_pub_->publish(pivot_msg);
+
+        // print out the drive wheel position and wheel angle
+        if (show_changing_values_)
+        {
+           debugging_logging("Drive wheel position: " + std::to_string(drive_wheel_position_) + ", Pivot angle: " + std::to_string(actual_pivot_angle_));
+        }
 
         if (mock_encoder_values_)
         {

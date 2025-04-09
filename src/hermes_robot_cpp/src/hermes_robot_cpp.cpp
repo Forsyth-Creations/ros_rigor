@@ -80,7 +80,7 @@ public:
         robot_positions_ = {{"x_pos", 0.0}, {"y_pos", 0.0}, {"angular_z", 0.0}};
 
         // Create a publisher for the robot angle
-        robot_angle_pub_ = this->create_publisher<std_msgs::msg::Float64>("robot_angle", 10);
+        robot_angle_pub_ = this->create_publisher<std_msgs::msg::Float64>("/hermes/robot_angle", 10);
 
         imu_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
             "/hermes/imu", 10,
@@ -238,8 +238,8 @@ private:
         odom.header.stamp = now;
         odom.header.frame_id = "odom";
         odom.child_frame_id = "base_footprint";
-        odom.pose.pose.position.x = robot_positions_["y_pos"];
-        odom.pose.pose.position.y = -robot_positions_["x_pos"];
+        odom.pose.pose.position.x = robot_positions_["y_pos"] * 1.2;
+        odom.pose.pose.position.y = -robot_positions_["x_pos"]* 1.2;
         odom.pose.pose.orientation.w = std::cos(robot_positions_["angular_z"] / 2.0);
         odom.pose.pose.orientation.z = std::sin(robot_positions_["angular_z"] / 2.0);
         odom_pub_->publish(odom);
@@ -248,8 +248,8 @@ private:
         t.header.stamp = now;
         t.header.frame_id = "odom";
         t.child_frame_id = "base_footprint";
-        t.transform.translation.x = robot_positions_["y_pos"];
-        t.transform.translation.y = -robot_positions_["x_pos"];
+        t.transform.translation.x = robot_positions_["y_pos"]* 1.2;
+        t.transform.translation.y = -robot_positions_["x_pos"]* 1.2;
         t.transform.translation.z = 0.0;
         t.transform.rotation.x = 0.0;
         t.transform.rotation.y = 0.0;

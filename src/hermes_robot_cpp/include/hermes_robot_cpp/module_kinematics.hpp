@@ -6,36 +6,64 @@
 #include <unordered_map>
 #include <tuple>
 
-class ModuleKinematics {
+class ModuleKinematics
+{
 public:
-  ModuleKinematics(const std::string& name, double wheel_size, const std::unordered_map<std::string, double>& module_position, double starting_angle = 0.0)
-    : name_(name), wheel_size_(wheel_size), module_position_(module_position), angle_(starting_angle) {}
+  ModuleKinematics(const std::string &name, double wheel_size, const std::unordered_map<std::string, double> &module_position, double starting_angle = 0.0)
+      : name_(name), wheel_size_(wheel_size), module_position_(module_position), angle_(starting_angle) {}
 
-  static double normalize_angle(double angle) {
-    return std::fmod(std::fmod(angle, 2 * M_PI) + 2 * M_PI, 2 * M_PI);
+  static double normalize_angle(double angle)
+  {
+    // Normalize to the range [-π, π)
+    double normalized = std::fmod(angle, 2 * M_PI);
+    if (normalized < -M_PI)
+    {
+      normalized += 2 * M_PI;
+    }
+    if (normalized >= M_PI)
+    {
+      normalized -= 2 * M_PI;
+    }
+    return normalized;
   }
 
-  static double shortest_angle(double current_angle, double target_angle) {
-    // print the input and output
-    double sub1 = target_angle - current_angle + M_PI;
-    double sub2 = std::fmod(sub1, 2 * M_PI);
-    double diff = sub2 - M_PI;
+  static double shortest_angle(double current_angle, double target_angle)
+  {
+    // Normalize both angles to be within the range [-π, π)
+    current_angle = normalize_angle(current_angle);
+    target_angle = normalize_angle(target_angle);
+
+    // Calculate the difference
+    double diff = target_angle - current_angle;
+
+    // Adjust the difference to be the shortest path on the unit circle
+    if (diff > M_PI)
+    {
+      diff -= 2 * M_PI; // Shorten to the counterclockwise path
+    }
+    else if (diff < -M_PI)
+    {
+      diff += 2 * M_PI; // Shorten to the clockwise path
+    }
+
     return current_angle + diff;
   }
 
-  static double compute_wheel_speed(double Vx, double Vy, double omega, double Xi, double Yi) {
+  static double compute_wheel_speed(double Vx, double Vy, double omega, double Xi, double Yi)
+  {
     return std::sqrt(std::pow(Vx - omega * Yi, 2) + std::pow(Vy + omega * Xi, 2));
   }
 
-  static double compute_wheel_angle(double Vx, double Vy, double omega, double Xi, double Yi) {
+  static double compute_wheel_angle(double Vx, double Vy, double omega, double Xi, double Yi)
+  {
     return std::atan2(Vy + omega * Xi, Vx - omega * Yi);
   }
 
   std::pair<double, double> compute(
-    const std::tuple<double, double, double>& robotVelocity,
-    double robot_angular_velocity,
-    double robotAngle
-  ) {
+      const std::tuple<double, double, double> &robotVelocity,
+      double robot_angular_velocity,
+      double robotAngle)
+  {
     double x = module_position_.at("x");
     double y = module_position_.at("y");
 
@@ -50,7 +78,7 @@ public:
     double wheel_angle = shortest_angle(angle_, target_angle);
     angle_ = wheel_angle;
 
-    return { std::round(wheel_angle * 100.0) / 100.0, std::round(wheel_speed * 100.0) / 100.0 };
+    return {std::round(wheel_angle * 100.0) / 100.0, std::round(wheel_speed * 100.0) / 100.0};
   }
 
 private:
