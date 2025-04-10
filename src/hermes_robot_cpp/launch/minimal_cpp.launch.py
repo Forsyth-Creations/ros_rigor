@@ -60,6 +60,10 @@ def launch_setup(context, *args, **kwargs):
     # Temperature launch 
     temperature_node = include_launch('hermes_robot', 'temperature_node.launch.py')
     
+    # CPU monitoring node from launch file
+    cpu_utilization_node = include_launch('hermes_robot', 'cpu_utilization.launch.py')
+    
+    
     # Add Launch Arguments
     ld.add_action(simulation_mode_arg)
     ld.add_action(world_file_arg)
@@ -88,6 +92,7 @@ def launch_setup(context, *args, **kwargs):
         ld.add_action(hermes_controller)
         ld.add_action(nav_updater)
         ld.add_action(temperature_node)
+        ld.add_action(cpu_utilization_node)
         
     return [ld]
 

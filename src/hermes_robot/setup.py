@@ -35,6 +35,7 @@ setup(
             "joint_state_aggregator = hermes_robot.joint_state_aggregator:main",
             "converter_node = hermes_robot.nav2_vel_cmd_to_swerve:main",
             "temperature_node = hermes_robot.temperature_node:main",
+            "cpu_utilization = hermes_robot.cpu_utilization:main",
         ],
     },
 )
