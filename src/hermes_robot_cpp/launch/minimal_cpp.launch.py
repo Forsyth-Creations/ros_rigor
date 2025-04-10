@@ -57,6 +57,9 @@ def launch_setup(context, *args, **kwargs):
         include_launch('realsense2_camera', 'rs_launch.py', {'enable_depth': 'true'})
     ])
     
+    # Temperature launch 
+    temperature_node = include_launch('hermes_robot', 'temperature_node.launch.py')
+    
     # Add Launch Arguments
     ld.add_action(simulation_mode_arg)
     ld.add_action(world_file_arg)
@@ -84,6 +87,7 @@ def launch_setup(context, *args, **kwargs):
         ld.add_action(robot_additional_nodes)
         ld.add_action(hermes_controller)
         ld.add_action(nav_updater)
+        ld.add_action(temperature_node)
         
     return [ld]
 
