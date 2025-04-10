@@ -79,7 +79,6 @@ const RobotController = ({  }) => {
     // set the speed and direction to 0
     setVel_x(0);
     setVel_y(0);
-    setAngVel(0);
   };
 
 

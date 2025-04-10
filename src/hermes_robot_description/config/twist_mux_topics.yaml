@@ -10,9 +10,9 @@ twist_mux:
     topics:
       navigation:
         topic   : /new_cmd_vel_nav
-        timeout : 0.1
+        timeout : 0.5
         priority: 10
       joystick:
         topic   : /joystick_cmd_vel
-        timeout : 0.1
+        timeout : 0.5
         priority: 100

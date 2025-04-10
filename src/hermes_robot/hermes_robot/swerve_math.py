@@ -1,4 +1,3 @@
-import math
 from math import atan2, cos, pi, sin
 from typing import Tuple
 
