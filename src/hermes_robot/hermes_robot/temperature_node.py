@@ -1,4 +1,5 @@
-import rospy
+import rclpy
+from rclpy.node import Node
 from std_msgs.msg import Float32
 
 file_name = "/sys/class/thermal/thermal_zone0/temp"
@@ -9,22 +10,32 @@ def read_temperature():
             temp_str = file.read().strip()
             return float(temp_str) / 1000.0  # Convert millidegree Celsius to degree Celsius
     except Exception as e:
-        rospy.logerr(f"Failed to read temperature: {e}")
+        print(f"Failed to read temperature: {e}")
         return None
 
-def temperature_publisher():
-    rospy.init_node('temperature_node', anonymous=True)
-    pub = rospy.Publisher('temperature', Float32, queue_size=10)
-    rate = rospy.Rate(1)  # Publish at 1 Hz
+class TemperatureNode(Node):
+    def __init__(self):
+        super().__init__('temperature_node')
+        self.publisher_ = self.create_publisher(Float32, 'temperature', 10)
+        self.timer = self.create_timer(1.0, self.publish_temperature)  # Publish at 1 Hz
 
-    while not rospy.is_shutdown():
+    def publish_temperature(self):
         temperature = read_temperature()
         if temperature is not None:
-            pub.publish(temperature)
-        rate.sleep()
+            msg = Float32()
+            msg.data = temperature
+            self.publisher_.publish(msg)
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = TemperatureNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == '__main__':
-    try:
-        temperature_publisher()
-    except rospy.ROSInterruptException:
-        pass
+    main()
