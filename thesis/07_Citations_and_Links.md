@@ -140,6 +140,8 @@ Commit hash: --------------------------------
 22. https://www.outlookbusiness.com/start-up/news/meet-blue-the-cute-little-ai-robot-built-by-nvidia-disney-and-google
 23. https://www.sciencedirect.com/science/article/pii/S0263224119302489?casa_token=6tl98m6DxOQAAAAA:HaJ0SL0x3tIQ6LKtYFuq_PTn2jUMhKIraj6jPxuWhBSjUVvQ-S2s9FfCJhsnK6Xoxz9aRbJn
 24. https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/
+25. https://foxglove.dev/
+26. https://www.oemoffhighway.com/engineering-manufacturing/press-release/21940684/daimler-trucks-north-america-llc-daimler-trucks-develops-autonomous-truck-platform-for-sae-level-4-autonomous-vehicles
 
 ## Equivalent Citations
 
