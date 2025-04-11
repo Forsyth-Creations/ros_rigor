@@ -36,10 +36,20 @@ def generate_launch_description():
     robot_launch_path = os.path.join(
         get_package_share_directory('hermes_robot_description'), 
         'launch', 
-        'robot.launch.py'
-    ) # This seems to be erroring on large worlds
+        'robot_additional_nodes.launch.py'
+    )
     
     robot_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(robot_launch_path)
+    )
+    
+    gazebo_robot_path = os.path.join(
+        get_package_share_directory('hermes_robot_description'), 
+        'launch', 
+        'robot_description_w_gazebo.launch.py'
+    )
+    
+    gazebo_robot = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(robot_launch_path)
     )
     
@@ -115,6 +125,7 @@ def generate_launch_description():
     ld.add_action(declare_world_arg)
     ld.add_action(world_launch)
     ld.add_action(robot_launch)
+    ld.add_action(gazebo_robot)
     ld.add_action(rviz_launch)
     ld.add_action(bridge_launch)
     ld.add_action(robot_controller_launch)

@@ -2,4 +2,5 @@
 . /ros2_jazzy/workspace/hermes_robot_description/install/setup.bash
 . /ros2_jazzy/workspace/hermes_robot/install/setup.bash
 . /ros2_jazzy/workspace/web_controller/install/setup.bash
+. /ros2_jazzy/workspace/hermes_robot_cpp/install/setup.bash
 . /ros2_jazzy/workspace/hermes_validation_nodes/install/setup.bash
