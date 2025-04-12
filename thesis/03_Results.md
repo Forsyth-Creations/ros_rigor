@@ -93,9 +93,9 @@ When preparing the URDF, there are a few considerations to make. First and forem
 
 Within the visual, note that the link and joint, despite being closely related, do not share the same name. This is important, as the URDF will compile incorrectly if the names are the same. The joint and link should operate in a parent/child relationship. Additionally, note that Solidworks has also added the mass and inertia tags. Learned from expereince, the Gazebo physics engine is particular about these values being calculated correctly. As was a consequence in simulation, you will find the robot may flip over or behave irreadically if you attempt to edit these values manually without considerations being made for the physics engine.
 
-![Flipped](../assets/Goal6/flipped.png)
+<!-- ![Flipped](../assets/Goal6/flipped.png)  -->
 
-## Adapting the model to be URDF Compliant: Understanding the URDF File
+## Adapting the URDF file for Gazebo
 
 _Both Hardware and Software_
 
@@ -305,7 +305,7 @@ Notice how the Zieger model does not converge within this timeframe. Instead it 
 So instead, the researcher attempted to manually tune the PID controller. This was done by iterating through a range of values for each of the PID parameters, and selecting the combination that provided the best performance. The results of this tuning are shown below. The following are the ranges that were used for the tuning:
 
 ```python
-kp_range = np.linspace(0.01, 200, 30)  # Adjust range as needed
+kp_range = np.linspace(0.01, 200, 30)
 ki_range = np.linspace(0.01, 200, 30)
 kd_range = np.linspace(0.01, 200, 30)
 ```

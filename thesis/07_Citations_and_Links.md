@@ -142,6 +142,8 @@ Commit hash: --------------------------------
 24. https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/
 25. https://foxglove.dev/
 26. https://www.oemoffhighway.com/engineering-manufacturing/press-release/21940684/daimler-trucks-north-america-llc-daimler-trucks-develops-autonomous-truck-platform-for-sae-level-4-autonomous-vehicles
+27. https://www.forsythcreations.com/swerve_drive
+28. https://datasheets.raspberrypi.com/cm5/cm5-datasheet.pdf
 
 ## Equivalent Citations
 
