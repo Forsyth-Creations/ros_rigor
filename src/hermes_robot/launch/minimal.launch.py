@@ -47,6 +47,12 @@ def launch_setup(context, *args, **kwargs):
     # Visualization & Bridge
     rviz_launch = include_launch('hermes_robot_description', 'rviz.launch.py')
     bridge_launch = include_launch('hermes_robot_description', 'bridge.launch.py')
+
+    # Temperature launch 
+    temperature_node = include_launch('hermes_robot', 'temperature_node.launch.py')
+    
+    # CPU monitoring node from launch file
+    cpu_utilization_node = include_launch('hermes_robot', 'cpu_utilization.launch.py')
     
     # Web Controller
     web_controller = include_launch('web_controller', 'webapp.launch.py')
@@ -69,24 +75,24 @@ def launch_setup(context, *args, **kwargs):
     simulation_mode_value = simulation_mode.perform(context)
     print(f"The value of simulation_mode is {simulation_mode_value}")
     print("---------------------------------------------------")
-
     
+    if simulation_mode_value in ['world', 'all']:
+        print("Starting sim with world actions")
+        ld.add_action(web_controller)
+        ld.add_action(robot_description)
+        ld.add_action(bridge_launch)
+        ld.add_action(world_launch)
+        ld.add_action(rviz_launch)
+
     # Add Actions Based on Simulation Mode
     if simulation_mode_value in ['robot', 'all']:
         print("Starting sim with robot actions")
         ld.add_action(robot_additional_nodes)
         ld.add_action(robot_controller)
         ld.add_action(hermes_controller)
-        ld.add_action(web_controller)
         ld.add_action(nav_updater)
-    
-    if simulation_mode_value in ['world', 'all']:
-        print("Starting sim with world actions")
-        ld.add_action(robot_description)
-        ld.add_action(bridge_launch)
-        ld.add_action(world_launch)
-        ld.add_action(rviz_launch)
-    # ld.add_action(realsense_launch)
+        ld.add_action(temperature_node)
+        ld.add_action(cpu_utilization_node)
     
     return [ld]
 
