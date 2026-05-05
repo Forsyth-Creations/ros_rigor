@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # ------- Set up the locale -------
 
 RUN locale && \
-    apt update && apt install locales && \
+    apt update && apt install locales -y && \
     locale-gen en_US en_US.UTF-8 && \
     update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
@@ -35,7 +35,8 @@ RUN apt update && apt install ros-dev-tools \
     ros-jazzy-nav2-minimal-tb* \
     ros-jazzy-depthimage-to-laserscan \
     ros-jazzy-twist-mux \
-    python3-gz-transport13 \
+    ros-jazzy-librealsense2*\
+    ros-jazzy-realsense2-*\
     -y
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc

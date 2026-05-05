@@ -17,8 +17,7 @@ pytest = "^8.3.4"
 lark = "^1.2.2"
 flake8 = "^7.1.2"
 pydocstyle = "^6.3.0"
-
-
+psutil = "^7.0.0"
 
 [build-system]
 requires = ["poetry-core"]

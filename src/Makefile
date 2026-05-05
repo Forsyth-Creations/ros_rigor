@@ -33,12 +33,15 @@ no-web:
 	cd hermes_swerve_module && colcon build
 	cd hermes_robot_description && colcon build
 	cd hermes_robot && colcon build
+	cd hermes_robot_cpp && colcon build
+
 	# After the build, generate a script to source the setup.bash files
 	@echo "Generating setup_env.sh script"
 	echo ". $(PWD)/hermes_swerve_module/install/setup.bash" > setup_env.sh
 	echo ". $(PWD)/hermes_robot_description/install/setup.bash" >> setup_env.sh
 	echo ". $(PWD)/hermes_robot/install/setup.bash" >> setup_env.sh
 	echo ". $(PWD)/web_controller/install/setup.bash" >> setup_env.sh
+	echo ". $(PWD)/hermes_robot_cpp/install/setup.bash" >> setup_env.sh
 
 	make validation
 

@@ -63,28 +63,22 @@ class Robot(Node):
     def __init__(self, name):
         # Initialize the node
         super().__init__("hermes")
-
-        self.odom_frequency = 60.0
-
-        self.fatal_flag = False
-
         self.get_logger().info(f"Creating Module: {name}")
+        
+        # ----------------- Variables Section ---------------------------------------
+
+        self.odom_frequency = 10.0
+        self.fatal_flag = False
+        self.consider_error = True  # For now, always consider pivot error. This can be changed to False for testing purposes.
+        self.connections = ConnectionManager()
+
+        # ---------------- Declaring Parameters -------------------------------
 
         self.module_name = (
             self.declare_parameter("module_name", "hermes")
             .get_parameter_value()
             .string_value
         )
-
-        # self.consider_error = (
-        #     self.declare_parameter("consider_pivot_error", True)
-        #     .get_parameter_value()
-        #     .bool_value
-        # )
-
-        self.consider_error = True  # For now, always consider pivot error. This can be changed to False for testing purposes.
-
-        self.connections = ConnectionManager()
 
         # Create a parameter for an array of swerve module names
         self.declare_parameter(
@@ -93,18 +87,9 @@ class Robot(Node):
 
         # Get the parameter value (which will be a comma-separated string)
         module_topic_prefixes = self.get_parameter("module_topic_prefixes").value
-
-        # Split the string into a list of prefixes
         self.module_topic_prefixes = module_topic_prefixes.split(",")
 
         # --------------- Connecting to the Module Topics -----------------
-
-        # Make some pivot_publishers
-        # for module in self.module_topic_prefixes:
-        #     pivot_position_pub = self.create_publisher(
-        #         Float64, f"/{module}/rqst_pivot_angle", 10
-        #     )
-        #     self.connections.pivot_publishers.append(pivot_position_pub)
 
         # Make some drive publishers
         for module in self.module_topic_prefixes:
@@ -271,65 +256,6 @@ class Robot(Node):
     def update_odometry(self):
         # Update the odometry based on the current mode
         self.wheel_based_update_odometry()
-
-    def imu_based_update_odometry(self):
-
-        robot_angle = Float64()
-        robot_angle.data = self.imu_data.orientation.z
-        self.robot_angle_pub.publish(robot_angle)
-
-        # Use the imu data to update the odometry
-        odom = Odometry()
-        t = TransformStamped()
-
-        # Pull the x and y velocities from the imu
-        x_vel = self.imu_data.linear_acceleration.x
-        y_vel = self.imu_data.linear_acceleration.y
-        z_vel = self.imu_data.angular_velocity.z
-
-        # Calculate the new x, y, and theta positions
-        dt = 1 / self.odom_frequency
-
-        xt1 = self.positions.get("x", 0.0) + x_vel * dt
-        yt1 = self.positions.get("y", 0.0) + y_vel * dt
-        tht1 = self.positions.get("th", 0.0) + z_vel * dt
-
-        # Update the positions
-        self.positions["x"] = xt1
-        self.positions["y"] = yt1
-        self.positions["th"] = tht1
-
-        # Create the pose
-        odom.header.stamp = self.get_clock().now().to_msg()
-        odom.header.frame_id = "odom"
-        odom.child_frame_id = "base_footprint"
-        odom.pose.pose.position.x = self.positions.get("x", 0.0)
-        odom.pose.pose.position.y = self.positions.get("y", 0.0)
-        odom.pose.pose.position.z = 0.0
-
-        # Create a quaternion from the yaw angle
-        odom.pose.pose.orientation.x = 0.0
-        odom.pose.pose.orientation.y = 0.0
-        odom.pose.pose.orientation.z = sin(self.positions.get("th", 0.0) / 2)
-        odom.pose.pose.orientation.w = cos(self.positions.get("th", 0.0) / 2)
-
-        # Publish the message
-        self.odom_pub.publish(odom)
-
-        # Create a transform message
-        t.header.stamp = self.get_clock().now().to_msg()
-        t.header.frame_id = "odom"
-        t.child_frame_id = "base_footprint"
-        t.transform.translation.x = self.positions.get("x", 0.0)
-        t.transform.translation.y = self.positions.get("y", 0.0)
-        t.transform.translation.z = self.positions.get("z", 0.0)
-        t.transform.rotation.x = 0.0
-        t.transform.rotation.y = 0.0
-        t.transform.rotation.z = sin(self.positions.get("th", 0.0) / 2)
-        t.transform.rotation.w = cos(self.positions.get("th", 0.0) / 2)
-
-        # Publish the transform
-        self.tf_broadcaster.sendTransform(t)
 
     def wheel_based_update_odometry(self):
 

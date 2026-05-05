@@ -262,3 +262,36 @@ https://github.com/IntelRealSense/realsense-ros
 
 Haha oh boy here we go
 
+# Goal 11: Pi
+
+ros2 run realsense2_camera realsense2_camera_node
+
+ros2 launch hermes_robot minimal.launch.py simulation_mode:=world
+
+When I deploy everything BUT the controller nodes (robot_controller and hermes_controller) I get 25% utilization (and that's with the world running on a seperate machine). As soon as I deploy my nodes, utilization jumps by 30%. Is this a result of Python? 
+
+Here is a common version of the hermes_controller running on the Pi
+
+Utilization was about 70%, meaning the robot controller node accounted for a 45% jump
+
+![Utilization Graph](/assets/Goal11/UtilizationGraph.png "Utilization Graph")
+
+ros2 node list --no-daemon
+
+publish topics within the docker container, I think there is a DDS conflict or something
+
+ros2 topic pub /hermes/cmd_vel geometry_msgs/msg/Twist "{linear : { x : 1.0}}"
+
+DDS issue between the container and host machine? Detailed here: https://discourse.ros.org/t/fastdds-without-discovery-server/26117/14
+
+ros2 launch hermes_robot minimal.launch.py simulation_mode:=world world_file_name:=empty.sdf
+
+ros2 launch hermes_robot_cpp minimal_cpp.launch.py simulation_mode:=robot
+
+ros2 launch hermes_robot_cpp minimal_cpp.launch.py simulation_mode:=world
+
+MAN even after the conversion of the controller to cpp I'm still at 95% utilization. Looks like twist_mux is eating up a LOT of CPU. Why? It just forwards topics
+
+ros2 run rqt_tf_tree rqt_tf_tree
+
+

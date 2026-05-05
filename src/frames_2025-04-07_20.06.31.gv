@@ -1,0 +1,20 @@
+digraph G {
+"map" -> "odom"[label=" Broadcaster: default_authority\nAverage rate: 2.2\nBuffer length: 5.0\nMost recent transform: 194.2\nOldest transform: 189.2\n"];
+"Revolve1" -> "Drive1"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"base_link" -> "Revolve1"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"Revolve2" -> "Drive2"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"base_link" -> "Revolve2"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"Revolve3" -> "Drive3"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"base_link" -> "Revolve3"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"Revolve4" -> "Drive4"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"base_link" -> "Revolve4"[label=" Broadcaster: default_authority\nAverage rate: 20.206\nBuffer length: 4.85\nMost recent transform: 194.2\nOldest transform: 189.35\n"];
+"base_footprint" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"Camera_pivot" -> "CameraVision"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "Camera_pivot"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "IMU_Link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"odom" -> "base_footprint"[label=" Broadcaster: default_authority\nAverage rate: 31.488\nBuffer length: 4.859\nMost recent transform: 194.219\nOldest transform: 189.36\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1744056391.7361495"[ shape=plaintext ] ;
+}->"map";
+}

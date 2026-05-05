@@ -10,7 +10,6 @@ from geometry_msgs.msg import Vector3
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional
 from threading import Thread
 from typing import Union
 from colorama import Fore
@@ -53,7 +52,7 @@ class Move(BaseModel):
 class RobotAbstraction(Node):
     def __init__(self):
         super().__init__('robot_controller_web')
-        self.cmd_vel = self.create_publisher(Twist, '/joystick_cmd_vel', 10)
+        self.cmd_vel_pub = self.create_publisher(Twist, '/joystick_cmd_vel', 10)
         self.get_logger().info("RobotAbstraction Node has been started.")
         
         # Subscribe to all swerve modules, A, B, C, D
@@ -77,17 +76,20 @@ class RobotAbstraction(Node):
             "requested_pivot_position" : 0,
         }
         
+        self.current_cmd_vel = Twist()
+        
         # Create subscribers for each swerve module, actual data
         self.swerve_a_sub = self.create_subscription(Float64, '/swerve_a/pivot_position', self.swerve_callback("swerve_a", "pivot_position"), 10)
         self.swerve_b_sub = self.create_subscription(Float64, '/swerve_b/pivot_position', self.swerve_callback("swerve_b", "pivot_position"), 10)
         self.swerve_c_sub = self.create_subscription(Float64, '/swerve_c/pivot_position', self.swerve_callback("swerve_c", "pivot_position"), 10)
         self.swerve_d_sub = self.create_subscription(Float64, '/swerve_d/pivot_position', self.swerve_callback("swerve_d", "pivot_position"), 10)
         
-        # Also do it for the pivot angle
-        self.swerve_a_rqst_sub = self.create_subscription(Float64, '/swerve_a/rqst_pivot_angle', self.swerve_callback("swerve_a", "requested_pivot_position"), 10)
-        self.swerve_b_rqst_sub = self.create_subscription(Float64, '/swerve_b/rqst_pivot_angle', self.swerve_callback("swerve_b", "requested_pivot_position"), 10)
-        self.swerve_c_rqst_sub = self.create_subscription(Float64, '/swerve_c/rqst_pivot_angle', self.swerve_callback("swerve_c", "requested_pivot_position"), 10)
-        self.swerve_d_rqst_sub = self.create_subscription(Float64, '/swerve_d/rqst_pivot_angle', self.swerve_callback("swerve_d", "requested_pivot_position"), 10)
+        # Create subscribers for each swerve module, actual data of command
+        self.swerve_a_sub = self.create_subscription(Twist, '/swerve_a/command', self.handle_twist_callback("swerve_a", "command"), 10)
+        self.swerve_b_sub = self.create_subscription(Twist, '/swerve_b/command', self.handle_twist_callback("swerve_b", "command"), 10)
+        self.swerve_c_sub = self.create_subscription(Twist, '/swerve_c/command', self.handle_twist_callback("swerve_c", "command"), 10)
+        self.swerve_d_sub = self.create_subscription(Twist, '/swerve_d/command', self.handle_twist_callback("swerve_d", "command"), 10)
+        
         
         # Actual speed
         self.swerve_a_speed_sub = self.create_subscription(Float64, '/swerve_a/wheel_speed', self.swerve_callback("swerve_a", "speed"), 10)
@@ -95,22 +97,38 @@ class RobotAbstraction(Node):
         self.swerve_c_speed_sub = self.create_subscription(Float64, '/swerve_c/wheel_speed', self.swerve_callback("swerve_c", "speed"), 10)
         self.swerve_d_speed_sub = self.create_subscription(Float64, '/swerve_d/wheel_speed', self.swerve_callback("swerve_d", "speed"), 10)
         
-        # Requested speed
-        self.swerve_a_rqst_speed_sub = self.create_subscription(Float64, '/swerve_a/rqst_wheel_speed', self.swerve_callback("swerve_a", "requested_speed"), 10)
-        self.swerve_b_rqst_speed_sub = self.create_subscription(Float64, '/swerve_b/rqst_wheel_speed', self.swerve_callback("swerve_b", "requested_speed"), 10)
-        self.swerve_c_rqst_speed_sub = self.create_subscription(Float64, '/swerve_c/rqst_wheel_speed', self.swerve_callback("swerve_c", "requested_speed"), 10)
-        self.swerve_d_rqst_speed_sub = self.create_subscription(Float64, '/swerve_d/rqst_wheel_speed', self.swerve_callback("swerve_d", "requested_speed"), 10)
+        # subscribe to /hermes/cmd_vel  
+        self.hermes_vel_sub = self.create_subscription(Twist, '/hermes/cmd_vel', self.velocity_callback, 10)
         
+        
+    def velocity_callback(self, msg):
+        self.current_cmd_vel = msg
                 
     def swerve_callback(self, swerve_module, data_name):
         def callback(msg):
             getattr(self, swerve_module)[data_name] = msg.data
         return callback
     
+    def handle_twist_callback(self, swerve_module, data_name):
+        def callback(msg):
+            getattr(self, swerve_module)[data_name] = {
+                "linear": {
+                    "x": msg.linear.x,
+                    "y": msg.linear.y,
+                    "z": msg.linear.z,
+                },
+                "angular": {
+                    "x": msg.angular.x,
+                    "y": msg.angular.y,
+                    "z": msg.angular.z,
+                },
+            }
+        return callback
+    
 
     def publish_move(self, moveCommand : Move):
         try:
-            self.cmd_vel.publish(Twist(
+            self.cmd_vel_pub.publish(Twist(
                 linear=Vector3(x=float(moveCommand.vel_x), y=float(moveCommand.vel_y), z=0.0),
                 angular=Vector3(x=0.0, y=0.0, z=float(moveCommand.ang_vel))
             ))
@@ -147,4 +165,20 @@ def swerve_data():
         "swerve_b": node.swerve_b,
         "swerve_c": node.swerve_c,
         "swerve_d": node.swerve_d,
+    }
+    
+# return the actual speed data
+@app.get("/velocity_data")
+def velocity_data():
+    return {
+        "linear": {
+            "x": round(node.current_cmd_vel.linear.x, 2),
+            "y": round(node.current_cmd_vel.linear.y, 2),
+            "z": round(node.current_cmd_vel.linear.z, 2),
+        },
+        "angular": {
+            "x": round(node.current_cmd_vel.angular.x, 2),
+            "y": round(node.current_cmd_vel.angular.y, 2),
+            "z": round(node.current_cmd_vel.angular.z, 2),
+        }
     }

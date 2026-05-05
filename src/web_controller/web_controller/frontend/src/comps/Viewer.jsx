@@ -15,6 +15,10 @@ const getWheelData = async () => {
   return response.data;
 };
 
+const RadiansToDegrees = (radians) => {
+  return - radians * (180 / Math.PI);
+};
+
 const useGetWheelData = () => {
   return useQuery({
     queryKey: ["wheelData"],
@@ -48,10 +52,6 @@ export default function Viewer({
   let partialWidth = width / 4;
   let commonProps = { height: partialHeight, width: partialWidth };
 
-  function RadiansToDegrees(radians) {
-    return radians * (180 / Math.PI);
-  }
-
   return (
     <Paper sx={{ p: 3 }} variant="outlined">
       <Box sx={{ width: "100%" }}>
@@ -64,10 +64,10 @@ export default function Viewer({
           <SingleWheel
             actualAngle={RadiansToDegrees(data.swerve_a.pivot_position)}
             commandedAngle={RadiansToDegrees(
-              data.swerve_a.requested_pivot_position,
+              data.swerve_a?.command?.angular?.z,
             )}
             actualSpeed={data.swerve_a.speed}
-            commandedSpeed={data.swerve_a.requested_speed}
+            commandedSpeed={data.swerve_a?.command?.linear?.x}
             sx={{ top: 0, right: 0 }}
             name="A"
             jointName="1"
@@ -76,10 +76,10 @@ export default function Viewer({
           <SingleWheel
             actualAngle={RadiansToDegrees(data.swerve_b.pivot_position)}
             commandedAngle={RadiansToDegrees(
-              data.swerve_b.requested_pivot_position,
+              data.swerve_b?.command?.angular?.z,
             )}
             actualSpeed={data.swerve_b.speed}
-            commandedSpeed={data.swerve_b.requested_speed}
+            commandedSpeed={data.swerve_b?.command?.linear?.x}
             sx={{ bottom: 0, right: 0 }}
             name="B"
             jointName="2"
@@ -88,10 +88,10 @@ export default function Viewer({
           <SingleWheel
             actualAngle={RadiansToDegrees(data.swerve_c.pivot_position)}
             commandedAngle={RadiansToDegrees(
-              data.swerve_c.requested_pivot_position,
+              data.swerve_c?.command?.angular?.z,
             )}
             actualSpeed={data.swerve_c.speed}
-            commandedSpeed={data.swerve_c.requested_speed}
+            commandedSpeed={data.swerve_c?.command?.linear?.x}
             sx={{ bottom: 0, left: 0 }}
             name="C"
             jointName="3"
@@ -100,10 +100,10 @@ export default function Viewer({
           <SingleWheel
             actualAngle={RadiansToDegrees(data.swerve_d.pivot_position)}
             commandedAngle={RadiansToDegrees(
-              data.swerve_d.requested_pivot_position,
+              data.swerve_d?.command?.angular?.z,
             )}
             actualSpeed={data.swerve_d.speed}
-            commandedSpeed={data.swerve_d.requested_speed}
+            commandedSpeed={data.swerve_d?.command?.linear?.x}
             sx={{ top: 0, left: 0 }}
             name="D"
             jointName="4"
@@ -138,7 +138,6 @@ function SingleWheel({
 
   // Check if the actualAngle and commandedAngle are within error range
   let error = Math.abs(actualAngle - commandedAngle) > 2;
-  console.log(`${name} ${actualAngle} ${commandedAngle} ${error}`);
 
   let borderThickness = 3;
 
@@ -163,7 +162,7 @@ function SingleWheel({
             sx={{
               ...commonStyle,
               position: "absolute",
-              transform: `rotate(${90 - actualAngle * Math.PI/180}deg)`,
+              transform: `rotate(${actualAngle}deg)`,
               borderColor: error ? "blue" : "green",
               borderWidth: borderThickness,
             }}
@@ -178,7 +177,7 @@ function SingleWheel({
               sx={{
                 ...commonStyle,
                 position: "absolute",
-                transform: `rotate(${90 - commandedAngle * Math.PI/180}deg)`,
+                transform: `rotate(${commandedAngle}deg)`,
                 borderColor: "red",
                 borderWidth: borderThickness,
               }}
@@ -188,7 +187,9 @@ function SingleWheel({
         </Box>
       </Tooltip>
       <Stack
-        sx={{ display: "flex", width: "50px", justifyContent: "space-around" }}
+        sx={{ width: "50px", }}
+        alignItems={"center"}
+        justifyContent={"center"}
       >
         <Tooltip title="Actual Speed">
           <LinearProgressWithLabel variant="determinate" value={actualSpeed} />
@@ -196,7 +197,9 @@ function SingleWheel({
         <Tooltip title="Commanded Speed">
         <LinearProgressWithLabel variant="determinate" value={commandedSpeed} />
         </Tooltip>  
-        <Typography variant="body2">{(commandedAngle * Math.PI/180).toFixed(2) }</Typography>
+        <Tooltip title="Commanded Angle">
+        <Typography variant="body2">{(commandedAngle).toFixed(0) }</Typography>
+        </Tooltip>
       </Stack>
     </Box>
   );

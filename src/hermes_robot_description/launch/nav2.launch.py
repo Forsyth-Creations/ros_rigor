@@ -12,11 +12,19 @@ def generate_launch_description():
     nav2_launch_dir = os.path.join(nav2_bringup_dir, 'launch')
     nav2_launch_file = os.path.join(nav2_launch_dir, 'bringup_launch.py')
     
+    # Pull in the params file
+    nav2_params_file = os.path.join(
+        get_package_share_directory('hermes_robot_description'),
+        'config',
+        'nav2_params.yaml'
+    )
+    
+    
     use_slam = "False"
     
     nav2_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(nav2_launch_file),
-        launch_arguments={'slam': use_slam, 'use_sim_time': "True"}.items(),
+        launch_arguments={'slam': use_slam, 'use_sim_time': "True", "params_file": nav2_params_file}.items(),
         # remappings=[('/cmd_vel', '/nav_cmd_vel')]
     )
     
