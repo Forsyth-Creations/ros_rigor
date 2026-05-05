@@ -1,0 +1,7 @@
+# Summary
+
+In this thesis, we have explored the use of slam_toolbox and the Nav2 stack with a custom swerve drive controller. We have successfully implemented a simulation of a swerve drive robot in the Gazebo environment, utilizing an Intel RealSense D435i depth camera for navigation. The focus of this work has been on optimizing the software and hardware architecture to improve performance and reduce compute utilization, thereby preventing both system and design bottlenecks.
+
+We demonstrated a simulated model that, with the correct conversion wrapper (something akin to a HAL) to convert the commands into the correct electrical signals, could be deployed on a physical robot. The simulation environment provided a controlled setting to test the robot's navigation capabilities, allowing us to fine-tune the parameters and algorithms used in the slam_toolbox and Nav2 stack.
+
+We also discussed the use of offline learning using gradient decent ot optimize the PID control parameters for the swerve drive robot. This approach allows for a more efficient tuning process, as the robot can learn from its experiences and adapt its control strategies accordingly without slowing down the system during operation.

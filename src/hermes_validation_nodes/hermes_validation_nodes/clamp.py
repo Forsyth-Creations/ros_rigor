@@ -27,10 +27,6 @@ class PersistentPublisher(Node):
         
     def listener_callback(self, msg):
         self.latest_value = msg
-        
-        # if msg.header.stamp == self.get_clock().now().to_msg():
-        # See if the msg.header.stamp exists
-        
         self.get_logger().info(f'Received new value: {msg}')
 
     def publish_latest_value(self):
